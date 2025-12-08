@@ -1,98 +1,195 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Students Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A NestJS-based REST API for managing students and teachers with built-in validation, Swagger documentation, and comprehensive CRUD operations.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📋 Description
 
-## Description
+This is a backend API built with [NestJS](https://nestjs.com/) that provides endpoints for managing students and teachers. The API includes:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- ✅ Full CRUD operations for students
+- ✅ Input validation using class-validator
+- ✅ Interactive API documentation with Swagger UI
+- ✅ Type-safe TypeScript implementation
+- ✅ RESTful API design
 
-## Project setup
+## 🚀 Features
 
-```bash
-$ npm install
-```
+### Students Module
+- Create new students with validation
+- Retrieve all students
+- Get student by ID
+- Update student information
+- Delete students
 
-## Compile and run the project
+### Validation
+- Name: Required, non-empty string
+- Age: Required, integer between 5-100
+- Class: Required, non-empty string
+- Teacher ID: Required, valid UUID format
 
-```bash
-# development
-$ npm run start
+### API Documentation
+- Interactive Swagger UI at `/api`
+- Auto-generated API documentation
+- Try-it-out functionality for all endpoints
 
-# watch mode
-$ npm run start:dev
+## 🛠️ Tech Stack
 
-# production mode
-$ npm run start:prod
-```
+- **Framework:** NestJS
+- **Language:** TypeScript
+- **Validation:** class-validator, class-transformer
+- **Documentation:** @nestjs/swagger, swagger-ui-express
+- **Runtime:** Node.js
 
-## Run tests
+## 📦 Installation
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Install dependencies
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 🏃 Running the Application
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Development mode with hot-reload
+npm run start:dev
+
+# Production mode
+npm run start:prod
+
+# Standard development mode
+npm run start
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+The application will start on **http://localhost:5000**
 
-## Resources
+## 📚 API Documentation
 
-Check out a few resources that may come in handy when working with NestJS:
+Once the application is running, access the interactive Swagger UI documentation at:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+**🔗 http://localhost:5000/api**
 
-## Support
+This provides:
+- Complete API endpoint documentation
+- Request/response schemas
+- Interactive testing interface
+- Example requests and responses
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🔌 API Endpoints
 
-## Stay in touch
+### Students
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+| Method | Endpoint | Description | Request Body | Response |
+|--------|----------|-------------|--------------|----------|
+| `GET` | `/students` | Get all students | - | `Student[]` |
+| `GET` | `/students/:id` | Get student by ID | - | `Student \| undefined` |
+| `POST` | `/students` | Create new student | `CreateStudentDto` | `Student` |
+| `PUT` | `/students/:id` | Update student | `UpdateStudentDto` | `Student \| null` |
+| `DELETE` | `/students/:id` | Delete student | - | `void` (204) |
 
-## License
+### Student Schema
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```typescript
+{
+  "id": number,           // Auto-generated
+  "name": string,         // Required, non-empty
+  "age": number,          // Required, 5-100
+  "class": string,        // Required, non-empty
+  "teacherId": string     // Required, valid UUID
+}
+```
+
+## 🧪 Testing the API
+
+### Option 1: Swagger UI (Recommended)
+1. Open http://localhost:5000/api
+2. Click on any endpoint
+3. Click "Try it out"
+4. Fill in the parameters
+5. Click "Execute"
+
+### Option 2: Using the HTTP File
+Open `students-api.http` in VS Code with REST Client or Thunder Client extension:
+- Click "Send Request" above any endpoint
+- Modify the request data as needed
+- View responses inline
+
+### Option 3: Automated Test Script
+```bash
+# Run all CRUD operations
+./test-students-api.sh
+```
+
+### Option 4: cURL Commands
+
+**Create a student:**
+```bash
+curl -X POST http://localhost:5000/students \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "age": 20,
+    "class": "Computer Science",
+    "teacherId": "123e4567-e89b-12d3-a456-426614174000"
+  }'
+```
+
+**Get all students:**
+```bash
+curl http://localhost:5000/students
+```
+
+**Get student by ID:**
+```bash
+curl http://localhost:5000/students/1
+```
+
+**Update a student:**
+```bash
+curl -X PUT http://localhost:5000/students/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Jane Doe",
+    "age": 21
+  }'
+```
+
+**Delete a student:**
+```bash
+curl -X DELETE http://localhost:5000/students/1
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── app.module.ts              # Root module
+├── main.ts                    # Application entry point with Swagger setup
+├── students/
+│   ├── dto/
+│   │   ├── create-student.dto.ts    # Create student validation
+│   │   └── update-student.dto.ts    # Update student validation
+│   ├── students.controller.ts       # Students endpoints
+│   ├── students.service.ts          # Business logic
+│   ├── students.module.ts           # Students module
+│   └── students.type.ts             # Student type definition
+└── teachers/
+    └── ...                    # Teachers module (similar structure)
+```
+
+## 🔧 Configuration
+
+### Port
+Default port: `5000`
+
+To change the port, set the `PORT` environment variable:
+```bash
+PORT=3000 npm run start:dev
+```
+
+### Validation
+Global validation is enabled with:
+- `whitelist: true` - Strip properties that don't have decorators
+- `forbidNonWhitelisted: true` - Throw error for unknown properties
+- `transform: true` - Auto-transform payloads to DTO instances
+
+---
