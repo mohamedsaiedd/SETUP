@@ -6,17 +6,19 @@ A NestJS-based REST API for managing students and teachers with built-in validat
 
 The API is currently deployed and accessible at:
 
-### Cloudflare Tunnel (Development)
-- **API Base URL:** https://portraits-quantities-jacob-carry.trycloudflare.com
-- **Swagger Documentation:** https://portraits-quantities-jacob-carry.trycloudflare.com/api
-- **Status:** ✅ Active (when local server is running)
+### Ngrok (Development - Recommended)
+- **Status:** ✅ Active (when script is running)
+- **URL:** `https://arianna-preprandial-nondeciduously.ngrok-free.dev` (Constant!)
+- **How to start:** `./ngrok-share.sh`
+- **Best for:** Development, demos, consistent testing
 
-### Vercel (Production)
+### Vercel (Production - Permanent)
 - **API Base URL:** https://be-set-up.vercel.app
-- **Status:** ✅ Active
-- **Note:** Swagger UI has static asset loading issues on Vercel
+- **Status:** ✅ Active 24/7
+- **Note:** Swagger UI has static asset loading issues (API endpoints work fine)
+- **Best for:** Production API access
 
-> **Try it now!** Visit the Swagger UI to interact with the API directly in your browser.
+> **Try it now!** Visit https://be-set-up.vercel.app/students to see the API in action.
 
 ---
 
@@ -206,19 +208,21 @@ curl -X DELETE http://localhost:5000/students/1
 
 This API is deployed using multiple platforms:
 
-### Cloudflare Tunnel
-- **Purpose:** Development and testing
-- **URL:** https://portraits-quantities-jacob-carry.trycloudflare.com
-- **How it works:** Tunnels your local server to a public URL
-- **Pros:** Free, no limits, instant updates, full control
-- **Cons:** Requires your computer to be running
-- **Best for:** Development, demos, quick sharing
+### Ngrok (Development - Recommended)
+- **Purpose:** Development with a static/constant URL
+- **How to start:** `./ngrok-share.sh`
+- **URL:** `https://arianna-preprandial-nondeciduously.ngrok-free.dev` (Constant!)
+- **Setup:**
+  1. Sign up at [ngrok.com](https://ngrok.com)
+  2. Get your static domain from the dashboard
+  3. Run the script (domain is already configured!)
+- **Pros:** Constant URL, reliable, free tier, Swagger works perfectly
 
-### Vercel
+### Vercel (Production)
 - **Purpose:** Production deployment
-- **URL:** https://be-set-up.vercel.app
+- **URL:** https://be-set-up.vercel.app (permanent)
 - **How it works:** Serverless deployment from GitHub
-- **Pros:** Free tier, auto-deploy on git push, always available
+- **Pros:** Free tier, auto-deploy on git push, always available 24/7
 - **Cons:** Swagger UI static assets don't load (API endpoints work fine)
 - **Best for:** Production API (without Swagger UI)
 
