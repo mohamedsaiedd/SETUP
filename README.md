@@ -2,6 +2,24 @@
 
 A NestJS-based REST API for managing students and teachers with built-in validation, Swagger documentation, and comprehensive CRUD operations.
 
+## 🌐 Live Demo
+
+The API is currently deployed and accessible at:
+
+### Cloudflare Tunnel (Development)
+- **API Base URL:** https://portraits-quantities-jacob-carry.trycloudflare.com
+- **Swagger Documentation:** https://portraits-quantities-jacob-carry.trycloudflare.com/api
+- **Status:** ✅ Active (when local server is running)
+
+### Vercel (Production)
+- **API Base URL:** https://be-set-up.vercel.app
+- **Status:** ✅ Active
+- **Note:** Swagger UI has static asset loading issues on Vercel
+
+> **Try it now!** Visit the Swagger UI to interact with the API directly in your browser.
+
+---
+
 ## 📋 Description
 
 This is a backend API built with [NestJS](https://nestjs.com/) that provides endpoints for managing students and teachers. The API includes:
@@ -49,6 +67,22 @@ npm install
 
 ## 🏃 Running the Application
 
+### Quick Start (Recommended)
+
+Use the automated startup script that handles port conflicts:
+
+```bash
+# Automatically kills any process on port 5000 and starts the app
+./start.sh
+```
+
+This script will:
+- ✅ Check if port 5000 is in use
+- ✅ Automatically kill any existing processes on port 5000
+- ✅ Start the development server with hot-reload
+
+### Manual Start
+
 ```bash
 # Development mode with hot-reload
 npm run start:dev
@@ -58,6 +92,16 @@ npm run start:prod
 
 # Standard development mode
 npm run start
+```
+
+### If Port 5000 is Already in Use
+
+```bash
+# Kill processes on port 5000
+lsof -ti:5000 | xargs kill -9
+
+# Then start the app
+npm run start:dev
 ```
 
 The application will start on **http://localhost:5000**
@@ -158,6 +202,32 @@ curl -X PUT http://localhost:5000/students/1 \
 curl -X DELETE http://localhost:5000/students/1
 ```
 
+## 🚀 Deployment
+
+This API is deployed using multiple platforms:
+
+### Cloudflare Tunnel
+- **Purpose:** Development and testing
+- **URL:** https://portraits-quantities-jacob-carry.trycloudflare.com
+- **How it works:** Tunnels your local server to a public URL
+- **Pros:** Free, no limits, instant updates, full control
+- **Cons:** Requires your computer to be running
+- **Best for:** Development, demos, quick sharing
+
+### Vercel
+- **Purpose:** Production deployment
+- **URL:** https://be-set-up.vercel.app
+- **How it works:** Serverless deployment from GitHub
+- **Pros:** Free tier, auto-deploy on git push, always available
+- **Cons:** Swagger UI static assets don't load (API endpoints work fine)
+- **Best for:** Production API (without Swagger UI)
+
+### Recommended for Production
+For a production deployment with full Swagger UI support, consider:
+- **Render** - Free tier, perfect for NestJS, Swagger works perfectly
+- **Railway** - Free tier, zero config, auto-deploy
+- **Fly.io** - Free tier, no sleep mode, global deployment
+
 ## 📁 Project Structure
 
 ```
@@ -191,5 +261,19 @@ Global validation is enabled with:
 - `whitelist: true` - Strip properties that don't have decorators
 - `forbidNonWhitelisted: true` - Throw error for unknown properties
 - `transform: true` - Auto-transform payloads to DTO instances
+
+## 🛠️ Helper Scripts
+
+### Startup Script
+- **`start.sh`** - Automatically kills processes on port 5000 and starts the dev server
+- Usage: `./start.sh`
+
+### Testing Scripts
+- **`test-students-api.sh`** - Automated testing of all CRUD operations
+- Usage: `./test-students-api.sh`
+
+### API Testing
+- **`students-api.http`** - HTTP requests for VS Code REST Client/Thunder Client
+- Usage: Open in VS Code and click "Send Request"
 
 ---
