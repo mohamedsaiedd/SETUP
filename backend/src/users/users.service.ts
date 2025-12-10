@@ -1,33 +1,32 @@
 import { Injectable, ConflictException } from "@nestjs/common";
-import { CreateStudentDto } from "./dto/create-student.dto";
-import { UpdateStudentDto } from "./dto/update-student.dto";
-import { Student } from "./students.type";
+import { CreateUsersDto } from "./dto/create-users.dto";
+import { UpdateUserDto } from "./dto/update-users.dto";
 import { PrismaService } from "../prisma/prisma.service";
 import { Prisma } from "@prisma/client";
 
 @Injectable() 
-export class StudentsService {
+export class UsersService {
     constructor(private prisma: PrismaService) {}
 
     findAll() {
-        return this.prisma.students.findMany();
+        return this.prisma.user.findMany();
     }
     
-    findById(id: number) {
-        return this.prisma.students.findUnique({ where: { id } });
+    findById(id: string) {
+        return this.prisma.user.findUnique({ where: { id } });
     }
 
-    update(id: number, updateStudentDto: UpdateStudentDto) {
-        return this.prisma.students.update({
+    update(id: string, updateUserDto: UpdateUserDto) {
+        return this.prisma.user.update({
             where: { id },
-            data: updateStudentDto,
+            data: updateUserDto,
         });
     }
 
-    async create(createStudentDto: CreateStudentDto) {
+    async create(createUserDto: CreateUsersDto) {
         try {
-            return await this.prisma.students.create({
-                data: createStudentDto,
+            return await this.prisma.user.create({
+                data: createUserDto,
             });
         } catch (error) {
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -39,14 +38,14 @@ export class StudentsService {
         }
     }
 
-    async delete(id: number) {
+    async delete(id: string) {
         try {
-            return await this.prisma.students.delete({ where: { id } });
+            return await this.prisma.user.delete({ where: { id } });
         }
         catch (error) {
             if(error instanceof Prisma.PrismaClientKnownRequestError) {
                 if(error.code === 'P2025') {
-                    throw new ConflictException('Student not found');
+                    throw new ConflictException('User not found');
                 }
             }
             throw error;

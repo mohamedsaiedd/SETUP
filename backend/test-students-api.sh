@@ -6,10 +6,10 @@ BLUE='\033[0;34m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-API_URL="http://localhost:5000/students"
+API_URL="http://localhost:5000/User"
 
 echo -e "${BLUE}========================================${NC}"
-echo -e "${BLUE}Testing Students API${NC}"
+echo -e "${BLUE}Testing User API${NC}"
 echo -e "${BLUE}========================================${NC}\n"
 
 # Test 1: Create a student
@@ -26,8 +26,8 @@ echo "Response: $CREATE_RESPONSE"
 STUDENT_ID=$(echo $CREATE_RESPONSE | grep -o '"id":[0-9]*' | grep -o '[0-9]*')
 echo -e "Student ID: ${STUDENT_ID}\n"
 
-# Test 2: Get all students
-echo -e "${GREEN}2. Getting all students...${NC}"
+# Test 2: Get all User
+echo -e "${GREEN}2. Getting all User...${NC}"
 curl -s -X GET "$API_URL" | jq '.'
 echo -e "\n"
 
@@ -65,8 +65,8 @@ echo "Response: $CREATE_RESPONSE2"
 STUDENT_ID2=$(echo $CREATE_RESPONSE2 | grep -o '"id":[0-9]*' | grep -o '[0-9]*')
 echo -e "\n"
 
-# Test 7: Get all students again
-echo -e "${GREEN}7. Getting all students (should have 2)...${NC}"
+# Test 7: Get all User again
+echo -e "${GREEN}7. Getting all User (should have 2)...${NC}"
 curl -s -X GET "$API_URL" | jq '.'
 echo -e "\n"
 
@@ -75,8 +75,8 @@ echo -e "${GREEN}8. Deleting student (${STUDENT_ID})...${NC}"
 curl -s -X DELETE "$API_URL/$STUDENT_ID" -w "\nHTTP Status: %{http_code}\n"
 echo -e "\n"
 
-# Test 9: Get all students after delete
-echo -e "${GREEN}9. Getting all students after delete (should have 1)...${NC}"
+# Test 9: Get all User after delete
+echo -e "${GREEN}9. Getting all User after delete (should have 1)...${NC}"
 curl -s -X GET "$API_URL" | jq '.'
 echo -e "\n"
 

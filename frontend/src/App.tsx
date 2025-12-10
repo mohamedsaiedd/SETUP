@@ -1,9 +1,9 @@
-import { StudentsTable } from './StudentsTable'
+import { UsersTable } from './UsersTable'
 
 function App() {
   return (
     <>
-      <StudentsTable />
+      <UsersTable />
     </>
   )
 }

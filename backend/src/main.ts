@@ -15,10 +15,10 @@ async function bootstrap() {
 
   // Swagger configuration
   const config = new DocumentBuilder()
-    .setTitle('Students API')
-    .setDescription('API for managing students and teachers')
+    .setTitle('User API')
+    .setDescription('API for managing User and teachers')
     .setVersion('1.0')
-    .addTag('students')
+    .addTag('User')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

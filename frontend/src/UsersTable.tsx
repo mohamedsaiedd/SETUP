@@ -1,36 +1,39 @@
 import { useEffect, useState } from 'react';
 
-interface Student {
-  id: number;
+interface User {
+  id: string;
   name: string;
-  age: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
   email: string;
-  class: string;
-  teacherId: string;
+  phone: string;
+  bio: string;
+  role: string;
 }
 
-export function StudentsTable() {
-  const [students, setStudents] = useState<Student[]>([]);
+export function UsersTable() {
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const API_URL = import.meta.env.VITE_BASE_URL || 'https://arianna-preprandial-nondeciduously.ngrok-free.dev';
     
   useEffect(() => {
-    const fetchStudents = async () => {
-    fetch(`${API_URL}/students`,{
+    const fetchusers = async () => {
+    fetch(`${API_URL}/users`,{
         headers: {
             'ngrok-skip-browser-warning': 'true', 
         }
     }) 
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Failed to fetch students')
+          throw new Error('Failed to fetch users')
         }
         return res.json();
       })
       .then((data) => {
         console.log(data);
-        setStudents(data);
+        setUsers(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -40,19 +43,19 @@ export function StudentsTable() {
         setLoading(false);
       });
     };
-    fetchStudents();
+    fetchusers();
 }, []);
 
   
-  const deleteStudent = (id: number) => {
-    fetch(`${API_URL}/students/${id}`, {
+  const deleteUser = (id: string) => {
+    fetch(`${API_URL}/users/${id}`, {
       method: 'DELETE',
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Failed to delete student');
+          throw new Error('Failed to delete user');
         }
-        setStudents(students.filter((student) => student.id !== id));
+        setUsers(users.filter((user) => user.id !== id));
       })
       .catch((err) => {
         setError(err.message);
@@ -75,7 +78,7 @@ export function StudentsTable() {
         "
       ></div>
       {/* Optional: Add text beneath the spinner */}
-      <p className="ml-3 text-lg text-gray-700">Loading students...</p>
+      <p className="ml-3 text-lg text-gray-700">Loading users...</p>
     </div>
   );
 }
@@ -125,7 +128,7 @@ if (error) {
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
       <h2 className="text-3xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-        Students List
+        users List
       </h2>
       <div className="overflow-hidden shadow-xl sm:rounded-lg border border-gray-200">
         <table className="w-full text-sm text-left text-gray-500">
@@ -133,37 +136,40 @@ if (error) {
             <tr>
               <th className="px-6 py-4 font-bold tracking-wider">ID</th>
               <th className="px-6 py-4 font-bold tracking-wider">Name</th>
-              <th className="px-6 py-4 font-bold tracking-wider">Age</th>
+              <th className="px-6 py-4 font-bold tracking-wider">createdAt</th>
               <th className="px-6 py-4 font-bold tracking-wider">Email</th>
-              <th className="px-6 py-4 font-bold tracking-wider">Class</th>
-              <th className="px-6 py-4 font-bold tracking-wider">Teacher ID</th>
+              
+              <th className="px-6 py-4 font-bold tracking-wider">Role</th>
               <th className="px-6 py-4 font-bold tracking-wider">Actions</th>
+              <th className="px-6 py-4 font-bold tracking-wider">Bio</th>
+              <th className="px-6 py-4 font-bold tracking-wider">Phone</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {students.map((student) => (
+            {users.map((user) => (
               <tr 
-                key={student.id} 
+                key={user.id} 
                 className="hover:bg-blue-50 transition-colors duration-200 even:bg-gray-50"
               >
-                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{student.id}</td>
-                <td className="px-6 py-4 font-medium text-gray-800">{student.name}</td>
-                <td className="px-6 py-4">{student.age}</td>
-                <td className="px-6 py-4 text-blue-600">{student.email}</td>
+                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{user.id}</td>
+                <td className="px-6 py-4 font-medium text-gray-800">{user.name}</td>
+                <td className="px-6 py-4">{user.createdAt}</td>
+                <td className="px-6 py-4 text-blue-600">{user.email}</td>
                 <td className="px-6 py-4">
                   <span className="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">
-                    {student.class}
+                    {user.role}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-xs text-gray-400 font-mono">{student.teacherId}</td>
                 <td className="px-6 py-4">
                   <button 
-                    onClick={() => deleteStudent(student.id)}
+                    onClick={() => deleteUser(user.id)}
                     className="px-3 py-1 text-xs font-medium text-white bg-red-500 rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition-colors duration-200 shadow-sm"
                   >
                     Delete
                   </button>
                 </td>
+                <td className="px-6 py-4 text-blue-600">{user.bio}</td>
+                <td className="px-6 py-4 text-blue-600">{user.phone}</td>
               </tr>
             ))}
           </tbody>

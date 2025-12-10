@@ -1,10 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,23 +10,300 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
-        
-model Students {
-  id        Int      @id @default(autoincrement())
+
+// ==================== USER MODEL ====================
+
+model User {
+  id        String   @id @default(uuid())
   name      String
-  age       Int
   email     String   @unique
-  class     String
-  teacherId String
+  password  String
+  role      Role     @default(STUDENT)
+  isActive  Boolean  @default(true)
+  avatar    String?
+  bio       String?  @db.Text
+  phone     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Relations
+  teacherCourses Course[]       @relation("TeacherCourses")
+  enrollments    Enrollment[]
+  submissions    Submission[]
+  notifications  Notification[]
+  uploadedFiles  File[]
+
+  @@index([email])
+  @@index([role])
+  @@map("users")
 }
 
-model Teacher {
+enum Role {
+  STUDENT
+  TEACHER
+  SUPERVISOR
+  ADMIN
+}
+
+// ==================== COURSE MODELS ====================
+
+model Course {
+  id            String       @id @default(uuid())
+  title         String
+  description   String?      @db.Text
+  category      String?
+  thumbnailUrl  String?
+  status        CourseStatus @default(DRAFT)
+  teacherId     String
+  driveFolderId String?      // Google Drive folder ID
+  duration      Int?         // Total duration in minutes
+  price         Float        @default(0) // For future paid courses
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  // Relations
+  teacher     User           @relation("TeacherCourses", fields: [teacherId], references: [id], onDelete: Cascade)
+  modules     CourseModule[]
+  enrollments Enrollment[]
+  assignments Assignment[]
+
+  @@index([teacherId])
+  @@index([status])
+  @@index([category])
+  @@map("courses")
+}
+
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model CourseModule {
+  id          String   @id @default(uuid())
+  courseId    String
+  title       String
+  description String?  @db.Text
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons Lesson[]
+
+  @@index([courseId])
+  @@index([order])
+  @@map("course_modules")
+}
+
+model Lesson {
+  id          String   @id @default(uuid())
+  moduleId    String
+  title       String
+  description String?  @db.Text
+  videoFileId String?  // Google Drive video file ID
+  videoUrl    String?  // Direct video URL
+  duration    Int?     // Duration in seconds
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  module    CourseModule     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  materials LessonMaterial[]
+  progress  CourseProgress[]
+
+  @@index([moduleId])
+  @@index([order])
+  @@map("lessons")
+}
+
+model LessonMaterial {
+  id       String @id @default(uuid())
+  lessonId String
+  fileId   String // Google Drive file ID
+  title    String
+  fileUrl  String // Direct file URL
+  type     String // pdf, doc, ppt, etc
+  size     Int?   // File size in bytes
+
+  // Relations
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@index([lessonId])
+  @@map("lesson_materials")
+}
+
+// ==================== ENROLLMENT & PROGRESS ====================
+
+model Enrollment {
+  id          String    @id @default(uuid())
+  courseId    String
+  userId      String
+  enrolledAt  DateTime  @default(now())
+  completedAt DateTime?
+  progress    Int       @default(0) // Percentage 0-100
+
+  // Relations
+  course         Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseProgress CourseProgress[]
+
+  @@unique([courseId, userId]) // One enrollment per user per course
+  @@index([userId])
+  @@index([courseId])
+  @@map("enrollments")
+}
+
+model CourseProgress {
+  id           String    @id @default(uuid())
+  enrollmentId String
+  lessonId     String
+  completed    Boolean   @default(false)
+  watchTime    Int       @default(0) // Seconds watched
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Relations
+  enrollment Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  lesson     Lesson     @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([enrollmentId, lessonId]) // One progress per lesson per enrollment
+  @@index([enrollmentId])
+  @@index([lessonId])
+  @@map("course_progress")
+}
+
+// ==================== ASSIGNMENTS ====================
+
+model Assignment {
+  id          String   @id @default(uuid())
+  courseId    String
+  title       String
+  description String?  @db.Text
+  dueDate     DateTime
+  maxScore    Int
+  createdBy   String   // Teacher ID
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  course      Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+
+  @@index([courseId])
+  @@index([dueDate])
+  @@map("assignments")
+}
+
+model Submission {
+  id           String           @id @default(uuid())
+  assignmentId String
+  userId       String
+  submittedAt  DateTime         @default(now())
+  score        Int?
+  feedback     String?          @db.Text
+  status       SubmissionStatus @default(PENDING)
+  gradedAt     DateTime?
+  gradedBy     String?
+
+  // Relations
+  assignment      Assignment       @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  submissionFiles SubmissionFile[]
+
+  @@unique([assignmentId, userId]) // One submission per user per assignment
+  @@index([userId])
+  @@index([assignmentId])
+  @@index([status])
+  @@map("submissions")
+}
+
+enum SubmissionStatus {
+  PENDING
+  SUBMITTED
+  GRADED
+  LATE
+}
+
+model SubmissionFile {
+  id           String   @id @default(uuid())
+  submissionId String
+  fileId       String   // Google Drive file ID
+  fileName     String
+  fileUrl      String   // Direct file URL
+  fileSize     Int
+  mimeType     String
+  createdAt    DateTime @default(now())
+
+  // Relations
+  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@index([submissionId])
+  @@map("submission_files")
+}
+
+// ==================== NOTIFICATIONS ====================
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  title     String
+  message   String           @db.Text
+  type      NotificationType
+  isRead    Boolean          @default(false)
+  link      String?
+  createdAt DateTime         @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+enum NotificationType {
+  ASSIGNMENT
+  GRADE
+  COURSE
+  ENROLLMENT
+  SYSTEM
+}
+
+// ==================== FILE MANAGEMENT ====================
+
+model File {
   id         String   @id @default(uuid())
+  driveId    String   @unique // Google Drive file ID
   name       String
-  subject    String
-  experience Int
+  url        String   // Direct URL to file
+  size       Int
+  mimeType   String
+  uploadedBy String
+  folderId   String?  // Google Drive folder ID
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+
+  // Relations
+  uploader User @relation(fields: [uploadedBy], references: [id], onDelete: Cascade)
+
+  @@index([driveId])
+  @@index([uploadedBy])
+  @@map("files")
+}
+
+// ==================== SYSTEM SETTINGS ====================
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String   @db.Text
+  type      String   @default("string") // string, number, boolean, json
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+  @@map("settings")
 }
