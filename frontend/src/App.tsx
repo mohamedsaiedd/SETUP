@@ -1,4 +1,3 @@
-import './App.css'
 import { StudentsTable } from './StudentsTable'
 
 function App() {
