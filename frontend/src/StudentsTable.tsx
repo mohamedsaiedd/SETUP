@@ -13,7 +13,7 @@ export function StudentsTable() {
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const BASE_URL = import.meta.env.VITE_BASE_URL || 'https://arianna-preprandial-nondeciduously.ngrok-free.dev';
     
   useEffect(() => {
     const fetchStudents = async () => {
