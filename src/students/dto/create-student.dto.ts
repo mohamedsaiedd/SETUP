@@ -11,6 +11,10 @@ export class CreateStudentDto {
 
   @IsString()
   @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
   class: string;
 
   @IsUUID()

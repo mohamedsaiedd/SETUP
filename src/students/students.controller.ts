@@ -1,4 +1,4 @@
-import { Controller ,Param, Get, HttpCode, Post, Req, Delete,Put, Body } from "@nestjs/common";
+import { Controller ,Param, Get, HttpCode,HttpStatus, Post, Req, Delete,Put, Body } from "@nestjs/common";
 import type { Request } from "express";
 import { CreateStudentDto } from "./dto/create-student.dto";
 import { StudentsService } from "./students.service";
@@ -17,7 +17,7 @@ export class StudentController {
     @ApiParam({ name: 'id', description: 'Student ID' })
     @ApiResponse({ status: 200, description: 'Student found' })
     @ApiResponse({ status: 404, description: 'Student not found' })
-    async findById(@Param('id') id: number) :Promise<Student | undefined> {
+    async findById(@Param('id') id: number) {
         return this.studentsService.findById(id);
     }   
 
@@ -27,17 +27,22 @@ export class StudentController {
     @ApiParam({ name: 'id', description: 'Student ID' })
     @ApiResponse({ status: 200, description: 'Student updated successfully' })
     @ApiResponse({ status: 404, description: 'Student not found' })
-    async update(@Param('id') id: number, @Body() body: UpdateStudentDto) :Promise<Student | null> {
+    async update(@Param('id') id: number, @Body() body: UpdateStudentDto) {
         return this.studentsService.update(id, body);
     } 
 
     @Delete(':id')
+    @HttpCode(HttpStatus.OK)
     @HttpCode(204)
     @ApiOperation({ summary: 'Delete a student' })
     @ApiParam({ name: 'id', description: 'Student ID' })
     @ApiResponse({ status: 204, description: 'Student deleted successfully' })
-    async delete(@Param('id') id: number) :Promise<void> {
-        return this.studentsService.delete(id);
+    async delete(@Param('id') id: number) {
+        await this.studentsService.delete(id);
+        return {
+            message: 'Student deleted successfully',
+            id,
+        }
     }  
 
     @Post()
@@ -45,7 +50,7 @@ export class StudentController {
     @ApiOperation({ summary: 'Create a new student' })
     @ApiResponse({ status: 200, description: 'Student created successfully' })
     @ApiResponse({ status: 400, description: 'Invalid input data' })
-    async create(@Body() body: CreateStudentDto) :Promise<Student> {
+    async create(@Body() body: CreateStudentDto) {
         return this.studentsService.create(body);
     }
 
@@ -53,7 +58,7 @@ export class StudentController {
     @HttpCode(200)
     @ApiOperation({ summary: 'Get all students' })
     @ApiResponse({ status: 200, description: 'List of all students' })
-    getAllStudents(@Req() req: Request) :Array<Student> {
+    async getAllStudents(@Req() req: Request) {
         return this.studentsService.findAll();
     }
     

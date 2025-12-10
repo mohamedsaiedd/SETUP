@@ -7,8 +7,9 @@ POST {{baseUrl}}/students
 Content-Type: application/json
 
 {
-  "name": "Mohamed Saied",
+  "name": "mohamed saied",
   "age": 20,
+  "email": "mohame11d2saied@gmail.com",
   "class": "Computer Science",
   "teacherId": "123e4567-e89b-12d3-a456-426614174000"
 }
