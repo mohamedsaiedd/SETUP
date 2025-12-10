@@ -13,11 +13,11 @@ export function StudentsTable() {
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const BASE_URL = import.meta.env.VITE_BASE_URL || 'https://arianna-preprandial-nondeciduously.ngrok-free.dev';
+  const API_URL = import.meta.env.VITE_BASE_URL || 'https://arianna-preprandial-nondeciduously.ngrok-free.dev';
     
   useEffect(() => {
     const fetchStudents = async () => {
-    fetch(`${BASE_URL}/students`,{
+    fetch(`${API_URL}/students`,{
         headers: {
             'ngrok-skip-browser-warning': 'true', 
         }
@@ -45,7 +45,7 @@ export function StudentsTable() {
 
   
   const deleteStudent = (id: number) => {
-    fetch(`${BASE_URL}/students/${id}`, {
+    fetch(`${API_URL}/students/${id}`, {
       method: 'DELETE',
     })
       .then((res) => {
