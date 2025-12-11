@@ -9,7 +9,7 @@
     "prebuild": "npm run build:client", 
     "build:client": "npx prisma generate",
     "start:prod": "node dist/main",
-    "deploy:build": "npm run build:client && nest build",
+    "deploy:build": "npx prisma generate && nest build",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
