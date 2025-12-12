@@ -232,7 +232,6 @@ For a production deployment with full Swagger UI support, consider:
 - **Railway** - Free tier, zero config, auto-deploy
 - **Fly.io** - Free tier, no sleep mode, global deployment
 
-## 📁 Project Structure
 
 ## 📁 Project Structure
 
