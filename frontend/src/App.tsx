@@ -1,9 +1,15 @@
-import { UsersTable } from './UsersTable'
+import { Footer } from './components/Footer'
+import { Header } from './components/Header'
+import { HeroSection } from './components/HeroSection'
+// import { UsersTable } from './UsersTable'
 
 function App() {
   return (
     <>
-      <UsersTable />
+      <Header />
+      {/* <UsersTable /> */}
+      <HeroSection />
+      <Footer />
     </>
   )
 }
