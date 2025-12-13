@@ -17,7 +17,6 @@ model User {
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
-  password  String
   role      Role     @default(STUDENT)
   isActive  Boolean  @default(true)
   avatar    String?
@@ -55,8 +54,8 @@ model Course {
   thumbnailUrl  String?
   status        CourseStatus @default(DRAFT)
   teacherId     String
-  driveFolderId String?      // Google Drive folder ID
-  duration      Int?         // Total duration in minutes
+  driveFolderId String? // Google Drive folder ID
+  duration      Int? // Total duration in minutes
   price         Float        @default(0) // For future paid courses
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
@@ -102,9 +101,9 @@ model Lesson {
   moduleId    String
   title       String
   description String?  @db.Text
-  videoFileId String?  // Google Drive video file ID
-  videoUrl    String?  // Direct video URL
-  duration    Int?     // Duration in seconds
+  videoFileId String? // Google Drive video file ID
+  videoUrl    String? // Direct video URL
+  duration    Int? // Duration in seconds
   order       Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -126,7 +125,7 @@ model LessonMaterial {
   title    String
   fileUrl  String // Direct file URL
   type     String // pdf, doc, ppt, etc
-  size     Int?   // File size in bytes
+  size     Int? // File size in bytes
 
   // Relations
   lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
@@ -185,7 +184,7 @@ model Assignment {
   description String?  @db.Text
   dueDate     DateTime
   maxScore    Int
-  createdBy   String   // Teacher ID
+  createdBy   String // Teacher ID
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -231,9 +230,9 @@ enum SubmissionStatus {
 model SubmissionFile {
   id           String   @id @default(uuid())
   submissionId String
-  fileId       String   // Google Drive file ID
+  fileId       String // Google Drive file ID
   fileName     String
-  fileUrl      String   // Direct file URL
+  fileUrl      String // Direct file URL
   fileSize     Int
   mimeType     String
   createdAt    DateTime @default(now())
@@ -280,11 +279,11 @@ model File {
   id         String   @id @default(uuid())
   driveId    String   @unique // Google Drive file ID
   name       String
-  url        String   // Direct URL to file
+  url        String // Direct URL to file
   size       Int
   mimeType   String
   uploadedBy String
-  folderId   String?  // Google Drive folder ID
+  folderId   String? // Google Drive folder ID
   createdAt  DateTime @default(now())
 
   // Relations
