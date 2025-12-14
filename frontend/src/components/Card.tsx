@@ -15,7 +15,7 @@ export function Card({ image, title, description }: CardProps) {
 
       <h2 className="text-lg font-bold mt-4">{title}</h2>
 
-      <p className="text-gray-600 mt-2 text-sm">{description}</p>
+      <p className="text-[var(--headLine-text)] mt-2 text-sm">{description}</p>
     </div>
   );
 }
