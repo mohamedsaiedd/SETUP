@@ -1,5 +1,5 @@
-import { Footer } from './components/Footer'
-import { Header } from './components/Header'
+import { Footer } from './components/Footer/Footer'
+import { Header } from './components/Navbar/Header'
 import { HeroSection } from './components/HeroSection'
 // import { UsersTable } from './UsersTable'
 
