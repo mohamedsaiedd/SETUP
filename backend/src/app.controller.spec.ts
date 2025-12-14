@@ -15,8 +15,11 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return HTML with API endpoints', () => {
+      const result = appController.getEndpoints();
+      expect(result).toContain('API Endpoints');
+      expect(result).toContain('/Users');
+      expect(result).toContain('/teachers');
     });
   });
 });
