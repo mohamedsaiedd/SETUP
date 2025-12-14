@@ -1,4 +1,4 @@
-import { GraduationCap, Link } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
 import { useState } from 'react';
 import DropDown from './DropDown';
 import { NavLink } from 'react-router-dom';
