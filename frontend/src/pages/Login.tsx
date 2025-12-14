@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { GraduationCap, Mail, Lock, Loader2 } from 'lucide-react';
 
 export function Login() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -22,6 +24,11 @@ export function Login() {
             });
             setSuccess(response.data);
             console.log('Login successful:', response.data);
+            
+            // Redirect to dashboard after successful login
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 1000);
         } catch (err: any) {
             setError(err.response?.data?.message || 'Login failed');
             console.error('Login error:', err);
