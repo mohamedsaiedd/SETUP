@@ -1,6 +1,7 @@
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, Link } from 'lucide-react';
 import { useState } from 'react';
 import DropDown from './DropDown';
+import { NavLink } from 'react-router-dom';
 
 
 export function Header() {
@@ -35,24 +36,26 @@ export function Header() {
             <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 border border-gray-200">
               <User className="w-5 h-5" />
             </div> */}
-
-            <button className='
+            <NavLink to="/login" className='text-white'>
+              <button className='
             px-6 py-2
             bg-[var(--primary-color)]
             text-white 
             font-semibold
             rounded-full 
             shadow-md 
-            hover:bg-blue-500
+            hover:bg-[var(--secondary-color)]
+            hover:text-[var(--primary-color)]
             cursor-pointer
             transition-colors
             duration-300 
             '>
-              Login
-            </button>
+                Login
+              </button>
+            </NavLink>
           </div>
 
-              {/* MObile hamburger menu */}
+          {/* MObile hamburger menu */}
           <button
             onClick={() => setOpen(!open)}
             className={`
@@ -71,7 +74,7 @@ export function Header() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
 
