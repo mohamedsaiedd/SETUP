@@ -1,7 +1,8 @@
-import { useState, ReactNode } from 'react';
+import { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { DashboardNavbar } from './DashboardNavbar';
 import { DashboardFooter } from './DashboardFooter';
+import type { ReactNode } from 'react';
 
 interface DashboardLayoutProps {
     children: ReactNode;
@@ -10,24 +11,24 @@ interface DashboardLayoutProps {
     userAvatar?: string;
 }
 
-export function DashboardLayout({ 
-    children, 
-    userName, 
-    userRole, 
-    userAvatar 
+export function DashboardLayout({
+    children,
+    userName,
+    userRole,
+    userAvatar
 }: DashboardLayoutProps) {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Sidebar */}
-            <Sidebar 
-                isCollapsed={sidebarCollapsed} 
-                onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+            <Sidebar
+                isCollapsed={sidebarCollapsed}
+                onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
             />
 
             {/* Navbar */}
-            <DashboardNavbar 
+            <DashboardNavbar
                 sidebarCollapsed={sidebarCollapsed}
                 userName={userName}
                 userRole={userRole}
@@ -35,7 +36,7 @@ export function DashboardLayout({
             />
 
             {/* Main Content */}
-            <main 
+            <main
                 className={`
                     pt-16 pb-12 min-h-screen
                     transition-all duration-300 ease-in-out
