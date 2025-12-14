@@ -3,30 +3,39 @@ import { CreateUsersDto } from "./dto/create-users.dto";
 import { UpdateUserDto } from "./dto/update-users.dto";
 import { PrismaService } from "../prisma/prisma.service";
 import { Prisma } from "@prisma/client";
+import * as bcrypt from 'bcrypt';
 
-@Injectable() 
+@Injectable()
 export class UsersService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService) { }
 
     findAll() {
         return this.prisma.user.findMany();
     }
-    
+
     findById(id: string) {
         return this.prisma.user.findUnique({ where: { id } });
     }
 
-    update(id: string, updateUserDto: UpdateUserDto) {
+    async update(id: string, updateUserDto: UpdateUserDto) {
+        const data = { ...updateUserDto };
+        if (data.password) {
+            data.password = await bcrypt.hash(data.password, 10);
+        }
         return this.prisma.user.update({
             where: { id },
-            data: updateUserDto,
+            data,
         });
     }
 
     async create(createUserDto: CreateUsersDto) {
         try {
+            const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
             return await this.prisma.user.create({
-                data: createUserDto,
+                data: {
+                    ...createUserDto,
+                    password: hashedPassword,
+                },
             });
         } catch (error) {
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -43,8 +52,8 @@ export class UsersService {
             return await this.prisma.user.delete({ where: { id } });
         }
         catch (error) {
-            if(error instanceof Prisma.PrismaClientKnownRequestError) {
-                if(error.code === 'P2025') {
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                if (error.code === 'P2025') {
                     throw new ConflictException('User not found');
                 }
             }
