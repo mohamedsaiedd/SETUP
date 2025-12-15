@@ -29,7 +29,7 @@ export default function TypingAnimation() {
   }, [subIndex, index, isDeleting]);
 
   return (
-    <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-center mt-10">
+    <div className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center">
       {text}
       <span className="border-r-2 border-black animate-pulse ml-1"></span>
     </div>

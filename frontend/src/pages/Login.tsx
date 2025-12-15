@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { GraduationCap, Mail, Lock, Loader2 } from 'lucide-react';
 
 export function Login() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -22,6 +24,11 @@ export function Login() {
             });
             setSuccess(response.data);
             console.log('Login successful:', response.data);
+            
+            // Redirect to dashboard after successful login
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 1000);
         } catch (err: any) {
             setError(err.response?.data?.message || 'Login failed');
             console.error('Login error:', err);
@@ -46,7 +53,7 @@ export function Login() {
                             <GraduationCap className="w-8 h-8" />
                         </div>
                         <h1 className="text-2xl font-bold tracking-tight">
-                            Stepup <span className="text-[#d4a853]">Academy</span>
+                            Setup <span className="text-[#d4a853]">Academy</span>
                         </h1>
                     </div>
 
@@ -80,7 +87,7 @@ export function Login() {
                             <GraduationCap className="text-white w-6 h-6" />
                         </div>
                         <h1 className="text-xl font-bold text-gray-800 tracking-tight">
-                            Stepup <span className="text-[#d4a853]">Academy</span>
+                            Setup <span className="text-[#d4a853]">Academy</span>
                         </h1>
                     </div>
 
@@ -170,7 +177,7 @@ export function Login() {
                     </form>
 
                     <p className="mt-8 text-center text-gray-400 text-sm">
-                        © {new Date().getFullYear()} Stepup Academy. All rights reserved.
+                        © {new Date().getFullYear()} Setup Academy. All rights reserved.
                     </p>
                 </div>
             </div>

@@ -7,46 +7,65 @@ import "./global.css";
 //padding constants 
 const SectionPaddingY = "py-16 md:py-20"; // between sections
 const SectionPaddingZ = "px-4 sm:px-6 lg:px-8"; // horizontal padding
-
 const GapSize = "gap-6 md:gap-8";
 
+// Animation Variants
+import { motion  } from "framer-motion";
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.2 } },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+} as const;
+
 export function HeroSection() {
+    
     return (
         <div className="w-full">
 
             {/* hero section */}
-            <section className={`bg-[var(--bg-gray)] ${SectionPaddingY} w-full overflow-hidden`}>
-                <div className={`container mx-auto ${SectionPaddingZ} max-w-7xl`}>
+            <motion.div
+            variants={container}   
+            initial="hidden"       
+            whileInView="show"      
+            viewport={{ once: true, amount: 0.1 }}
+            className={`dark:bg-gray-900 ${SectionPaddingY} w-full overflow-hiddendark:text-white `}
+            >
+                <motion.div variants={item} className={`container mx-auto ${SectionPaddingY} bg-[var(--bg-gray)] dark:bg-[var(--primary-800)] rounded-e-[100px]  max-w-7xl`}>
 
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+                    <motion.div variants={item} className={`flex ${SectionPaddingZ} flex-col lg:flex-row items-center justify-between gap-10`}>
                         {/* content || text */}
-                        <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
-                            <div className="w-fit bg-[var(--primary-color)] p-2 rounded-lg mb-0 mx-auto lg:mx-0">
+                        <motion.div variants={item} className="w-fit lg:w-1/2 text-start lg:text-left space-y-6">
+                            <div className="w-fit bg-[var(--primary-color)] p-2 rounded-lg mb-0  lg:mx-0">
                                 <GraduationCap className="text-white w-6 h-6" />
                             </div>
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--headLine-text)] leading-tight">
-                                setup{" "}
-                                <span className="text-[var(--primary-color)] relative inline-block">
-                                    <TypingAnimation />
-                                </span>
-                            </h1>
+                            <motion.div variants={item}>
+                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--headLine-text)] leading-tight flex flex-col items-start">
+                                    SETUP{" "}
+                                    <span className="text-[var(--primary-color)] relative inline-block">
+                                        <TypingAnimation />
+                                    </span>
+                                </h1>
+                            </motion.div>
+                            <motion.div variants={item}>
+                                <p className="text-lg md:text-xl text-[var(--text-sub-color)] max-w-2xl mx-auto lg:mx-0">
+                                    The Inspiring, Interactive Learning Environment Where Every Student Thrives
+                                </p>
+                            </motion.div>
 
-                            <p className="text-lg md:text-xl text-[var(--text-sub-color)] max-w-2xl mx-auto lg:mx-0">
-                                The Inspiring, Interactive Learning Environment Where Every Student Thrives
-                            </p>
-
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                            <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
                                 <button className="px-8 py-3 rounded-xl bg-[var(--primary-color)] text-white font-medium transition hover:opacity-90 cursor-pointer shadow-lg">
                                     Get Started
                                 </button>
-                                <button className="px-8 py-3 rounded-xl border-2 border-[var(--primary-color)] text-[var(--primary-color)] font-medium transition hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
-                                    Browse Courses
-                                </button>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
 
                         {/* image */}
-                        <div className="w-full lg:w-1/2 flex justify-center relative">
+                        <motion.div variants={item} className="w-full lg:w-1/2 flex justify-center relative">
                             {/* blob under the picture */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-indigo-100 rounded-full blur-3xl opacity-60 -z-10"></div>
                             <img
@@ -54,71 +73,76 @@ export function HeroSection() {
                                 alt="Student gesturing with laptop"
                                 className="relative w-full max-w-md lg:max-w-lg rounded-2xl shadow-2xl object-cover transform hover:scale-[1.02] transition-transform duration-500"
                             />
-                        </div>
-                    </div>
-                </div>
-            </section>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
+            </motion.div>
 
             {/* Stats Section with Premium Background */}
-            <section className={`w-full ${SectionPaddingY} bg-[#1e3a5f] relative overflow-hidden`}>
+            <motion.div
+            variants={container}   
+            initial="hidden"       
+            whileInView="show"      
+            viewport={{ once: true, amount: 0.1 }}
+            className={`w-full ${SectionPaddingY} bg-[#1e3a5f] relative overflow-hidden`}>
                 {/* Background gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f] via-[#162d4a] to-[#0f1d2f]"></div>
 
                 {/* Decorative blurred circles */}
-                <div className="absolute inset-0 opacity-20">
+                <motion.div variants={item} className="absolute inset-0 opacity-20">
                     <div className="absolute top-10 left-10 w-72 h-72 bg-[#d4a853] rounded-full blur-3xl"></div>
                     <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#f97068] rounded-full blur-3xl"></div>
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white rounded-full blur-3xl opacity-50"></div>
-                </div>
+                </motion.div>
 
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+                <motion.div variants={item} className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
                     {/* Section Header */}
-                    <div className="text-center mb-16">
+                    <motion.div variants={item} className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                             Why Choose <span className="text-[#d4a853]">setup Academy</span>
                         </h2>
                         <p className="text-gray-300 text-lg max-w-2xl mx-auto">
                             Join thousands of students who have transformed their careers with our premium courses
                         </p>
-                    </div>
+                    </motion.div>
 
                     {/* Stats Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        <div className="text-center group">
+                    <motion.div variants={item} className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <motion.div variants={item} className="text-center group">
                             <div className="w-16 h-16 mx-auto mb-4 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center border border-white/20 group-hover:bg-[#d4a853]/20 transition-colors">
                                 <Users className="w-8 h-8 text-[#d4a853]" />
                             </div>
                             <div className="text-4xl font-bold text-white mb-2">10K+</div>
                             <div className="text-gray-400">Active Students</div>
-                        </div>
+                        </motion.div>
 
-                        <div className="text-center group">
+                        <motion.div variants={item} className="text-center group">
                             <div className="w-16 h-16 mx-auto mb-4 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center border border-white/20 group-hover:bg-[#d4a853]/20 transition-colors">
                                 <BookOpen className="w-8 h-8 text-[#d4a853]" />
                             </div>
                             <div className="text-4xl font-bold text-white mb-2">200+</div>
                             <div className="text-gray-400">Premium Courses</div>
-                        </div>
+                        </motion.div>
 
-                        <div className="text-center group">
+                        <motion.div variants={item} className="text-center group">
                             <div className="w-16 h-16 mx-auto mb-4 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center border border-white/20 group-hover:bg-[#d4a853]/20 transition-colors">
                                 <Award className="w-8 h-8 text-[#d4a853]" />
                             </div>
                             <div className="text-4xl font-bold text-white mb-2">50+</div>
                             <div className="text-gray-400">Expert Instructors</div>
-                        </div>
+                        </motion.div>
 
-                        <div className="text-center group">
+                        <motion.div variants={item} className="text-center group">
                             <div className="w-16 h-16 mx-auto mb-4 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center border border-white/20 group-hover:bg-[#d4a853]/20 transition-colors">
                                 <TrendingUp className="w-8 h-8 text-[#d4a853]" />
                             </div>
                             <div className="text-4xl font-bold text-white mb-2">95%</div>
                             <div className="text-gray-400">Success Rate</div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
 
                     {/* CTA */}
-                    <div className="text-center mt-16">
+                    <motion.div variants={item} className="text-center mt-16">
                         <p className="text-gray-300 mb-6">Ready to start your journey?</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <button className="px-8 py-3.5 rounded-xl bg-[#d4a853] text-white font-semibold hover:bg-[#b8923f] transition shadow-lg cursor-pointer">
@@ -128,15 +152,21 @@ export function HeroSection() {
                                 View All Courses
                             </button>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </motion.div>
+                </motion.div>
+            </motion.div>
 
             {/* Features Section */}
-            <div className={`${SectionPaddingY}`}>
-                <div className={`${SectionPaddingZ} grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${GapSize}`}>
+            <motion.div
+            className={`${SectionPaddingY} dark:bg-gray-900  dark:text-white`}
+            variants={container}   
+            initial="hidden"       
+            whileInView="show"      
+            viewport={{ once: true, amount: 0.1 }}
+            >
+                <motion.div variants={item} className={`${SectionPaddingZ} grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${GapSize}`}>
                     <Boxes
-                        title="Notifications for Students and Parents"
+                        title="Notifications"
                         paragraph="Send instant notifications to students and parents via email, WhatsApp, or SMS."
                         icon={
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
@@ -164,63 +194,84 @@ export function HeroSection() {
                             </svg>
                         }
                     />
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
 
             {/* Featured Courses */}
-            <div className={`w-full bg-[var(--bg-gray)] ${SectionPaddingY}`}>
-                <div className={`container mx-auto ${SectionPaddingZ}`}>
-                    <div className="text-3xl font-bold mb-10 text-center md:text-left text-[var(--headLine-text)]">
-                        Popular Courses
-                    </div>
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ${GapSize} w-full`}>
-                        <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                        <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                        <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                        <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                    </div>
-                    <div className="flex justify-center mt-12">
-                        <button className="px-8 py-3 rounded-xl bg-[var(--primary-color)] text-white font-medium transition hover:opacity-90 cursor-pointer shadow-lg">
-                            View All Courses
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <motion.div
+            className={`w-full dark:bg-gray-900 border-black  ${SectionPaddingY}`}
+            variants={container}   
+            initial="hidden"       
+            whileInView="show"      
+            viewport={{ once: true, amount: 0.1 }}
+            >
+                <motion.div variants={item} className={`${SectionPaddingZ}`}>
+
+                    <motion.div variants={item} className={`container mx-auto w-full`}>
+                        <div className="text-3xl font-bold mb-10 text-center md:text-left text-[var(--headLine-text)]">
+                            Popular Courses
+                        </div>
+                        <motion.div variants={item} className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ${GapSize} w-full`}>
+                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                        </motion.div>
+                        <div className="flex justify-center mt-12">
+                            <button className="px-8 py-3 rounded-xl bg-[var(--primary-color)] text-white font-medium transition hover:opacity-90 cursor-pointer shadow-lg">
+                                View All Courses
+                            </button>
+                        </div>
+                    </motion.div>
+                </motion.div>
+            </motion.div>
 
             {/* Join Us Section */}
-            <div className={`${SectionPaddingY} w-full`}>
-                <div className={`${SectionPaddingZ}`}>
-                    <div className="w-full overflow-hidden rounded-xl flex flex-col-reverse lg:flex-row">
+            <motion.div
+            className={`w-full dark:bg-gray-900  dark:text-white`}
+            variants={container}   
+            initial="hidden"       
+            whileInView="show"      
+            viewport={{ once: true, amount: 0.1 }}
+            >
+               
+                <motion.div variants={item} className={`bg-[var(--bg-gray)] rounded-t-[100px]  dark:bg-[var(--primary-800)] rounded-t-[100px] ${SectionPaddingY}`}>
+                    <div className={`w-full ${SectionPaddingZ} overflow-hidden rounded-xl flex flex-col-reverse lg:flex-row`}>
                         {/* image */}
-                        <div className="w-full lg:w-[35%] h-64 lg:h-auto">
+                        <motion.div variants={item} className="w-full lg:w-[35%] h-64 lg:h-auto">
                             <img
                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqBJeWsHs0s2zqm5Zr-jA6Q3Fqc9FWzyq-Aw&s"
                                 alt=""
                                 className="w-full h-full object-cover rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
                             />
-                        </div>
+                        </motion.div>
 
                         {/* content */}
-                        <div className="flex flex-col justify-center gap-3 p-8 w-full lg:w-[65%]">
-                            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-[var(--headLine-text)]">
-                                We Teach, Inspire, and Build Success Together
-                            </h2>
+                        <motion.div variants={item} className="flex flex-col justify-center gap-3 p-8 w-full lg:w-[65%]">
+                            <motion.div variants={item}>
+                                <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-[var(--headLine-text)]">
+                                    We Teach, Inspire, and Build Success Together
+                                </h2>
+                            </motion.div>
 
-                            <p className="text-[15px] lg:text-base text-[var(--text-sub-color)] leading-relaxed max-w-[520px]">
-                                We bring high-quality education and meaningful interaction together,
-                                led by passionate teachers and thoughtfully crafted content
-                                to help learners reach their full potential.
-                            </p>
+                            <motion.div variants={item}>
 
-                            <div className="pt-2">
+                                <p className="text-[15px] lg:text-base text-[var(--text-sub-color)] leading-relaxed max-w-[520px]">
+                                    We bring high-quality education and meaningful interaction together,
+                                    led by passionate teachers and thoughtfully crafted content
+                                    to help learners reach their full potential.
+                                </p>
+                            </motion.div>
+
+                            <motion.div variants={item} className="pt-2">
                                 <button className="px-6 py-2.5 rounded-lg bg-[var(--primary-color)] text-white font-medium hover:opacity-90 transition">
                                     Join Us
                                 </button>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     </div>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
 
         </div>
     )
