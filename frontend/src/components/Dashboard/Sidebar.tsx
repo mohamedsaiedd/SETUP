@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+// import { useState } from 'react';
+>>>>>>> 34a684a2 (feat: dark them)
 import {
     LayoutDashboard,
     BookOpen,
@@ -40,7 +44,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                     </div>
                     {!isCollapsed && (
                         <span className="font-bold text-lg">
-                            Stepup <span className="text-[#d4a853]">Academy</span>
+                            Setup <span className="text-[#d4a853]">Academy</span>
                         </span>
                     )}
                 </div>

@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import type { ReactNode } from "react";
+
 import { Sidebar } from './Sidebar';
 import { DashboardNavbar } from './DashboardNavbar';
 import { DashboardFooter } from './DashboardFooter';
-import type { ReactNode } from 'react';
 
 interface DashboardLayoutProps {
     children: ReactNode;

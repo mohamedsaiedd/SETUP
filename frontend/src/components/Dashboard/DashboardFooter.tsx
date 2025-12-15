@@ -12,7 +12,7 @@ export function DashboardFooter({ sidebarCollapsed }: DashboardFooterProps) {
             `}
         >
             <div className="h-full px-6 flex items-center justify-between text-sm text-gray-500">
-                <p>© {new Date().getFullYear()} Stepup Academy. All rights reserved.</p>
+                <p>© {new Date().getFullYear()} Setup Academy. All rights reserved.</p>
                 <div className="flex items-center gap-4">
                     <a href="#" className="hover:text-gray-700 transition">Privacy</a>
                     <a href="#" className="hover:text-gray-700 transition">Terms</a>

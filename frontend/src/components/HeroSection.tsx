@@ -3,6 +3,7 @@ import { Card } from "./Card";
 import TypingAnimation from "./Animation/TypingAnimation";
 import { Award, BookOpen, GraduationCap, TrendingUp, Users } from 'lucide-react';
 import "./global.css";
+// import { useTheme } from "../context/ThemContext";
 
 //padding constants 
 const SectionPaddingY = "py-16 md:py-20"; // between sections
@@ -11,21 +12,23 @@ const SectionPaddingZ = "px-4 sm:px-6 lg:px-8"; // horizontal padding
 const GapSize = "gap-6 md:gap-8";
 
 export function HeroSection() {
+
     return (
         <div className="w-full">
 
             {/* hero section */}
-            <section className={`bg-[var(--bg-gray)] ${SectionPaddingY} w-full overflow-hidden`}>
-                <div className={`container mx-auto ${SectionPaddingZ} max-w-7xl`}>
+            <section className={`dark:bg-gray-900 ${SectionPaddingY} w-full overflow-hidden
+                dark:text-white `}>
+                <div className={`container mx-auto ${SectionPaddingY} bg-[var(--bg-gray)] dark:bg-[var(--primary-800)] rounded-e-[100px]  max-w-7xl`}>
 
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+                    <div className={`flex ${SectionPaddingZ} flex-col lg:flex-row items-center justify-between gap-10`}>
                         {/* content || text */}
-                        <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
-                            <div className="w-fit bg-[var(--primary-color)] p-2 rounded-lg mb-0 mx-auto lg:mx-0">
+                        <div className="w-fit lg:w-1/2 text-start lg:text-left space-y-6">
+                            <div className="w-fit bg-[var(--primary-color)] p-2 rounded-lg mb-0  lg:mx-0">
                                 <GraduationCap className="text-white w-6 h-6" />
                             </div>
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--headLine-text)] leading-tight">
-                                setup{" "}
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--headLine-text)] leading-tight flex flex-col items-start">
+                                SETUP{" "}
                                 <span className="text-[var(--primary-color)] relative inline-block">
                                     <TypingAnimation />
                                 </span>
@@ -38,9 +41,6 @@ export function HeroSection() {
                             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
                                 <button className="px-8 py-3 rounded-xl bg-[var(--primary-color)] text-white font-medium transition hover:opacity-90 cursor-pointer shadow-lg">
                                     Get Started
-                                </button>
-                                <button className="px-8 py-3 rounded-xl border-2 border-[var(--primary-color)] text-[var(--primary-color)] font-medium transition hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
-                                    Browse Courses
                                 </button>
                             </div>
                         </div>
@@ -133,10 +133,10 @@ export function HeroSection() {
             </section>
 
             {/* Features Section */}
-            <div className={`${SectionPaddingY}`}>
+            <div className={`${SectionPaddingY} dark:bg-gray-900  dark:text-white`}>
                 <div className={`${SectionPaddingZ} grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${GapSize}`}>
                     <Boxes
-                        title="Notifications for Students and Parents"
+                        title="Notifications"
                         paragraph="Send instant notifications to students and parents via email, WhatsApp, or SMS."
                         icon={
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
@@ -168,29 +168,33 @@ export function HeroSection() {
             </div>
 
             {/* Featured Courses */}
-            <div className={`w-full bg-[var(--bg-gray)] ${SectionPaddingY}`}>
-                <div className={`container mx-auto ${SectionPaddingZ}`}>
-                    <div className="text-3xl font-bold mb-10 text-center md:text-left text-[var(--headLine-text)]">
-                        Popular Courses
-                    </div>
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ${GapSize} w-full`}>
-                        <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                        <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                        <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                        <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                    </div>
-                    <div className="flex justify-center mt-12">
-                        <button className="px-8 py-3 rounded-xl bg-[var(--primary-color)] text-white font-medium transition hover:opacity-90 cursor-pointer shadow-lg">
-                            View All Courses
-                        </button>
+            <div className={`w-full dark:bg-gray-900 border-black  ${SectionPaddingY}`}>
+                <div className={`${SectionPaddingZ}`}>
+
+                    <div className={`container mx-auto w-full`}>
+                        <div className="text-3xl font-bold mb-10 text-center md:text-left text-[var(--headLine-text)]">
+                            Popular Courses
+                        </div>
+                        <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ${GapSize} w-full`}>
+                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                        </div>
+                        <div className="flex justify-center mt-12">
+                            <button className="px-8 py-3 rounded-xl bg-[var(--primary-color)] text-white font-medium transition hover:opacity-90 cursor-pointer shadow-lg">
+                                View All Courses
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Join Us Section */}
-            <div className={`${SectionPaddingY} w-full`}>
-                <div className={`${SectionPaddingZ}`}>
-                    <div className="w-full overflow-hidden rounded-xl flex flex-col-reverse lg:flex-row">
+            <div className={`w-full dark:bg-gray-900  dark:text-white`}>
+               
+                <div className={`bg-[var(--bg-gray)] rounded-t-[100px]  dark:bg-[var(--primary-800)] rounded-t-[100px] ${SectionPaddingY}`}>
+                    <div className={`w-full ${SectionPaddingZ} overflow-hidden rounded-xl flex flex-col-reverse lg:flex-row`}>
                         {/* image */}
                         <div className="w-full lg:w-[35%] h-64 lg:h-auto">
                             <img

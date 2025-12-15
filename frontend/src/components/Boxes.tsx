@@ -11,12 +11,13 @@ export function Boxes({ title, paragraph, icon }: BoxesProps) {
   return (
     <div
       className="
+        dark:bg-[var(--primary-900)]
         flex flex-col items-center justify-center text-center 
         p-6 py-8 rounded-2xl bg-white 
-        shadow-sm hover:shadow-md transition-shadow duration-300
+        shadow-sm hover:shadow-md transition-shadow duration-300 
       "
     >
-      <div className="text-[var(--primary-color)] mb-4">
+      <div className="text-[var(--primary-color)] mb-4 dark:text-white">
         {icon}
       </div>
 
