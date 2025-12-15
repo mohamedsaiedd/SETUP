@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-=======
-// import { useState } from 'react';
->>>>>>> 34a684a2 (feat: dark them)
 import {
     LayoutDashboard,
     BookOpen,
