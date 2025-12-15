@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { GraduationCap, Mail, Lock, Loader2 } from 'lucide-react';
-import { useAuth } from '../constext/AuthContext';
 
 export function Login() {
     const [email, setEmail] = useState('');

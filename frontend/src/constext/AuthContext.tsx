@@ -1,6 +1,5 @@
 
 import React, { createContext, useContext, useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 interface User {
   id: string;
