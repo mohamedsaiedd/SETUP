@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { GraduationCap, Mail, Lock, Loader2 } from 'lucide-react';
+import { useAuth } from '../constext/AuthContext';
 
 export function Login() {
     const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ export function Login() {
         setSuccess(null);
 
         try {
-            const response = await axios.post('http://localhost:4000/auth/login', {
+            const response = await axios.post('http://localhost:5000/auth/login', {
                 email,
                 password,
             });

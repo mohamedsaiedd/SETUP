@@ -1,15 +1,20 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
-import { SignedDto } from './dto/signed.dto';
+import { TokensDto } from './dto/tokens.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { AuthResultsDto } from './dto/authResults';
 import * as bcrypt from 'bcrypt';
+import { User } from '@prisma/client';
+import { JwtService } from '@nestjs/jwt';
+import { ResponseDto } from './dto/authResults';
 
 @Injectable()
 export class AuthService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private jwtService: JwtService
+    ) { }
 
-    async userValidation(input: AuthDto): Promise<AuthResultsDto> {
+    async userValidation(input: AuthDto): Promise<ResponseDto> {
         // Find user by email only (password is hashed in DB)
         const user = await this.prisma.user.findUnique({
             where: { email: input.email },
@@ -20,13 +25,43 @@ export class AuthService {
             throw new UnauthorizedException('Invalid credentials');
         }
 
+        const tokens = await this.generateTokens(user);
+        
         return {
-            token: "1234567890",
             data: user,
+            tokens :{
+                accessToken: tokens.accessToken,
+                refreshToken: tokens.refreshToken,
+            },
             message: 'Login successful',
             status: 200,
             success: true,
             timestamp: new Date(),
         };
+    }
+
+    async generateTokens(input : User): Promise<TokensDto> {
+        const accessToken =  this.jwtService.sign({
+            id: input.id,
+            email: input.email,
+            role: input.role,
+        }, {
+            expiresIn: '1h',
+        });
+
+        const refreshToken = this.jwtService.sign({
+            id: input.id,
+            email: input.email,
+            role: input.role,
+        }, {
+            expiresIn: '7d',
+        });
+
+        const hashedToken = await bcrypt.hash(refreshToken, 10);
+
+        return {
+            accessToken,
+            refreshToken: hashedToken,
+        }
     }
 }

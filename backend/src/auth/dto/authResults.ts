@@ -1,8 +1,13 @@
 import { User } from '@prisma/client';
 
-export class AuthResultsDto {
+export interface TokenDto {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export class ResponseDto {
     data: User;
-    token: string;
+    tokens: TokenDto;
     message: string;
     status: number;
     success: boolean;
