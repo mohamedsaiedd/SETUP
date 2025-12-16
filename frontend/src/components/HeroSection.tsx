@@ -35,7 +35,7 @@ export function HeroSection() {
             viewport={{ once: true, amount: 0.1 }}
             className={`dark:bg-gray-900 ${SectionPaddingY} w-full overflow-hiddendark:text-white `}
             >
-                <motion.div variants={item} className={`container mx-auto ${SectionPaddingY} bg-[var(--bg-gray)] dark:bg-[var(--primary-800)] rounded-e-[100px]  max-w-7xl`}>
+                <motion.div variants={item} className={` mx-auto ${SectionPaddingY} bg-[var(--bg-gray)] dark:bg-[var(--primary-800)] rounded-e-[100px]  max-w-7xl`}>
 
                     <motion.div variants={item} className={`flex ${SectionPaddingZ} flex-col lg:flex-row items-center justify-between gap-10`}>
                         {/* content || text */}
@@ -65,9 +65,7 @@ export function HeroSection() {
                         </motion.div>
 
                         {/* image */}
-                        <motion.div variants={item} className="w-full lg:w-1/2 flex justify-center relative">
-                            {/* blob under the picture */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-indigo-100 rounded-full blur-3xl opacity-60 -z-10"></div>
+                        <motion.div variants={item} className="flex justify-center relative">
                             <img
                                 src="https://img.freepik.com/free-photo/man-wearing-t-shirt-gesturing_23-2149393667.jpg?semt=ais_hybrid&w=740&q=80"
                                 alt="Student gesturing with laptop"
