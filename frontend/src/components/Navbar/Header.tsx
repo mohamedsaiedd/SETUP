@@ -25,9 +25,7 @@ export function Header() {
         {/* Desktop Menu */}
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--text-sub-color)]">
-            <a href="#" className="text-[var(--primary-color)] hover:text-blue-700">Dashboard</a>
             <a href="#" className="hover:text-[var(--headLine-text)]">Home</a>
-            <a href="#" className="hover:text-[var(--headLine-text)]">Courses</a>
             <a href="#" className="hover:text-[var(--headLine-text)]">About</a>
           </nav>
 

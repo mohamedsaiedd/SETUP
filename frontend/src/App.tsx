@@ -4,11 +4,11 @@ import { HeroSection } from './components/HeroSection'
 
 function App() {
   return (
-    <>
+    <div className='max-w-7xl mx-auto '>
       <Header />
       <HeroSection />
       <Footer />
-    </>
+    </div>
   )
 }
 
