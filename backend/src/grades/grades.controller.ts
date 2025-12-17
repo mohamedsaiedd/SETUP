@@ -22,6 +22,14 @@ export class GradesController {
                     contains:req.query.name as string,
                     mode: 'insensitive'
                 }
+            },
+            include: {
+                classes: {
+                    include:{
+                        students: true
+                    }
+                },
+                courses: true
             }
         })
     }
