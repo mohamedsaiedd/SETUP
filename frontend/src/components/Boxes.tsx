@@ -11,21 +11,32 @@ export function Boxes({ title, paragraph, icon }: BoxesProps) {
   return (
     <div
       className="
-        dark:bg-[var(--primary-900)]
-        flex flex-col items-center justify-center text-center 
-        p-6 py-8 rounded-2xl bg-white 
-        shadow-sm hover:shadow-md transition-shadow duration-300 
+        group
+        relative
+        flex flex-col items-start text-left
+        p-8 rounded-3xl
+        bg-white dark:bg-gray-800/50 backdrop-blur-sm
+        border border-gray-100 dark:border-gray-700
+        shadow-sm hover:shadow-xl
+        transition-all duration-300 ease-out
+        hover:-translate-y-1 hover:border-[var(--primary-color)]/30
       "
     >
-      <div className="text-[var(--primary-color)] mb-4 dark:text-white">
+      <div className="
+        mb-6 p-4 rounded-2xl
+        bg-[var(--primary-color)]/5 dark:bg-[var(--primary-color)]/20
+        text-[var(--primary-color)] dark:text-white
+        group-hover:bg-[var(--primary-color)] group-hover:text-white
+        transition-colors duration-300
+      ">
         {icon}
       </div>
 
-      <h2 className="text-lg font-semibold text[var(--headLine-text)] mb-2">
+      <h2 className="text-xl font-bold text-[var(--headLine-text)] mb-3 group-hover:text-[var(--primary-color)] transition-colors">
         {title}
       </h2>
 
-      <p className="text-sm text-[var(--text-sub-color)] leading-relaxed max-w-xs">
+      <p className="text-base text-[var(--text-sub-color)] leading-relaxed">
         {paragraph}
       </p>
     </div>

@@ -28,7 +28,7 @@ export function Header() {
   const navigate = useNavigate()
 
   return (
-    <header className="bg-white dark:bg-gray-900 w-full dark:text-white border-b border-gray-200 sticky top-0 z-50">
+    <header className=" bg-white dark:bg-gray-900 w-full dark:text-white border-b border-gray-200 fixed top-0 z-50 ">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         <NavLink onClick={() => goToSection("home", navigate)} to="/" className="flex items-center gap-3">
           <div className="bg-[var(--primary-color)] p-2 rounded-lg">

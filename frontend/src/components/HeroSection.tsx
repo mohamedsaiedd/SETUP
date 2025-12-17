@@ -5,12 +5,18 @@ import { Award, BookOpen, GraduationCap, TrendingUp, Users } from 'lucide-react'
 import "./global.css";
 
 //padding constants 
-const SectionPaddingY = "py-16 md:py-20"; // between sections
+const SectionPaddingY = "py-8 md:py-14"; // between sections
 const SectionPaddingZ = "px-4 sm:px-6 lg:px-8"; // horizontal padding
 const GapSize = "gap-6 md:gap-8";
 
 // Animation Variants
-import { motion  } from "framer-motion";
+import { motion } from "framer-motion";
+import heroCharacter from "../assets/hero-character.png";
+import heroLamp from "../assets/hero-lamp.png";
+import heroCalculator from "../assets/hero-calculator.png";
+import heroPencil from "../assets/hero-pencil.png";
+import heroPalette from "../assets/hero-palette.png";
+import aboutIllustration from "../assets/about-illustration.png";
 
 const container = {
   hidden: {},
@@ -39,11 +45,11 @@ export function HeroSection() {
             whileInView="show"      
             viewport={{ once: true, amount: 0.1 }}
             id="home"
-            className={`dark:bg-gray-900 ${SectionPaddingY} w-full overflow-hiddendark:text-white `}
+            className={` dark:bg-gray-900 ${SectionPaddingY} w-full overflow-hidden dark:text-white lg:min-h-screen lg:mt-0 flex items-center mt-[100px]`}
             >
-                <motion.div variants={item} className={`container mx-auto ${SectionPaddingY} bg-[var(--bg-gray)] dark:bg-[var(--primary-800)] rounded-e-[100px]`}>
+                <motion.div variants={item} className={`mx-auto ${SectionPaddingY} w-full`}>
 
-                    <motion.div variants={item} className={`flex ${SectionPaddingZ} flex-col lg:flex-row items-center justify-between gap-10`}>
+                    <motion.div variants={item} className={`container mx-auto flex ${SectionPaddingZ} flex-col-reverse lg:flex-row items-center justify-between gap-10`}>
                         {/* content || text */}
                         <motion.div variants={item} className="w-fit lg:w-1/2 text-start lg:text-left space-y-6">
                             <div className="w-fit bg-[var(--primary-color)] p-2 rounded-lg mb-0  lg:mx-0">
@@ -67,16 +73,258 @@ export function HeroSection() {
                                 <button className="px-8 py-3 rounded-xl bg-[var(--primary-color)] text-white font-medium transition hover:opacity-90 cursor-pointer shadow-lg">
                                     Get Started
                                 </button>
+                                <button className="px-8 py-3 rounded-xl border-2 border-[var(--primary-color)] text-[var(--primary-color)] font-medium transition hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
+                                    View Courses
+                                </button>
                             </motion.div>
                         </motion.div>
 
                         {/* image */}
-                        <motion.div variants={item} className="flex justify-center relative">
-                            <img
-                                src="https://img.freepik.com/free-photo/man-wearing-t-shirt-gesturing_23-2149393667.jpg?semt=ais_hybrid&w=740&q=80"
-                                alt="Student gesturing with laptop"
-                                className="relative w-full max-w-md lg:max-w-lg rounded-2xl shadow-2xl object-cover transform hover:scale-[1.02] transition-transform duration-500"
+                        <motion.div variants={item} className="flex justify-center relative w-full lg:w-1/2 min-h-[250px] lg:min-h-[500px]">
+                            
+                            {/* Solar System Orbits */}
+                            <div className="absolute z-0" style={{ left: '20%', top: '10%', width: '60%', height: '100%', pointerEvents: 'none' }}>
+                                {/* Orbit 1 */}
+                                <motion.div 
+                                    className="absolute rounded-full border border-dashed border-[var(--primary-color)]/40"
+                                    style={{ 
+                                        width: '120%', 
+                                        height: '120%', 
+                                        left: '-10%', 
+                                        top: '-10%',
+                                    }}
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                                />
+                                {/* Orbit 2 */}
+                                <motion.div 
+                                    className="absolute rounded-full border border-dashed border-[var(--primary-color)]/40"
+                                    style={{ 
+                                        width: '160%', 
+                                        height: '160%', 
+                                        left: '-30%', 
+                                        top: '-30%',
+                                    }}
+                                    animate={{ rotate: -360 }}
+                                    transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+                                />
+                            </div>
+
+                            {/* Main Character */}
+                            <motion.img
+                                src={heroCharacter}
+                                alt="Student jumping"
+                                className="absolute z-20 w-[60%] max-w-sm object-contain"
+                                animate={{ 
+                                    y: [0, -20, 0],
+                                }}
+                                transition={{ 
+                                    duration: 4,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                                style={{
+                                    left: '20%',
+                                    top: '10%'
+                                }}
                             />
+                            
+                            {/* Lamp - Hidden on mobile */}
+                            <motion.img
+                                src={heroLamp}
+                                alt="Desk lamp"
+                                className="absolute z-10 w-[30%] max-w-xs object-contain hidden sm:block"
+                                animate={{ 
+                                    y: [0, -15, 0],
+                                    rotate: [0, 5, 0]
+                                }}
+                                transition={{ 
+                                    duration: 5,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                    delay: 1
+                                }}
+                                style={{
+                                    right: '10%',
+                                    bottom: '20%'
+                                }}
+                            />
+
+                            {/* Calculator - Visible on mobile */}
+                            <motion.img
+                                src={heroCalculator}
+                                alt="Calculator"
+                                className="absolute z-30 w-[15%] sm:w-[15%] object-contain scale-75 sm:scale-100"
+                                animate={{ 
+                                    y: [0, -10, 0],
+                                    rotate: [0, -10, 0]
+                                }}
+                                transition={{ 
+                                    duration: 3,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                    delay: 0.5
+                                }}
+                                style={{
+                                    left: '10%',
+                                    bottom: '30%'
+                                }}
+                            />
+
+                            {/* Pencil - Visible on mobile */}
+                            <motion.img
+                                src={heroPencil}
+                                alt="Pencil"
+                                className="absolute z-30 w-[15%] sm:w-[12%] object-contain"
+                                animate={{ 
+                                    y: [0, -12, 0],
+                                    x: [0, 5, 0]
+                                }}
+                                transition={{ 
+                                    duration: 4.5,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                    delay: 1.5
+                                }}
+                                style={{
+                                    right: '25%',
+                                    top: '5%'
+                                }}
+                            />
+
+                            {/* Palette - Hidden on mobile */}
+                            <motion.img
+                                src={heroPalette}
+                                alt="Art palette"
+                                className="absolute z-10 w-[20%] object-contain hidden sm:block"
+                                animate={{ 
+                                    y: [0, -18, 0],
+                                    rotate: [0, 15, 0]
+                                }}
+                                transition={{ 
+                                    duration: 6,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                    delay: 2
+                                }}
+                                style={{
+                                    left: '5%',
+                                    top: '40%'
+                                }}
+                            />
+
+                            {/* Floating UI Elements */}
+                            
+                            {/* Grade Card A+ - Visible but smaller on mobile */}
+                            <motion.div
+                                className="absolute z-20 bg-white/90 backdrop-blur-sm p-2 sm:p-3 rounded-xl shadow-xl border border-white/50 flex items-center gap-2 sm:gap-3 scale-75 sm:scale-100 origin-top-right"
+                                animate={{ y: [0, -15, 0] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                                style={{ top: '15%', right: '10%' }}
+                            >
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold text-lg sm:text-xl">A+</div>
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Grade</span>
+                                    <span className="text-xs sm:text-sm font-bold text-gray-800">Excellent</span>
+                                </div>
+                            </motion.div>
+
+                            {/* Code Icon Bubble - Visible on mobile */}
+                            <motion.div
+                                className="absolute z-20 bg-white/90 backdrop-blur-sm p-3 rounded-2xl shadow-lg border border-white/50 scale-75 sm:scale-100"
+                                animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }}
+                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                                style={{ bottom: '20%', left: '15%' }}
+                            >
+                                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                                </div>
+                            </motion.div>
+
+                            {/* Magnifying Glass - Visible on mobile */}
+                            <motion.div
+                                className="absolute z-20 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg border border-white/50 scale-75 sm:scale-100"
+                                animate={{ x: [0, 10, 0], y: [0, -5, 0] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                                style={{ top: '50%', right: '0%' }}
+                            >
+                                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-orange-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                </div>
+                            </motion.div>
+
+                            {/* Star - Visible on mobile */}
+                            <motion.div
+                                className="absolute z-10 scale-75 sm:scale-100"
+                                animate={{ rotate: [0, 360], scale: [1, 1.2, 1] }}
+                                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                                style={{ top: '5%', left: '10%' }}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#FBBF24" stroke="none">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                            </motion.div>
+
+                            {/* Abstract Shapes - Hidden on mobile */}
+                            
+                            {/* Circle */}
+                            <motion.div
+                                className="absolute z-0 w-8 h-8 rounded-full border-4 border-yellow-400/50 hidden sm:block"
+                                animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                style={{ top: '15%', left: '40%' }}
+                            />
+
+                            {/* Triangle */}
+                            <motion.div
+                                className="absolute z-0 hidden sm:block"
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                style={{ bottom: '40%', right: '5%' }}
+                            >
+                                <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                    <path d="M15 0L27.9904 22.5H2.00962L15 0Z" fill="#F87171" fillOpacity="0.5" />
+                                </svg>
+                            </motion.div>
+
+                            {/* Wavy Line */}
+                            <motion.div
+                                className="absolute z-0 hidden sm:block"
+                                animate={{ x: [0, -10, 0] }}
+                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                                style={{ bottom: '10%', left: '40%' }}
+                            >
+                                <svg width="60" height="20" viewBox="0 0 60 20" fill="none" stroke="#60A5FA" strokeWidth="3" strokeLinecap="round">
+                                    <path d="M2 10C10 2 20 18 30 10C40 2 50 18 58 10" />
+                                </svg>
+                            </motion.div>
+
+                            {/* Atom/Orbital */}
+                            <motion.div
+                                className="absolute z-0 hidden sm:block"
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                                style={{ top: '25%', right: '35%' }}
+                            >
+                                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="#A78BFA" strokeWidth="1.5">
+                                    <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(0 50 50)" />
+                                    <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(60 50 50)" />
+                                    <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(120 50 50)" />
+                                    <circle cx="50" cy="50" r="5" fill="#A78BFA" />
+                                </svg>
+                            </motion.div>
+
+                            {/* Dots */}
+                            <motion.div
+                                className="absolute z-0 flex gap-2 hidden sm:block"
+                                animate={{ x: [0, 10, 0] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                style={{ top: '50%', right: '30%' }}
+                            >
+                                <div className="w-2 h-2 rounded-full bg-purple-400/60"></div>
+                                <div className="w-2 h-2 rounded-full bg-purple-400/60"></div>
+                                <div className="w-2 h-2 rounded-full bg-purple-400/60"></div>
+                            </motion.div>
                         </motion.div>
                     </motion.div>
                 </motion.div>
@@ -86,18 +334,9 @@ export function HeroSection() {
             <motion.div
             variants={container}   
             initial="hidden"       
-            whileInView="show"      
+            whileInView="show"       
             viewport={{ once: true, amount: 0.1 }}
-            className={`w-full ${SectionPaddingY} bg-[#1e3a5f] relative overflow-hidden`}>
-                {/* Background gradient */}
-                <div className="container mx-auto absolute bg-gradient-to-br from-[#1e3a5f] via-[#162d4a] to-[#0f1d2f]"></div>
-
-                {/* Decorative blurred circles */}
-                <motion.div variants={item} className="absolute inset-0 opacity-20">
-                    <div className="absolute top-10 left-10 w-72 h-72 bg-[#d4a853] rounded-full blur-3xl"></div>
-                    <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#f97068] rounded-full blur-3xl"></div>
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white rounded-full blur-3xl opacity-50"></div>
-                </motion.div>
+            className={`w-full ${SectionPaddingY}  bg-[var(--primary-color)] relative overflow-hidden dark:bg-[var(--bg-primary)]`}>
 
                 <motion.div variants={item} className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
                     {/* Section Header */}
@@ -162,7 +401,7 @@ export function HeroSection() {
 
             {/* Features Section */}
             <motion.div
-            className={`${SectionPaddingY} w-full dark:bg-gray-900  dark:text-white`}
+            className={`${SectionPaddingY} w-full   dark:bg-gray-900  dark:text-white`}
             variants={container}   
             initial="hidden"       
             whileInView="show"      
@@ -201,63 +440,29 @@ export function HeroSection() {
                 </motion.div>
             </motion.div>
 
-            {/* Featured Courses */}
-            <motion.div
-            className={`w-full dark:bg-gray-900 border-black  ${SectionPaddingY}`}
-            variants={container}   
-            initial="hidden"       
-            whileInView="show"      
-            viewport={{ once: true, amount: 0.1 }}
-            >
-                <motion.div variants={item} className={`${SectionPaddingZ}`}>
-
-                    <motion.div variants={item} className={`container mx-auto w-full`}>
-                        <div className="text-3xl font-bold mb-10 text-center md:text-left text-[var(--headLine-text)]">
-                            Popular Courses
-                        </div>
-                        <motion.div variants={item} className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ${GapSize} w-full`}>
-                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                            <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
-                        </motion.div>
-                        <div className="flex justify-center mt-12">
-                            <button className="px-8 py-3 rounded-xl bg-[var(--primary-color)] text-white font-medium transition hover:opacity-90 cursor-pointer shadow-lg">
-                                View All Courses
-                            </button>
-                        </div>
-                    </motion.div>
-                </motion.div>
-            </motion.div>
-
             {/* about */}
             <motion.div
-            className={`w-full dark:bg-gray-900  dark:text-white`}
+            className={`w-full  dark:bg-gray-900  dark:text-white`}
             variants={container}   
             initial="hidden"       
             whileInView="show"      
             viewport={{ once: true, amount: 0.1 }}
-            
             >
-               
-                <motion.div variants={item} id="about" className={`container mx-auto bg-[var(--bg-gray)] rounded-t-[100px]  dark:bg-[var(--primary-800)] rounded-t-[100px] ${SectionPaddingY}`}>
+                <motion.div variants={item} id="about" className={`container mx-auto ${SectionPaddingY}`}>
                     <div className={`w-full ${SectionPaddingZ}`}>
-                        <motion.div variants={item} className="text-3xl font-bold mb-10 text-center md:text-left text-[var(--headLine-text)]">
-                            What is Setup Academy?
-                        </motion.div>
-                        <div className={`overflow-hidden rounded-xl flex flex-col-reverse lg:flex-row`}>
+                        <div className={`overflow-hidden rounded-xl flex flex-col-reverse lg:flex-row items-center`}>
 
-                            {/* image */}
-                            <motion.div variants={item} className="w-full lg:w-[35%] h-64 lg:h-auto">
+                            {/* image - replaced with uploaded asset */}
+                            <motion.div variants={item} className="w-full lg:w-[40%] flex justify-center">
                                 <img
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqBJeWsHs0s2zqm5Zr-jA6Q3Fqc9FWzyq-Aw&s"
-                                    alt=""
-                                    className="w-full h-full object-cover rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
+                                    src={aboutIllustration}
+                                    alt="About Setup Academy"
+                                    className="w-full max-w-md object-contain"
                                 />
                             </motion.div>
 
                             {/* content */}
-                            <motion.div variants={item} className="flex flex-col justify-center gap-3 p-8 w-full lg:w-[65%]">
+                            <motion.div variants={item} className="flex flex-col justify-center gap-3 p-8 w-full lg:w-[60%]">
                                 <motion.div variants={item}>
                                     <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-[var(--headLine-text)]">
                                         We Teach, Inspire, and Build Success Together
@@ -281,6 +486,37 @@ export function HeroSection() {
                             </motion.div>
                         </div>
                     </div>
+                </motion.div>
+            </motion.div>
+
+            {/* Featured Courses */}
+            <motion.div
+            className={`w-full ${SectionPaddingY} relative overflow-hidden p-8 sm:p-12 bg-[var(--primary-color)]   dark:bg-gray-900  `}
+            variants={container}   
+            initial="hidden"       
+            whileInView="show"      
+            viewport={{ once: true, amount: 0.1 }}
+            >
+                <motion.div variants={item} className={`${SectionPaddingZ} `}>
+                    <motion.div variants={item} className={`container mx-auto w-full relative overflow-hidden rounded-3xl p-8 sm:p-12`}>
+                        
+                        <div className="relative z-10">
+                            <div className="text-3xl font-bold mb-10 text-center md:text-left text-white">
+                                Popular Courses
+                            </div>
+                            <motion.div variants={item} className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ${GapSize} w-full`}>
+                                <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                                <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                                <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                                <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
+                            </motion.div>
+                            <div className="flex justify-center mt-12">
+                                <button className="px-8 py-3 rounded-xl bg-[#d4a853] text-white font-semibold hover:bg-[#b8923f] transition shadow-lg cursor-pointer">
+                                    View All Courses
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
                 </motion.div>
             </motion.div>
 
