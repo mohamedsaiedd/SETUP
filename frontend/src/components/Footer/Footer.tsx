@@ -1,19 +1,21 @@
 import { GraduationCap } from 'lucide-react';
-
+import { NavLink, useNavigate } from 'react-router-dom';
+import { goToSection } from '../Navbar/Header'
 export function Footer() {
+
+  const navigate = useNavigate()
+
   return (
-    <footer className="bg-white dark:bg-gray-900  dark:text-white px-4 sm:px-6 lg:px-8 py-4 border-t w-full border-gray-200 mt-auto">
+    <footer className="w-full bg-white dark:bg-gray-900  dark:text-white px-4 sm:px-6 lg:px-8 py-4 border-t w-full border-gray-200 mt-auto">
       
-
-
-      <div className="flex flex-col items-center mb-6">
+      <div className="container mx-auto flex flex-col items-center mb-6">
         <div className="flex items-center w-full justify-between text-sm text-gray-500">
 
           {/* contact support */}
           <div>
             {/* logo */}
             
-            <div className="flex items-center gap-3 mb-4">
+            <NavLink to="/" onClick={() => goToSection("home", navigate)} className="flex items-center gap-3 mb-4">
               <div className="bg-[var(--primary-color)] p-2 rounded-lg">
                 <GraduationCap className="text-white w-6 h-6" />
               </div>
@@ -21,7 +23,7 @@ export function Footer() {
               flex flex-col">
                 SETUP {" "}<span className="text-[var(--primary-color)]">ACADEMY</span>
               </h1>
-            </div>
+            </NavLink>
             <div className='flex flex-col gap-4 text-[var(--text-sub-color)]'>
 
               <div className='w-fit flex items-center gap-2 justify-between'>
@@ -53,9 +55,9 @@ export function Footer() {
             Channels
             </h3>
             <div className='flex flex-col gap-4 text-[var(--text-sub-color)]'>
-              <div className='hover:text-[var(--primary-900)] cursor-pointer'>Facebook</div>
-              <div className='hover:text-[var(--primary-900)] cursor-pointer'>Instagram</div>
-              <div className='hover:text-[var(--primary-900)] cursor-pointer'>Youtube</div>
+              <div className='dark:hover:text-white hover:text-[var(--primary-900)] cursor-pointer'>Facebook</div>
+              <div className='dark:hover:text-white hover:text-[var(--primary-900)] cursor-pointer'>Instagram</div>
+              <div className='dark:hover:text-white hover:text-[var(--primary-900)] cursor-pointer'>Youtube</div>
             </div>
           </div>
 
@@ -64,9 +66,9 @@ export function Footer() {
             Company
             </h3>
             <div className='flex flex-col gap-4 text-[var(--text-sub-color)]'>
-              <div className='hover:text-[var(--primary-900)] cursor-pointer'>Home</div>
-              <div className='hover:text-[var(--primary-900)] cursor-pointer'>Terms</div>
-              <div className='hover:text-[var(--primary-900)] cursor-pointer'>Privacy</div>
+              <NavLink to="/" onClick={() => goToSection("home", navigate)} className='dark:hover:text-white hover:text-[var(--primary-900)] cursor-pointer'>Home</NavLink>
+              <div className='dark:hover:text-white hover:text-[var(--primary-900)] cursor-pointer'>Terms</div>
+              <div className='dark:hover:text-white hover:text-[var(--primary-900)] cursor-pointer'>Privacy</div>
             </div>
           </div>
 

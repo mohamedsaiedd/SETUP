@@ -1,18 +1,36 @@
 import { GraduationCap } from 'lucide-react';
 import { useState } from 'react';
 import DropDown from './DropDown';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ThemeToggle from '../../ThemToggle';
 
 // const SectionPaddingZ = "px-4 sm:px-6 lg:px-8";
 
+export function goToSection(id: string, navigate: any) {
+  const element = document.getElementById(id);
+
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  } else {
+    navigate("/");
+
+    setTimeout(() => {
+      const target = document.getElementById(id);
+      target?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  }
+}
+
+
 export function Header() {
   const [open, setOpen] = useState(false)
 
+  const navigate = useNavigate()
+
   return (
-    <header className="bg-white dark:bg-gray-900  dark:text-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="w-full px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+    <header className="bg-white dark:bg-gray-900 w-full dark:text-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        <NavLink onClick={() => goToSection("home", navigate)} to="/" className="flex items-center gap-3">
           <div className="bg-[var(--primary-color)] p-2 rounded-lg">
             <GraduationCap className="text-white w-6 h-6" />
           </div>
@@ -20,13 +38,13 @@ export function Header() {
           flex flex-col ">
             SETUP {" "}<span className="text-[var(--primary-color)]">ACADEMY</span>
           </h1>
-        </div>
+        </NavLink>
 
         {/* Desktop Menu */}
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--text-sub-color)]">
-            <a href="#" className="hover:text-[var(--headLine-text)]">Home</a>
-            <a href="#" className="hover:text-[var(--headLine-text)]">About</a>
+            <NavLink to="/" onClick={() => goToSection("home", navigate)} className="hover:text-[var(--headLine-text)]">Home</NavLink>
+            <button onClick={() => goToSection("about", navigate)} className="hover:text-[var(--headLine-text)]">About</button>
           </nav>
 
           <div className="flex items-center gap-4 pr-4 border-r lg:border-l md:pl-4 md:pr-0 lg:border-r-0 border-gray-200">
