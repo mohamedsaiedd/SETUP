@@ -25,8 +25,10 @@ model User {
   phone     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  classId   String?
 
   // Relations
+  class          Class?         @relation(fields: [classId], references: [id])
   teacherCourses Course[]       @relation("TeacherCourses")
   enrollments    Enrollment[]
   submissions    Submission[]
@@ -35,6 +37,7 @@ model User {
 
   @@index([email])
   @@index([role])
+  @@index([classId])
   @@map("users")
 }
 
@@ -47,37 +50,71 @@ enum Role {
 
 // ==================== COURSE MODELS ====================
 
+
 model Course {
-  id            String       @id @default(uuid())
-  title         String
-  description   String?      @db.Text
-  category      String?
-  thumbnailUrl  String?
-  status        CourseStatus @default(DRAFT)
-  teacherId     String
-  driveFolderId String? // Google Drive folder ID
-  duration      Int? // Total duration in minutes
-  price         Float        @default(0) // For future paid courses
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  id  String @id @default(uuid())
+  title String
+  description String? @db.Text
+  category String?
+  thumbnailUrl String?
+  status CourseStatus @default(DRAFT)
+  teacherId String
+  gradeId   String?
+  price Float @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teacher User @relation("TeacherCourses", fields: [teacherId], references: [id])
+  grade   Grade? @relation(fields: [gradeId], references: [id])
 
   // Relations
-  teacher     User           @relation("TeacherCourses", fields: [teacherId], references: [id], onDelete: Cascade)
   modules     CourseModule[]
   enrollments Enrollment[]
   assignments Assignment[]
 
   @@index([teacherId])
+  @@index([gradeId])
   @@index([status])
   @@index([category])
   @@map("courses")
 }
 
+
 enum CourseStatus {
   DRAFT
   PUBLISHED
   ARCHIVED
+  PENDING
 }
+
+
+
+
+// model Course {
+//   id            String       @id @default(uuid())
+//   title         String
+//   description   String?      @db.Text
+//   category      String?
+//   thumbnailUrl  String?
+//   status        CourseStatus @default(DRAFT)
+//   teacherId     String
+//   driveFolderId String? // Google Drive folder ID
+//   duration      Int? // Total duration in minutes
+//   price         Float        @default(0) // For future paid courses
+//   createdAt     DateTime     @default(now())
+//   updatedAt     DateTime     @updatedAt
+
+//   // Relations
+//   teacher     User           @relation("TeacherCourses", fields: [teacherId], references: [id], onDelete: Cascade)
+//   modules     CourseModule[]
+//   enrollments Enrollment[]
+//   assignments Assignment[]
+
+//   @@index([teacherId])
+//   @@index([status])
+//   @@index([category])
+//   @@map("courses")
+// }
 
 model CourseModule {
   id          String   @id @default(uuid())
@@ -296,6 +333,37 @@ model File {
 }
 
 // ==================== SYSTEM SETTINGS ====================
+
+// ==================== SCHOOL STRUCTURE ====================
+
+model Grade {
+  id        String   @id @default(uuid())
+  name      String   @unique // e.g., "Grade 10", "Year 1"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  classes Class[]
+  courses Course[]
+
+  @@map("grades")
+}
+
+model Class {
+  id        String   @id @default(uuid())
+  name      String   
+  gradeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  grade    Grade  @relation(fields: [gradeId], references: [id], onDelete: Cascade)
+  students User[]
+
+  @@unique([gradeId, name]) // "Grade 10 - A" should be unique
+  @@index([gradeId])
+  @@map("classes")
+}
 
 model Setting {
   id        String   @id @default(uuid())
