@@ -22,7 +22,12 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
 } as const;
 
+
+
+
 export function HeroSection() {
+
+    
     
     return (
         <div className="w-full">
@@ -33,9 +38,10 @@ export function HeroSection() {
             initial="hidden"       
             whileInView="show"      
             viewport={{ once: true, amount: 0.1 }}
+            id="home"
             className={`dark:bg-gray-900 ${SectionPaddingY} w-full overflow-hiddendark:text-white `}
             >
-                <motion.div variants={item} className={` mx-auto ${SectionPaddingY} bg-[var(--bg-gray)] dark:bg-[var(--primary-800)] rounded-e-[100px]  max-w-7xl`}>
+                <motion.div variants={item} className={`container mx-auto ${SectionPaddingY} bg-[var(--bg-gray)] dark:bg-[var(--primary-800)] rounded-e-[100px]`}>
 
                     <motion.div variants={item} className={`flex ${SectionPaddingZ} flex-col lg:flex-row items-center justify-between gap-10`}>
                         {/* content || text */}
@@ -84,7 +90,7 @@ export function HeroSection() {
             viewport={{ once: true, amount: 0.1 }}
             className={`w-full ${SectionPaddingY} bg-[#1e3a5f] relative overflow-hidden`}>
                 {/* Background gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f] via-[#162d4a] to-[#0f1d2f]"></div>
+                <div className="container mx-auto absolute bg-gradient-to-br from-[#1e3a5f] via-[#162d4a] to-[#0f1d2f]"></div>
 
                 {/* Decorative blurred circles */}
                 <motion.div variants={item} className="absolute inset-0 opacity-20">
@@ -156,13 +162,13 @@ export function HeroSection() {
 
             {/* Features Section */}
             <motion.div
-            className={`${SectionPaddingY} dark:bg-gray-900  dark:text-white`}
+            className={`${SectionPaddingY} w-full dark:bg-gray-900  dark:text-white`}
             variants={container}   
             initial="hidden"       
             whileInView="show"      
             viewport={{ once: true, amount: 0.1 }}
             >
-                <motion.div variants={item} className={`${SectionPaddingZ} grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${GapSize}`}>
+                <motion.div variants={item} className={`container mx-auto ${SectionPaddingZ} grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${GapSize}`}>
                     <Boxes
                         title="Notifications"
                         paragraph="Send instant notifications to students and parents via email, WhatsApp, or SMS."
@@ -224,49 +230,56 @@ export function HeroSection() {
                 </motion.div>
             </motion.div>
 
-            {/* Join Us Section */}
+            {/* about */}
             <motion.div
             className={`w-full dark:bg-gray-900  dark:text-white`}
             variants={container}   
             initial="hidden"       
             whileInView="show"      
             viewport={{ once: true, amount: 0.1 }}
+            
             >
                
-                <motion.div variants={item} className={`bg-[var(--bg-gray)] rounded-t-[100px]  dark:bg-[var(--primary-800)] rounded-t-[100px] ${SectionPaddingY}`}>
-                    <div className={`w-full ${SectionPaddingZ} overflow-hidden rounded-xl flex flex-col-reverse lg:flex-row`}>
-                        {/* image */}
-                        <motion.div variants={item} className="w-full lg:w-[35%] h-64 lg:h-auto">
-                            <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqBJeWsHs0s2zqm5Zr-jA6Q3Fqc9FWzyq-Aw&s"
-                                alt=""
-                                className="w-full h-full object-cover rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
-                            />
+                <motion.div variants={item} id="about" className={`container mx-auto bg-[var(--bg-gray)] rounded-t-[100px]  dark:bg-[var(--primary-800)] rounded-t-[100px] ${SectionPaddingY}`}>
+                    <div className={`w-full ${SectionPaddingZ}`}>
+                        <motion.div variants={item} className="text-3xl font-bold mb-10 text-center md:text-left text-[var(--headLine-text)]">
+                            What is Setup Academy?
                         </motion.div>
+                        <div className={`overflow-hidden rounded-xl flex flex-col-reverse lg:flex-row`}>
 
-                        {/* content */}
-                        <motion.div variants={item} className="flex flex-col justify-center gap-3 p-8 w-full lg:w-[65%]">
-                            <motion.div variants={item}>
-                                <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-[var(--headLine-text)]">
-                                    We Teach, Inspire, and Build Success Together
-                                </h2>
+                            {/* image */}
+                            <motion.div variants={item} className="w-full lg:w-[35%] h-64 lg:h-auto">
+                                <img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqBJeWsHs0s2zqm5Zr-jA6Q3Fqc9FWzyq-Aw&s"
+                                    alt=""
+                                    className="w-full h-full object-cover rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
+                                />
                             </motion.div>
 
-                            <motion.div variants={item}>
+                            {/* content */}
+                            <motion.div variants={item} className="flex flex-col justify-center gap-3 p-8 w-full lg:w-[65%]">
+                                <motion.div variants={item}>
+                                    <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-[var(--headLine-text)]">
+                                        We Teach, Inspire, and Build Success Together
+                                    </h2>
+                                </motion.div>
 
-                                <p className="text-[15px] lg:text-base text-[var(--text-sub-color)] leading-relaxed max-w-[520px]">
-                                    We bring high-quality education and meaningful interaction together,
-                                    led by passionate teachers and thoughtfully crafted content
-                                    to help learners reach their full potential.
-                                </p>
-                            </motion.div>
+                                <motion.div variants={item}>
 
-                            <motion.div variants={item} className="pt-2">
-                                <button className="px-6 py-2.5 rounded-lg bg-[var(--primary-color)] text-white font-medium hover:opacity-90 transition">
-                                    Join Us
-                                </button>
+                                    <p className="text-[15px] lg:text-base text-[var(--text-sub-color)] leading-relaxed max-w-[520px]">
+                                        We bring high-quality education and meaningful interaction together,
+                                        led by passionate teachers and thoughtfully crafted content
+                                        to help learners reach their full potential.
+                                    </p>
+                                </motion.div>
+
+                                <motion.div variants={item} className="pt-2">
+                                    <button className="px-6 py-2.5 rounded-lg bg-[var(--primary-color)] text-white font-medium hover:opacity-90 transition">
+                                        Join Us
+                                    </button>
+                                </motion.div>
                             </motion.div>
-                        </motion.div>
+                        </div>
                     </div>
                 </motion.div>
             </motion.div>
