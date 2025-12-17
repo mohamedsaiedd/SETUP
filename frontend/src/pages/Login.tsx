@@ -18,7 +18,7 @@ export function Login() {
         setSuccess(null);
 
         try {
-            const response = await axios.post('http://localhost:5000/auth/login', {
+            const response = await axios.post('https://setup-production-c651.up.railway.app/auth/login', {
                 email,
                 password,
             });
