@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { GraduationCap, Mail, Lock, Loader2 } from 'lucide-react';
+import { useAuth } from '../constext/AuthContext';
 
 export function Login() {
     const navigate = useNavigate();
@@ -10,6 +11,8 @@ export function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState<any>(null);
+
+    const {login} = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -24,7 +27,7 @@ export function Login() {
             });
             setSuccess(response.data);
             console.log('Login successful:', response.data);
-            
+            login(response.data);
             // Redirect to dashboard after successful login
             setTimeout(() => {
                 navigate('/dashboard');

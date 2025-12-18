@@ -1,5 +1,6 @@
 import { Bell, Search, ChevronDown, LogOut } from 'lucide-react';
 import { useState } from 'react';
+import { useAuth } from '../../constext/AuthContext';
 
 interface DashboardNavbarProps {
     sidebarCollapsed: boolean;
@@ -15,7 +16,7 @@ export function DashboardNavbar({
     userAvatar
 }: DashboardNavbarProps) {
     const [showUserMenu, setShowUserMenu] = useState(false);
-
+    const { logout } = useAuth();
     return (
         <header
             className={`
@@ -77,12 +78,13 @@ export function DashboardNavbar({
                                 <hr className="my-2" />
                                 <button
                                     onClick={() => {
-                                        // Handle logout
-                                        window.location.href = '/login';
+                                        logout()
+                                        window.location.href = '/';
                                     }}
                                     className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full"
                                 >
-                                    <LogOut className="w-4 h-4" />
+                                    <LogOut className="w-4 h-4" 
+                                    />
                                     Logout
                                 </button>
                             </div>
