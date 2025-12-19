@@ -1,12 +1,7 @@
 import { DashboardLayout } from '../components/Dashboard/DashboardLayout';
 import { BookOpen, Users, TrendingUp, Clock } from 'lucide-react';
-
+import { useAuth } from "../constext/AuthContext";
 // Mock user data - replace with actual user data from auth
-const mockUser = {
-    name: 'John Doe',
-    role: 'Student',
-    avatar: undefined
-};
 
 const stats = [
     { label: 'Enrolled Courses', value: '12', icon: BookOpen, color: 'bg-blue-500' },
@@ -16,16 +11,18 @@ const stats = [
 ];
 
 export function Dashboard() {
+    const { user } = useAuth()
+    
     return (
         <DashboardLayout 
-            userName={mockUser.name}
-            userRole={mockUser.role}
-            userAvatar={mockUser.avatar}
+            userName={user?.name}
+            userRole={user?.role}
+            userAvatar={user?.avatar}
         >
             {/* Welcome Section */}
             <div className="mb-8">
                 <h1 className="text-2xl font-bold text-gray-900">
-                    Welcome back, <span className="text-[#1e3a5f]">{mockUser.name}</span>! 👋
+                    Welcome back, <span className="text-[#1e3a5f]">{user?.name}</span>! 👋
                 </h1>
                 <p className="text-gray-500 mt-1">Here's what's happening with your learning today.</p>
             </div>

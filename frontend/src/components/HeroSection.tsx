@@ -17,6 +17,7 @@ import heroCalculator from "../assets/hero-calculator.png";
 import heroPencil from "../assets/hero-pencil.png";
 import heroPalette from "../assets/hero-palette.png";
 import aboutIllustration from "../assets/about-illustration.png";
+// import { useAuth } from "../constext/AuthContext";
 
 const container = {
   hidden: {},
@@ -29,12 +30,10 @@ const item = {
 } as const;
 
 
-
-
 export function HeroSection() {
 
-    
-    
+    // const { user } = useAuth()
+     
     return (
         <div className="w-full">
 
@@ -45,7 +44,7 @@ export function HeroSection() {
             whileInView="show"      
             viewport={{ once: true, amount: 0.1 }}
             id="home"
-            className={` dark:bg-gray-900 ${SectionPaddingY} w-full overflow-hidden dark:text-white lg:min-h-screen lg:mt-0 flex items-center mt-[100px]`}
+            className={` dark:bg-gray-900 ${SectionPaddingY} w-full overflow-hidden dark:text-white lg:min-h-screen lg:mt-0 flex items-center mt-[90px]`}
             >
                 <motion.div variants={item} className={`mx-auto ${SectionPaddingY} w-full`}>
 
@@ -344,7 +343,7 @@ export function HeroSection() {
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                             Why Choose <span className="text-[#d4a853]">setup Academy</span>
                         </h2>
-                        <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
                             Join thousands of students who have transformed their careers with our premium courses
                         </p>
                     </motion.div>
@@ -386,7 +385,7 @@ export function HeroSection() {
 
                     {/* CTA */}
                     <motion.div variants={item} className="text-center mt-16">
-                        <p className="text-gray-300 mb-6">Ready to start your journey?</p>
+                        <p className="text-gray-400 mb-6">Ready to start your journey?</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <button className="px-8 py-3.5 rounded-xl bg-[#d4a853] text-white font-semibold hover:bg-[#b8923f] transition shadow-lg cursor-pointer">
                                 Start Learning Today
@@ -462,7 +461,7 @@ export function HeroSection() {
                             </motion.div>
 
                             {/* content */}
-                            <motion.div variants={item} className="flex flex-col justify-center gap-3 p-8 w-full lg:w-[60%]">
+                            <motion.div variants={item} className="flex flex-col justify-center gap-3 w-full lg:w-[60%]">
                                 <motion.div variants={item}>
                                     <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-[var(--headLine-text)]">
                                         We Teach, Inspire, and Build Success Together
@@ -491,14 +490,14 @@ export function HeroSection() {
 
             {/* Featured Courses */}
             <motion.div
-            className={`w-full ${SectionPaddingY} relative overflow-hidden p-8 sm:p-12 bg-[var(--primary-color)]   dark:bg-gray-900  `}
+            className={`w-full ${SectionPaddingY} ${SectionPaddingZ} relative overflow-hidden bg-[var(--primary-color)] dark:bg-gray-900  `}
             variants={container}   
             initial="hidden"       
             whileInView="show"      
             viewport={{ once: true, amount: 0.1 }}
             >
-                <motion.div variants={item} className={`${SectionPaddingZ} `}>
-                    <motion.div variants={item} className={`container mx-auto w-full relative overflow-hidden rounded-3xl p-8 sm:p-12`}>
+                <motion.div variants={item} className={` `}>
+                    <motion.div variants={item} className={`container mx-auto w-full relative overflow-hidden rounded-3xl`}>
                         
                         <div className="relative z-10">
                             <div className="text-3xl font-bold mb-10 text-center md:text-left text-white">
@@ -519,6 +518,7 @@ export function HeroSection() {
                     </motion.div>
                 </motion.div>
             </motion.div>
+
 
         </div>
     )
