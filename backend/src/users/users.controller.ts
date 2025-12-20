@@ -53,6 +53,16 @@ export class UserController {
         return this.UsersService.create(body);
     }
 
+    @Get('teachers')
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Get all Teachers' })
+    @ApiResponse({ status: 200, description: 'List of all Teachers' })
+    async getTeachers() {
+        return this.UsersService.findAll({
+            where: { role: 'TEACHER' }
+        });
+    }
+
     @Get()
     @HttpCode(200)
     @ApiOperation({ summary: 'Get all Users' })

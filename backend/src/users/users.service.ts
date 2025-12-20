@@ -9,8 +9,8 @@ import * as bcrypt from 'bcrypt';
 export class UsersService {
     constructor(private prisma: PrismaService) { }
 
-    findAll() {
-        return this.prisma.user.findMany();
+    findAll(params?: Prisma.UserFindManyArgs) {
+        return this.prisma.user.findMany(params);
     }
 
     findById(id: string) {

@@ -25,15 +25,13 @@ model User {
   phone     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  classId   String?
 
   // Relations
-  class          Class?         @relation(fields: [classId], references: [id])
-  teacherCourses Course[]       @relation("TeacherCourses")
+  teacherCourses Course[] @relation("TeacherCourses")
+  enrolledCourses Course[] @relation("CourseEnrollments")
 
   @@index([email])
   @@index([role])
-  @@index([classId])
   @@map("users")
 }
 
@@ -48,25 +46,24 @@ enum Role {
 
 
 model Course {
-  id  String @id @default(uuid())
-  title String
-  description String? @db.Text
-  category String?
+  id           String       @id @default(uuid())
+  title        String
+  description  String?      @db.Text
+  category     String?
   thumbnailUrl String?
-  status CourseStatus @default(DRAFT)
-  teacherId String
-  gradeId   String?
-  price Float @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  status       CourseStatus @default(DRAFT)
+  teacherId    String
+  price        Float        @default(0)
+  zoomLink     String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
   // Relations
-  teacher User @relation("TeacherCourses", fields: [teacherId], references: [id])
-  grade   Grade? @relation(fields: [gradeId], references: [id])
+  teacher  User   @relation("TeacherCourses", fields: [teacherId], references: [id])
+  students User[] @relation("CourseEnrollments")
 
 
   @@index([teacherId])
-  @@index([gradeId])
   @@index([status])
   @@index([category])
   @@map("courses")
@@ -80,33 +77,3 @@ enum CourseStatus {
   PENDING
 }
 
-// ==================== SCHOOL STRUCTURE ====================
-
-model Grade {
-  id        String   @id @default(uuid())
-  name      String   @unique // e.g., "Grade 10", "Year 1"
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relations
-  classes Class[]
-  courses Course[]
-
-  @@map("grades")
-}
-
-model Class {
-  id        String   @id @default(uuid())
-  name      String   
-  gradeId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relations
-  grade    Grade  @relation(fields: [gradeId], references: [id], onDelete: Cascade)
-  students User[]
-
-  @@unique([gradeId, name]) // "Grade 10 - A" should be unique
-  @@index([gradeId])
-  @@map("classes")
-}
