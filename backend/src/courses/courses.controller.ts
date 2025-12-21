@@ -1,6 +1,10 @@
-import { Controller, HttpCode, Post, Body, Get, Delete, HttpStatus, Param } from "@nestjs/common";
+import { Controller, HttpCode, Post, Body, Get, Delete, HttpStatus, Param, UseGuards } from "@nestjs/common";
 import { CoursesService } from "./courses.service";
 import { CoursesDto } from "./dto/courses.dto";
+import { AuthGuard } from "src/auth/guards/auth.guard";
+import { RolesGuard } from "src/auth/guards/roles.guard";
+import { Roles } from "src/auth/decorators/roles.decorator";
+import { Role } from "@prisma/client";
 
 
 @Controller('courses')
@@ -9,24 +13,34 @@ export class CoursesController {
     @Get()
     @HttpCode(HttpStatus.OK)
     async findAll() {
-        return this.CoursesService.findAll({
-            include: {
-                teacher: {
-                    select: {
-                        name: true
-                    }
-                }
-            }
-        });
+        return this.CoursesService.findAll();
+    }
+
+    @Get(':id')
+    @HttpCode(HttpStatus.OK)
+    async findOne(@Param('id') id: string) {
+        return this.CoursesService.findOne(id);
     }
 
     @Post()
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(Role.ADMIN, Role.SUPERVISOR)
     @HttpCode(HttpStatus.CREATED)
     async create(@Body() dto: CoursesDto) {
         return this.CoursesService.create(dto);
     }
 
+    @Post(':id/enroll')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(Role.ADMIN, Role.SUPERVISOR)
+    @HttpCode(HttpStatus.OK)
+    async enroll(@Param('id') id: string, @Body('studentId') studentId: string) {
+        return this.CoursesService.enroll(id, studentId);
+    }
+
     @Delete(':id')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(Role.ADMIN, Role.SUPERVISOR)
     @HttpCode(HttpStatus.OK)
     async delete(@Param('id') id: string) {
         return {

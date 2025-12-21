@@ -47,7 +47,7 @@ enum Role {
 
 model Course {
   id           String       @id @default(uuid())
-  title        String
+  title        String       @unique
   description  String?      @db.Text
   category     String?
   thumbnailUrl String?
