@@ -1,8 +1,9 @@
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap , LogOut , ChevronDown} from 'lucide-react';
 import { useState } from 'react';
 import DropDown from './DropDown';
 import { NavLink, useNavigate } from 'react-router-dom';
 import ThemeToggle from '../../ThemToggle';
+import { useAuth } from '../../constext/AuthContext';
 
 // const SectionPaddingZ = "px-4 sm:px-6 lg:px-8";
 
@@ -24,8 +25,11 @@ export function goToSection(id: string, navigate: any) {
 
 export function Header() {
   const [open, setOpen] = useState(false)
-
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const navigate = useNavigate()
+  const { logout } = useAuth();
+  const { user } = useAuth()
+  
 
   return (
     <header className=" bg-white dark:bg-gray-900 w-full dark:text-white border-b border-gray-200 fixed top-0 z-50 ">
@@ -43,52 +47,84 @@ export function Header() {
         {/* Desktop Menu */}
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--text-sub-color)]">
+            {localStorage.getItem('refresh_token')?
+              <NavLink to="/dashboard" className=" hover:dark:text-white hover:text-[var(--headLine-text)] rounded-lg">
+                Dashboard
+              </NavLink> : null}
             <NavLink to="/" onClick={() => goToSection("home", navigate)} className="hover:text-[var(--headLine-text)]">Home</NavLink>
-            <button onClick={() => goToSection("about", navigate)} className="hover:text-[var(--headLine-text)]">About</button>
+            <button onClick={() => goToSection("about", navigate)} className="hover:text-[var(--headLine-text)] cursor-pointer">About</button>
           </nav>
 
           <div className="flex items-center gap-4 pr-4 border-r lg:border-l md:pl-4 md:pr-0 lg:border-r-0 border-gray-200">
-            {/* <button className="text-gray-400 hover:text-gray-600 relative">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-            </button>
-            <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 border border-gray-200">
-              <User className="w-5 h-5" />
-            </div> */}
-
-            {/* dark them */}
-            {/* <button onClick={toggleThem} className='p-2 hover:bg-gray-100 rounded-lg'>
-              {dark?(
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                  <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
-                </svg>
-              ): (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                  <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clip-rule="evenodd" />
-                </svg>
-              )}
-            </button> */}
-
+            
+            {/* dark mode button */}
             <ThemeToggle/>
 
-            <NavLink to="/login" className='text-white'>
+              {localStorage.getItem('refresh_token')? 
+
+                <div className="relative">
+                    <button
+                        onClick={() => setShowUserMenu(!showUserMenu)}
+                        className="flex items-center gap-3 p-2 hover:dark:bg-[var(--primary-800)] hover:bg-gray-100 rounded-xl transition">
+                        <div className="w-9 h-9 rounded-full bg-[#1e3a5f] flex items-center justify-center text-white font-semibold text-sm">
+                            {user?.avatar ? (
+                                <img src={user?.avatar} alt={user?.name} className="w-full h-full rounded-full object-cover" />
+                            ) : (
+                                user?.name.split(' ').map(n => n[0]).join('').toUpperCase()
+                            )}
+                        </div>
+                        <div className="hidden md:block text-left">
+                            <p className="text-sm font-medium dark:text-white text-gray-800">{user?.name}</p>
+                            <p className="text-xs dark:text-[var(--text-sub-color)] text-gray-500">{user?.role}</p>
+                        </div>
+                        <ChevronDown className="w-4 h-4 text-gray-400" />
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    {showUserMenu && (
+                      <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border dark:border-0 border-gray-200 p-1 z-50">
+                          <NavLink to="/profile" className="flex items-center text-gray-500 rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
+                              Profile
+                          </NavLink>
+                          <a href="/dashboard/settings" className="flex items-center rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm text-gray-500 hover:bg-gray-200 hover:text-gray-900">
+                              Settings
+                          </a>
+                          <hr className="my-2" />
+                          <button
+                              onClick={() => {
+                                  logout()
+                                  window.location.href = '/';
+                              }}
+                              className="flex items-center hover:dark:bg-gray-800 rounded-lg gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full">
+                              <LogOut className="w-4 h-4" 
+                              />
+                              Logout
+                          </button>
+                      </div>
+                    )}
+                </div>
+
+              :
+
+              <NavLink to="/login" className='text-white'>
               <button className='
-            px-6 py-2
-            bg-[var(--primary-color)]
-            hover:opacity-90
-            text-white 
-            font-semibold
-            rounded-full 
-            shadow-md 
-            dark:bg-[var(--primary-color)]
-            hover:dark:opacity-90
-            cursor-pointer
-            transition-colors
-            duration-300 
-            '>
-                Login
-              </button>
-            </NavLink>
+              px-6 py-2
+              bg-[var(--primary-color)]
+              hover:opacity-90
+              text-white 
+              font-semibold
+              rounded-full 
+              shadow-md 
+              dark:bg-[var(--primary-color)]
+              hover:dark:opacity-90
+              cursor-pointer
+              transition-colors
+              duration-300 
+              '>
+                  Login
+                </button>
+              </NavLink>}
+            
           </div>
 
           {/* MObile hamburger menu */}

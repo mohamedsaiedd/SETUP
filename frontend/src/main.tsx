@@ -8,6 +8,7 @@ import { ThemeProvider } from "./context/ThemContext.tsx";
 import { AuthProvider, useAuth } from "./constext/AuthContext.tsx";
 import './App.css'
 import { Error } from './pages/Error.tsx'
+import { Profile } from './pages/Profile.tsx'
 
 
 export const AppRouter = () => {
@@ -21,7 +22,10 @@ export const AppRouter = () => {
 
           {/* protected route */} 
           {user? 
+          <>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+          </>
           : <Route path="*" element={<Error />} />}
         </Routes>
       </BrowserRouter>

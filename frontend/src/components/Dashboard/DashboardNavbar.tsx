@@ -1,6 +1,7 @@
 import { Bell, Search, ChevronDown, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../../constext/AuthContext';
+import { NavLink } from 'react-router-dom';
 
 interface DashboardNavbarProps {
     sidebarCollapsed: boolean;
@@ -69,9 +70,9 @@ export function DashboardNavbar({
                         {/* Dropdown Menu */}
                         {showUserMenu && (
                             <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
-                                <a href="/dashboard/profile" className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                <NavLink to="/profile" className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
                                     Profile
-                                </a>
+                                </NavLink>
                                 <a href="/dashboard/settings" className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
                                     Settings
                                 </a>
@@ -90,6 +91,7 @@ export function DashboardNavbar({
                             </div>
                         )}
                     </div>
+                    
                 </div>
             </div>
         </header>

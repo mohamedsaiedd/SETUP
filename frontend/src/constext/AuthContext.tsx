@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     localStorage.setItem('user', JSON.stringify(data.data));
     localStorage.setItem('access_token', data.tokens.accessToken);
-    localStorage.setItem('refresh_token', data.tokens.refreshToken); 
+    localStorage.setItem('refresh_token', data.tokens.refreshToken);
   };
 
   const logout = () => {
@@ -44,7 +44,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAccessToken(null);
     setRefreshToken(null);
     localStorage.clear(); 
-    
   };
 
   const contextValue = useMemo(() => ({

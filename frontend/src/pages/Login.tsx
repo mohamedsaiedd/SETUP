@@ -5,14 +5,13 @@ import { GraduationCap, Mail, Lock, Loader2 } from 'lucide-react';
 import { useAuth } from '../constext/AuthContext';
 
 export function Login() {
+    const { login } = useAuth()
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState<any>(null);
-
-    const {login} = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,6 +27,7 @@ export function Login() {
             setSuccess(response.data);
             console.log('Login successful:', response.data);
             login(response.data);
+            
             // Redirect to dashboard after successful login
             setTimeout(() => {
                 navigate('/dashboard');
@@ -40,8 +40,9 @@ export function Login() {
         }
     };
 
+
     return (
-        <div className="min-h-screen flex">
+        <div className="min-h-screen dark:bg-amber-700 flex">
             {/* Left Side - Branding */}
             <div className="hidden lg:flex lg:w-1/2 bg-[#1e3a5f] relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f] via-[#162d4a] to-[#0f1d2f]"></div>
@@ -55,7 +56,7 @@ export function Login() {
                         <div className="bg-white/10 backdrop-blur p-3 rounded-xl border border-white/20">
                             <GraduationCap className="w-8 h-8" />
                         </div>
-                        <h1 className="text-2xl font-bold tracking-tight">
+                        <h1 className="text-2xl font-bold flex flex-col tracking-tight">
                             Setup <span className="text-[#d4a853]">Academy</span>
                         </h1>
                     </div>
@@ -82,26 +83,26 @@ export function Login() {
             </div>
 
             {/* Right Side - Form */}
-            <div className="w-full lg:w-1/2 flex items-center justify-center bg-[#fafafa] px-6 py-12">
+            <div className="w-full dark:bg-gray-900 text-white lg:w-1/2 flex items-center justify-center bg-[#fafafa] px-6 py-12">
                 <div className="w-full max-w-md">
                     {/* Mobile Logo */}
                     <div className="lg:hidden flex items-center justify-center gap-3 mb-10">
                         <div className="bg-[#1e3a5f] p-2 rounded-lg">
                             <GraduationCap className="text-white w-6 h-6" />
                         </div>
-                        <h1 className="text-xl font-bold text-gray-800 tracking-tight">
+                        <h1 className="text-xl font-bold text-gray-800 dark:text-white tracking-tight">
                             Setup <span className="text-[#d4a853]">Academy</span>
                         </h1>
                     </div>
 
                     <div className="text-center lg:text-left mb-8">
-                        <h2 className="text-3xl font-bold text-[#1e3a5f] mb-2">Sign in</h2>
-                        <p className="text-[#334155]">Enter your credentials to access your account</p>
+                        <h2 className="text-3xl dark:text-white font-bold text-start text-[#1e3a5f] mb-2">Sign in</h2>
+                        <p className="text-[#334155] text-start dark:text-gray-400">Enter your credentials to access your account</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-[#334155] mb-2">
+                            <label htmlFor="email" className="block dark:text-white text-sm font-medium text-[#334155] mb-2">
                                 Email Address
                             </label>
                             <div className="relative">
@@ -113,13 +114,13 @@ export function Login() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="you@example.com"
                                     required
-                                    className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition shadow-sm"
+                                    className="w-full pl-12 pr-4 py-3 rounded-xl dark:text-white dark:focus:ring-white dark:bg-gray-900 bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition shadow-sm"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-[#334155] mb-2">
+                            <label htmlFor="password" className="block text-sm dark:text-white font-medium text-[#334155] mb-2">
                                 Password
                             </label>
                             <div className="relative">
@@ -131,14 +132,14 @@ export function Login() {
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
                                     required
-                                    className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition shadow-sm"
+                                    className="w-full pl-12 pr-4 py-3 rounded-xl dark:text-white dark:bg-gray-900 dark:focus:ring-white bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition shadow-sm"
                                 />
                             </div>
                         </div>
 
                         <div className="flex items-center justify-between text-sm">
-                            <label className="flex items-center gap-2 text-[#334155]">
-                                <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#1e3a5f] focus:ring-[#1e3a5f]" />
+                            <label className="flex items-center dark:text-white gap-2 text-[#334155]">
+                                <input type="checkbox" className="w-4 h-4 rounded  border-gray-300 text-[#1e3a5f] focus:ring-[#1e3a5f]" />
                                 Remember me
                             </label>
                             <a href="#" className="text-[#d4a853] hover:text-[#b8923f] font-medium">
