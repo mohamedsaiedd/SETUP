@@ -70,7 +70,7 @@ export function DashboardLayout({
                     ${isMobile? 'ml-20' :sidebarCollapsed ? 'ml-20' : 'ml-64'}
                 `}
             >
-                <div className={`p-6 `}>
+                <div className={`p-6 dark:bg-gray-900`}>
                     {children}
                 </div>
             </main>

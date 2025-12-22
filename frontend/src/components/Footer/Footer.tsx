@@ -6,7 +6,7 @@ export function Footer() {
   const navigate = useNavigate()
 
   return (
-    <footer className="w-full bg-white dark:bg-gray-900  dark:text-white px-4 sm:px-6 lg:px-8 py-4 border-t w-full border-gray-200 mt-auto">
+    <footer className="w-full bg-white dark:bg-gray-900 dark:border-gray-700 dark:text-white px-4 sm:px-6 lg:px-8 py-4 border-t w-full border-gray-200 mt-auto">
       
       <div className="container mx-auto flex flex-col items-center mb-6">
         <div className="flex items-center w-full justify-between text-sm text-gray-500">
@@ -80,7 +80,7 @@ export function Footer() {
 
       <div className='items-center flex gap-5 lg:flex-row flex-col justify-between border-[var(--bg-gray)] pt-6'>
 
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-[var(--text-sub-color)]">
           © {new Date().getFullYear()} Setup Academy. All rights reserved.
         </p>
       </div>
