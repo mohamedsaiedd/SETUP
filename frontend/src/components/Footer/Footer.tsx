@@ -21,7 +21,7 @@ export function Footer() {
               </div>
               <h1 className="text-xl font-bold text-[var(--headLine-text)] tracking-tight
               flex flex-col">
-                SETUP {" "}<span className="text-[var(--primary-color)]">ACADEMY</span>
+                STEPUP {" "}<span className="text-[var(--primary-color)]">ACADEMY</span>
               </h1>
             </NavLink>
             <div className='flex flex-col gap-4 text-[var(--text-sub-color)]'>
@@ -81,7 +81,7 @@ export function Footer() {
       <div className='items-center flex gap-5 lg:flex-row flex-col justify-between border-[var(--bg-gray)] pt-6'>
 
         <p className="text-sm text-[var(--text-sub-color)]">
-          © {new Date().getFullYear()} Setup Academy. All rights reserved.
+          © {new Date().getFullYear()} stepup academy. All rights reserved.
         </p>
       </div>
         

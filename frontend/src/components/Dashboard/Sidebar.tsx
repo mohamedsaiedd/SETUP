@@ -43,7 +43,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                     </div>
                     {!isCollapsed && (
                         <span className="font-bold text-lg flex flex-col">
-                            Setup <span className="text-[#d4a853]">Academy</span>
+                            Stepup <span className="text-[#d4a853]">Academy</span>
                         </span>
                     )}
                 </div>

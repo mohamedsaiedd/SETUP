@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useAuth } from '../../constext/AuthContext';
 import { NavLink } from 'react-router-dom';
 import ThemeToggle from '../../ThemToggle';
+import { useLocation } from "react-router-dom";
 
 interface DashboardNavbarProps {
     sidebarCollapsed: boolean;
@@ -19,6 +20,9 @@ export function DashboardNavbar({
 }: DashboardNavbarProps) {
     const [showUserMenu, setShowUserMenu] = useState(false);
     const { logout } = useAuth();
+    const location = useLocation();
+    const isProfilePage = location.pathname === "/profile";
+
     return (
         <header
             className={`
@@ -35,8 +39,8 @@ export function DashboardNavbar({
                         <input
                             type="text"
                             placeholder="Search..."
-                            className="pl-10 pr-4 py-2 w-64 dark:text-white dark:border-gray-700 bg-gray-50 border dark:bg-gray-800/50 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a5f]/20 focus:border-[#1e3a5f]"
-                        />
+                            className="pl-10 pr-4 py-2 w-20 sm:w-50 md:w-64 lg:w-64 dark:text-white dark:border-gray-700 bg-gray-50 border dark:bg-gray-800/50 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a5f]/20 focus:border-[#1e3a5f]"
+                            />
                     </div>
                 </div>
 
@@ -74,10 +78,12 @@ export function DashboardNavbar({
 
                         {/* Dropdown Menu */}
                         {showUserMenu && (
-                      <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border dark:border-0 border-gray-200 p-1 z-50">
-                          <NavLink to="/profile" className="flex items-center text-[var(--text-sub-color)] rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
+                      <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border dark:border-gray-700 border-gray-200 p-1 z-50">
+                          {!isProfilePage &&(
+                            <NavLink to="/profile" className="flex items-center text-[var(--text-sub-color)] rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
                               Profile
-                          </NavLink>
+                            </NavLink>
+                          )}
                           <a href="/dashboard/settings" className="flex items-center rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm text-[var(--text-sub-color)] hover:bg-gray-200 hover:text-gray-900">
                               Settings
                           </a>

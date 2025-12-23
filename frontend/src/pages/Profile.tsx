@@ -182,6 +182,8 @@ import { useState, useRef, useEffect } from "react";
 import { useIsMobile } from "../context/UseIsMobile";
 import { Sidebar } from "../components/Dashboard/Sidebar";
 import { useAuth } from "../constext/AuthContext";
+import { DashboardNavbar } from "../components/Dashboard/DashboardNavbar";
+import { DashboardFooter } from "../components/Dashboard/DashboardFooter";
 
 export function Profile() {
 
@@ -276,19 +278,24 @@ export function Profile() {
   
 
   return (
-    
-    <div className="w-full dark:bg-gray-900 flex justify-center">
+      <div className="w-full dark:bg-gray-900 flex justify-center">
       <Sidebar
         isCollapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-      />
+        />
       {isMobile && !sidebarCollapsed && (
-        <div
+          <div
           onClick={() => setSidebarCollapsed(true)}
           className="fixed inset-0 bg-black/50 z-30"
+          />
+        )}
+        <DashboardNavbar 
+        sidebarCollapsed={sidebarCollapsed}
+        userName={user?.name}
+        userRole={user?.role}
+        userAvatar={user?.avatar}
         />
-      )}
-      <div className={`max-w-2xl w-full`}>
+      <div className={`max-w-2xl w-full pt-16 pb-12`}>
         {/* Profile Content */}
         <div className={`flex-1 min-h-screen p-6 transition-all duration-300 ease-in-out ${
           isMobile ? 'ml-20' : sidebarCollapsed ? 'ml-20' : 'ml-64'
@@ -402,7 +409,7 @@ export function Profile() {
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none dark:text-white focus:ring-2 focus:ring-blue-500 resize-none"
+                className="w-full p-3 border border-slate-300 dark:border-gray-700 rounded-lg focus:outline-none dark:text-white focus:ring-2 focus:ring-blue-500 resize-none"
                 rows={3}
               />
             ) : (
@@ -411,7 +418,10 @@ export function Profile() {
               </p>
             )}
           </div>
+
         </div>
+        
+        <DashboardFooter sidebarCollapsed={sidebarCollapsed} />
       </div>
     </div>
   );

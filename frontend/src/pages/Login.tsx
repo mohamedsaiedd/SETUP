@@ -181,7 +181,7 @@ export function Login() {
                     </form>
 
                     <p className="mt-8 text-center text-gray-400 text-sm">
-                        © {new Date().getFullYear()} Setup Academy. All rights reserved.
+                        © {new Date().getFullYear()} stepup academy. All rights reserved.
                     </p>
                 </div>
             </div>

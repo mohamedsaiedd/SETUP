@@ -40,7 +40,7 @@ export function Header() {
           </div>
           <h1 className="text-xl font-bold text-[var(--headLine-text)] tracking-tight
           flex flex-col ">
-            SETUP {" "}<span className="text-[var(--primary-color)]">ACADEMY</span>
+            STEPUP {" "}<span className="text-[var(--primary-color)]">ACADEMY</span>
           </h1>
         </NavLink>
 

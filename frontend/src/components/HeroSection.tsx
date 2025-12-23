@@ -56,7 +56,7 @@ export function HeroSection() {
                             </div>
                             <motion.div variants={item}>
                                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--headLine-text)] leading-tight flex flex-col items-start">
-                                    SETUP{" "}
+                                    STEPUP{" "}
                                     <span className="text-[var(--primary-color)] relative inline-block">
                                         <TypingAnimation />
                                     </span>
@@ -341,7 +341,7 @@ export function HeroSection() {
                     {/* Section Header */}
                     <motion.div variants={item} className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                            Why Choose <span className="text-[#d4a853]">setup Academy</span>
+                            Why Choose <span className="text-[#d4a853]">stepup academy</span>
                         </h2>
                         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
                             Join thousands of students who have transformed their careers with our premium courses
@@ -455,7 +455,7 @@ export function HeroSection() {
                             <motion.div variants={item} className="w-full lg:w-[40%] flex justify-center">
                                 <img
                                     src={aboutIllustration}
-                                    alt="About Setup Academy"
+                                    alt="About stepup academy"
                                     className="w-full max-w-md object-contain"
                                 />
                             </motion.div>
