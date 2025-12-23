@@ -58,7 +58,7 @@ export function DashboardNavbar({
                             onClick={() => setShowUserMenu(!showUserMenu)}
                             className="flex items-center gap-3 p-2 hover:bg-gray-100 hover:dark:bg-[var(--primary-800)] rounded-xl transition"
                         >
-                            <div className="w-9 h-9 rounded-full bg-[#1e3a5f] flex items-center justify-center text-white font-semibold text-sm">
+                            <div className="w-9 h-9 rounded-full bg-[var(--primary-color)] flex items-center justify-center text-white font-semibold text-sm">
                                 {userAvatar ? (
                                     <img src={userAvatar} alt={userName} className="w-full h-full rounded-full object-cover" />
                                 ) : (

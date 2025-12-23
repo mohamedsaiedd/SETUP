@@ -1,4 +1,4 @@
-import { GraduationCap } from 'lucide-react';
+import { Logo } from '../Logo';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { goToSection } from '../Navbar/Header'
 export function Footer() {
@@ -16,13 +16,7 @@ export function Footer() {
             {/* logo */}
             
             <NavLink to="/" onClick={() => goToSection("home", navigate)} className="flex items-center gap-3 mb-4">
-              <div className="bg-[var(--primary-color)] p-2 rounded-lg">
-                <GraduationCap className="text-white w-6 h-6" />
-              </div>
-              <h1 className="text-xl font-bold text-[var(--headLine-text)] tracking-tight
-              flex flex-col">
-                SETUP {" "}<span className="text-[var(--primary-color)]">ACADEMY</span>
-              </h1>
+              <Logo size={40} />
             </NavLink>
             <div className='flex flex-col gap-4 text-[var(--text-sub-color)]'>
 
@@ -79,7 +73,6 @@ export function Footer() {
 
 
       <div className='items-center flex gap-5 lg:flex-row flex-col justify-between border-[var(--bg-gray)] pt-6'>
-
         <p className="text-sm text-[var(--text-sub-color)]">
           © {new Date().getFullYear()} Setup Academy. All rights reserved.
         </p>

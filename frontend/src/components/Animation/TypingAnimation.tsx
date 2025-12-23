@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const words = ["ACADEMY"];
+const words = ["WORLD." , "CAREER." , "SUCCESS." ];
 
 export default function TypingAnimation() {
   const [text, setText] = useState("");
@@ -23,15 +23,14 @@ export default function TypingAnimation() {
           setIndex((prev) => (prev + 1) % words.length);
         }
       }
-    }, isDeleting ? 400 : 300);
+    }, isDeleting ? 100 : 150);
 
     return () => clearTimeout(timeout);
   }, [subIndex, index, isDeleting]);
 
   return (
-    <div className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center">
+    <span className="bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] bg-clip-text text-transparent">
       {text}
-      <span className="border-r-2 border-black animate-pulse ml-1"></span>
-    </div>
+    </span>
   );
 }

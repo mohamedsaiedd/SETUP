@@ -1,7 +1,7 @@
 import { Boxes } from "./Boxes";
 import { Card } from "./Card";
 import TypingAnimation from "./Animation/TypingAnimation";
-import { Award, BookOpen, GraduationCap, TrendingUp, Users } from 'lucide-react';
+import { Award, BookOpen, TrendingUp, Users } from 'lucide-react';
 import "./global.css";
 
 //padding constants 
@@ -51,29 +51,33 @@ export function HeroSection() {
                     <motion.div variants={item} className={`container mx-auto flex ${SectionPaddingZ} flex-col-reverse lg:flex-row items-center justify-between gap-10`}>
                         {/* content || text */}
                         <motion.div variants={item} className="w-fit lg:w-1/2 text-start lg:text-left space-y-6">
-                            <div className="w-fit bg-[var(--primary-color)] p-2 rounded-lg mb-0  lg:mx-0">
-                                <GraduationCap className="text-white w-6 h-6" />
-                            </div>
+                           
                             <motion.div variants={item}>
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--headLine-text)] leading-tight flex flex-col items-start">
-                                    SETUP{" "}
-                                    <span className="text-[var(--primary-color)] relative inline-block">
-                                        <TypingAnimation />
-                                    </span>
+                                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight flex flex-col items-start inline text-[var(--headLine-text)]  ">
+                                    STEPUP YOUR
+                                    <br />
+                                    FUTURE <TypingAnimation />
                                 </h1>
                             </motion.div>
                             <motion.div variants={item}>
-                                <p className="text-lg md:text-xl text-[var(--text-sub-color)] max-w-2xl mx-auto lg:mx-0">
-                                    The Inspiring, Interactive Learning Environment Where Every Student Thrives
+                                <p className="text-lg md:text-xl text-[#64748b] max-w-2xl">
+                                    Providing expert-led online schooling for <span className="text-[#3b82f6] font-semibold">IGCSE / A-Level</span> and <span className="text-[#06b6d4] font-semibold">American Diploma</span> students worldwide.
                                 </p>
                             </motion.div>
 
-                            <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                                <button className="px-8 py-3 rounded-xl bg-[var(--primary-color)] text-white font-medium transition hover:opacity-90 cursor-pointer shadow-lg">
-                                    Get Started
+                            <motion.div variants={item} className="flex flex-col sm:flex-row items-center gap-6 pt-6">
+                                <button className="group w-full sm:w-auto px-10 py-4 bg-[var(--primary-color)] text-white rounded-full font-bold text-base hover:opacity-90 transition-all cursor-pointer flex items-center justify-center gap-2">
+                                    GET STARTED
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                                    </svg>
                                 </button>
-                                <button className="px-8 py-3 rounded-xl border-2 border-[var(--primary-color)] text-[var(--primary-color)] font-medium transition hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
-                                    View Courses
+                                
+                                <button className="group w-full sm:w-auto px-10 py-4 border-2 border-[var(--primary-color)] text-[var(--primary-color)] bg-white rounded-full font-bold text-base hover:bg-[var(--primary-color)] hover:text-white transition-all cursor-pointer flex items-center justify-center gap-2">
+                                    VIEW COURSES
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-5 transition-transform group-hover:translate-y-1">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+                                    </svg>
                                 </button>
                             </motion.div>
                         </motion.div>
@@ -387,10 +391,10 @@ export function HeroSection() {
                     <motion.div variants={item} className="text-center mt-16">
                         <p className="text-gray-400 mb-6">Ready to start your journey?</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button className="px-8 py-3.5 rounded-xl bg-[#d4a853] text-white font-semibold hover:bg-[#b8923f] transition shadow-lg cursor-pointer">
+                            <button className="px-8 py-3.5 rounded-full bg-white text-[var(--primary-color)] font-bold hover:opacity-90 transition cursor-pointer">
                                 Start Learning Today
                             </button>
-                            <button className="px-8 py-3.5 rounded-xl border-2 border-white/30 text-white font-semibold hover:bg-white/10 transition cursor-pointer">
+                            <button className="px-8 py-3.5 rounded-full border-2 border-white text-white font-bold hover:bg-white/10 transition cursor-pointer">
                                 View All Courses
                             </button>
                         </div>
@@ -478,7 +482,7 @@ export function HeroSection() {
                                 </motion.div>
 
                                 <motion.div variants={item} className="pt-2">
-                                    <button className="px-6 py-2.5 rounded-lg bg-[var(--primary-color)] text-white font-medium hover:opacity-90 transition">
+                                    <button className="px-8 py-3 rounded-full bg-[var(--primary-color)] text-white font-bold hover:opacity-90 transition cursor-pointer">
                                         Join Us
                                     </button>
                                 </motion.div>
@@ -510,7 +514,7 @@ export function HeroSection() {
                                 <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
                             </motion.div>
                             <div className="flex justify-center mt-12">
-                                <button className="px-8 py-3 rounded-xl bg-[#d4a853] text-white font-semibold hover:bg-[#b8923f] transition shadow-lg cursor-pointer">
+                                <button className="px-8 py-3.5 rounded-full bg-white text-[var(--primary-color)] font-bold hover:opacity-90 transition cursor-pointer">
                                     View All Courses
                                 </button>
                             </div>
