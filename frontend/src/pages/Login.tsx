@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Logo } from '../components/Logo';
 import { Mail, Lock, Loader2 } from 'lucide-react';
 import { useAuth } from '../constext/AuthContext';
+import { useTheme } from '../context/ThemContext';
 
 export function Login() {
     const { login } = useAuth()
@@ -13,7 +14,7 @@ export function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState<any>(null);
-
+    const { dark } = useTheme();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -82,7 +83,7 @@ export function Login() {
             <div className="w-full dark:bg-gray-900 text-white lg:w-1/2 flex items-center justify-center bg-[#fafafa] px-6 py-12">
                 <div className="w-full max-w-md">
                     {/* Mobile Logo */}
-                    <Logo variant="default"  size={100} className='mb-18 lg:hidden' />
+                    <Logo variant={dark ? "white" : "default"}  size={100} className='mb-18 lg:hidden' />
 
                     <div className="text-center lg:text-left mb-8">
                         <h2 className="text-3xl dark:text-white font-bold text-start text-[var(--primary-color)] mb-2">Sign in</h2>
