@@ -7,6 +7,8 @@ interface User {
   avatar:string;
   email: string;
   role: string;
+  phone:string;
+  bio:string;
 } 
 
 interface AuthContextType {

@@ -11,7 +11,7 @@
     --primary-color: #1e3a5f;                       /*navy - Modern & Premium*/
     --bg-gray:#e5e7eb;                              /*gray-200*/
     --text-sub-color:#4a5565;                       /*gray-400*/
-    --headLine-text:#101828;                        /*gray-900*/
+    --headLine-text:#101828;                        /*gray-900*/  
     --new-bg-color:#EFE9E3;  
     
     /* Secondary - Gold */
@@ -21,7 +21,7 @@
     --gold-300: #f0d38a;
     
     /* Accent - Coral */
-    --coral-600: #e85a52;
+    --coral-600: #e85a52; 
     --coral-500: #f97068;
     --coral-400: #ff8a84;
     
