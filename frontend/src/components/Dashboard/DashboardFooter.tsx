@@ -3,6 +3,7 @@ interface DashboardFooterProps {
 }
 
 export function DashboardFooter({ sidebarCollapsed }: DashboardFooterProps) {
+    
     return (
         <footer
             className={`
@@ -12,7 +13,7 @@ export function DashboardFooter({ sidebarCollapsed }: DashboardFooterProps) {
             `}
         >
             <div className="h-full px-6 flex items-center justify-between text-sm text-[var(--text-sub-color)]">
-                <p>© {new Date().getFullYear()} Setup Academy. All rights reserved.</p>
+                <p>© {new Date().getFullYear()} Stepup Academy. All rights reserved.</p>
                 <div className="flex items-center gap-4">
                     <a href="#" className="hover:text-gray-700 dark:text-[var(--text-sub-color)] hover:dark:text-white transition">Privacy</a>
                     <a href="#" className="hover:text-gray-700 dark:text-[var(--text-sub-color)] hover:dark:text-white transition">Terms</a>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Logo } from '../components/Logo';
 import { Mail, Lock, Loader2 } from 'lucide-react';
-import { useAuth } from '../constext/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemContext';
 
 export function Login() {

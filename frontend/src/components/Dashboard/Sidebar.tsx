@@ -19,7 +19,7 @@ const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
     { icon: BookOpen, label: 'Courses', path: '/dashboard/courses' },
     { icon: Users, label: 'Tethers', path: '/dashboard/tethers' },
-    { icon: User, label: 'Profile', path: '/profile' },
+    { icon: User, label: 'Profile', path: '/dashboard/profile' },
     { icon: HelpCircle, label: 'Help & Support', path: '/dashboard/help' },
 ];
 
@@ -35,7 +35,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
         >
             {/* Logo */}
             <div className="h-16 flex items-center justify-center px-4 border-b border-white/10">
-                <Logo size={isCollapsed ? 30 : 40} variant={isCollapsed ? 'collapsed' : 'white'} />
+                <Logo size={isCollapsed ? 30 : 40} variant={isCollapsed ? 'icon' : 'white'} />
             </div>
 
             {/* Toggle Button */}
@@ -57,11 +57,12 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                     <li key={index}>
                         <NavLink
                         to={item.path}
+                        end={item.path === '/dashboard'}
                         className={({ isActive }) => `
                             flex items-center gap-3 px-3 py-3 rounded-xl
                             transition-all duration-200
                             ${isActive
-                            ? 'bg-[#d4a853] text-white'
+                            ? 'bg-[var(--secondary-color)] text-white'
                             : 'text-gray-300 hover:bg-white/10 hover:text-white'
                             }
                         `}

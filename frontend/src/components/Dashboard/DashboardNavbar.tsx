@@ -1,6 +1,6 @@
 import { Bell, Search, ChevronDown, LogOut } from 'lucide-react';
 import { useState } from 'react';
-import { useAuth } from '../../constext/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import ThemeToggle from '../../ThemToggle';
 
@@ -75,12 +75,12 @@ export function DashboardNavbar({
                         {/* Dropdown Menu */}
                         {showUserMenu && (
                       <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border dark:border-0 border-gray-200 p-1 z-50">
-                          <NavLink to="/profile" className="flex items-center text-[var(--text-sub-color)] rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
+                          <NavLink to="/dashboard/profile" className="flex items-center text-[var(--text-sub-color)] rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
                               Profile
                           </NavLink>
-                          <a href="/dashboard/settings" className="flex items-center rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm text-[var(--text-sub-color)] hover:bg-gray-200 hover:text-gray-900">
+                          <NavLink to="/dashboard/settings" className="flex items-center rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm text-[var(--text-sub-color)] hover:bg-gray-200 hover:text-gray-900">
                               Settings
-                          </a>
+                          </NavLink>
                           <hr className="my-2 dark:border-gray-700"/>
                           <button
                               onClick={() => {

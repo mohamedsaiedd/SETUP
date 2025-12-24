@@ -1,13 +1,14 @@
 import React from 'react';
 import logoImg from '../assets/logoblue.png';
 import iconImg from '../assets/iconwhite.png';
+import iconImgBlue from '../assets/iconblue.png';
 import logoWhiteImg from '../assets/logowhite.png';
 
 interface LogoProps {
   className?: string;
   size?: number;
   showText?: boolean;
-  variant?: 'default' | 'white' | 'collapsed';
+  variant?: 'default' | 'white' | 'icon' | 'icon-blue';
 }
 
 export const Logo: React.FC<LogoProps> = ({ className = '', size = 48, variant = 'default' }) => {
@@ -16,8 +17,11 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 48, variant =
     case 'white':
       logoSrc = logoWhiteImg;
       break;
-    case 'collapsed':
+    case 'icon':
       logoSrc = iconImg;
+      break;
+    case 'icon-blue':
+      logoSrc = iconImgBlue;
       break;
     default:
       logoSrc = logoImg;

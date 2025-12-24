@@ -4,7 +4,7 @@ import { useState } from 'react';
 import DropDown from './DropDown';
 import { NavLink, useNavigate } from 'react-router-dom';
 import ThemeToggle from '../../ThemToggle';
-import { useAuth } from '../../constext/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemContext';
 export function goToSection(id: string, navigate: any) {
   const element = document.getElementById(id);

@@ -74,7 +74,7 @@ export function Footer() {
 
       <div className='items-center flex gap-5 lg:flex-row flex-col justify-between border-[var(--bg-gray)] pt-6'>
         <p className="text-sm text-[var(--text-sub-color)]">
-          © {new Date().getFullYear()} Setup Academy. All rights reserved.
+          © {new Date().getFullYear()} Stepup Academy. All rights reserved.
         </p>
       </div>
         
