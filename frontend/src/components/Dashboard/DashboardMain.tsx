@@ -1,4 +1,4 @@
-import { BookOpen, Users, TrendingUp, Clock, ArrowRight, ArrowBigLeft } from 'lucide-react';
+import { BookOpen, ArrowRight } from 'lucide-react';
 import { useAuth } from "../../context/AuthContext";
 import { useState } from 'react';
 import { useEffect } from 'react';
