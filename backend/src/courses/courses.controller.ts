@@ -1,4 +1,4 @@
-import { Controller, HttpCode, Post, Body, Get, Delete, HttpStatus, Param, UseGuards } from "@nestjs/common";
+import { Controller, HttpCode, Post, Body, Get, Delete, HttpStatus, Param, UseGuards, Query } from "@nestjs/common";
 import { CoursesService } from "./courses.service";
 import { CoursesDto } from "./dto/courses.dto";
 import { AuthGuard } from "src/auth/guards/auth.guard";
@@ -12,8 +12,8 @@ export class CoursesController {
     constructor(private CoursesService: CoursesService) { }
     @Get()
     @HttpCode(HttpStatus.OK)
-    async findAll() {
-        return this.CoursesService.findAll();
+    async findAll(@Query('studentId') studentId?: string) {
+        return this.CoursesService.findAll(studentId);
     }
 
     @Get(':id')

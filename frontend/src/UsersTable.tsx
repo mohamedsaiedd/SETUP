@@ -16,7 +16,7 @@ export function UsersTable() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const API_URL = import.meta.env.VITE_BASE_URL || 'https://arianna-preprandial-nondeciduously.ngrok-free.dev';
+  const API_URL = import.meta.env.VITE_BASE_URL || 'https://setup-production-c651.up.railway.app';
     
   useEffect(() => {
     const fetchusers = async () => {
