@@ -29,6 +29,7 @@ export const DashboardMain = () => {
     const { user } = useAuth()
     const [courses, setCourses] = useState<Course[]>([])
     const baseUrl = import.meta.env.VITE_BASE_URL
+    console.log(baseUrl);
     
     useEffect(() => {
         const fetchCourses = async () => {
