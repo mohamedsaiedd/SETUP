@@ -178,15 +178,13 @@ import {
   Pencil,
   Check,
 } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
-import { useIsMobile } from "../../../context/UseIsMobile";
+import { useState, useRef } from "react";
 import { useAuth } from "../../../context/AuthContext";
 
 export function Profile() {
 
   const { user } = useAuth()
   const [bio, setBio] = useState(user?.bio);
-  const isMobile = useIsMobile();
   const [isEditing, setIsEditing] = useState(false);
   const [copied, setCopied] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
