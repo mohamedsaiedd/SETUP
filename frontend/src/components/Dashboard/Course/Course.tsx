@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { CourseDetails } from "../../../types";
-import { ChevronDown, Circle, Video } from "lucide-react";
+import { ChevronDown, Video } from "lucide-react";
 
 export const Course = () => {
     const { id } = useParams()
