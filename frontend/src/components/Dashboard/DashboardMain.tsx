@@ -1,33 +1,12 @@
-import { BookOpen, ArrowRight } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { useAuth } from "../../context/AuthContext";
-import { useState } from 'react';
 import { useEffect } from 'react';
-import type { Course } from '../../types';
 
-const CourseThumbnail = ({ src, title, className }: { src?: string, title: string, className?: string }) => {
-    const [error, setError] = useState(false);
+import { Courses } from './Course/Courses';
 
-    if (error || !src) {
-        return (
-            <div className={`${className} bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] flex items-center justify-center p-4 text-center`}>
-                <span className="text-white font-bold text-lg opacity-50">{title}</span>
-            </div>
-        );
-    }
-
-    return (
-        <img 
-            src={src} 
-            alt={title} 
-            className={className}
-            onError={() => setError(true)}
-        />
-    );
-};
 
 export const DashboardMain = () => {
     const { user } = useAuth()
-    const [courses, setCourses] = useState<Course[]>([])
     const baseUrl = import.meta.env.VITE_BASE_URL
     
     useEffect(() => {
@@ -49,24 +28,7 @@ export const DashboardMain = () => {
                 <p className="text-[var(--text-sub-color)] mt-1">Here's your enrolled courses.</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                {courses.map((course, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-800/50 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                        <div className="flex flex-col h-full min-h-[400px] justify-between">
-                            <div>
-                                <CourseThumbnail 
-                                    src={course.thumbnailUrl} 
-                                    title={course.title}
-                                    className="w-full h-48 text-gray-200 object-cover rounded-xl mb-4"
-                                />
-                                <p className="text-xl font-bold text-gray-900 dark:text-white mt-1">{course.title}</p>
-                                <p className="text-sm text-[var(--text-sub-color)] ">{course.description}</p>
-                            </div>
-                            <button className="bg-[var(--primary-color)] text-white px-4 py-2 rounded-full transition inline-flex items-center justify-center gap-4 hover:cursor-pointer hover:opacity-90 hover:bg-[var(--secondary-color)]"> View Course <ArrowRight/>  </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <Courses />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Recent Courses */}

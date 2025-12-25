@@ -1,6 +1,6 @@
 import { Controller, HttpCode, Post, Body, Get, Delete, HttpStatus, Param, UseGuards, Query } from "@nestjs/common";
 import { CoursesService } from "./courses.service";
-import { CoursesDto } from "./dto/courses.dto";
+import { CoursesDto, UpdateCoursesDto } from "./dto/courses.dto";
 import { AuthGuard } from "src/auth/guards/auth.guard";
 import { RolesGuard } from "src/auth/guards/roles.guard";
 import { Roles } from "src/auth/decorators/roles.decorator";
@@ -29,6 +29,15 @@ export class CoursesController {
     async create(@Body() dto: CoursesDto) {
         return this.CoursesService.create(dto);
     }
+
+    @Post(':id')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(Role.ADMIN, Role.SUPERVISOR)
+    @HttpCode(HttpStatus.CREATED)
+    async update(@Param('id') id: string, @Body() dto: UpdateCoursesDto) {
+        return this.CoursesService.update(id, dto);
+    }
+
 
     @Post(':id/enroll')
     @UseGuards(AuthGuard, RolesGuard)

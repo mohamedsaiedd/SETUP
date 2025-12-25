@@ -98,7 +98,7 @@ async function main() {
       category: 'Programming',
       price: 99.99,
       status: CourseStatus.PUBLISHED,
-      zoomLink: 'https://zoom.us/j/fs-web-dev',
+      zoomLinks: ['https://zoom.us/j/fs-web-dev'],
       teacherId: teacher1.id,
     },
   });
@@ -112,7 +112,7 @@ async function main() {
       category: 'Design',
       price: 79.99,
       status: CourseStatus.PUBLISHED,
-      zoomLink: 'https://zoom.us/j/uiux-design',
+      zoomLinks: ['https://zoom.us/j/uiux-design'],
       teacherId: teacher2.id,
     },
   });
@@ -126,7 +126,7 @@ async function main() {
       category: 'Programming',
       price: 59.99,
       status: CourseStatus.DRAFT,
-      zoomLink: 'https://zoom.us/j/adv-react',
+      zoomLinks: ['https://zoom.us/j/adv-react'],
       teacherId: teacher1.id,
     },
   });
