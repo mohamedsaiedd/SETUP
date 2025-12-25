@@ -1,23 +1,10 @@
 import { BookOpen } from 'lucide-react';
 import { useAuth } from "../../context/AuthContext";
-import { useEffect } from 'react';
-
 import { Courses } from './Course/Courses';
 
 
 export const DashboardMain = () => {
     const { user } = useAuth()
-    const baseUrl = import.meta.env.VITE_BASE_URL
-    
-    useEffect(() => {
-        const fetchCourses = async () => {
-            if (!user?.id) return
-            const response = await fetch(`${baseUrl}/courses?studentId=${user.id}`)
-            const data = await response.json()
-            setCourses(data)
-        }
-        fetchCourses()
-    }, [])
     
     return (
         <div>
