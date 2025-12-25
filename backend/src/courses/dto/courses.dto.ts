@@ -23,6 +23,21 @@ export class CoursesDto {
 
     @IsUUID()
     teacherId: string;
+
+    @IsArray()
+    @IsOptional()
+    sessions?: SessionDto[];
+}
+
+export class SessionDto {
+    @IsString()
+    title: string;
+
+    @IsString()
+    date: string; // ISO Date string
+
+    @IsString()
+    link: string;
 }
 
 export class UpdateCoursesDto extends PartialType(CoursesDto) {}

@@ -17,6 +17,13 @@ export class CoursesService {
                     status: "DRAFT",
                     price: dto.price,
                     zoomLinks: dto.zoomLinks,
+                    sessions: {
+                        create: dto.sessions?.map(session => ({
+                            title: session.title,
+                            date: new Date(session.date),
+                            link: session.link
+                        }))
+                    },
                     teacher: {
                         connect: { id: dto.teacherId }
                     },
@@ -51,6 +58,7 @@ export class CoursesService {
                         avatar: true
                     }
                 },
+                sessions: true,
                 _count: {
                     select: { students: true }
                 }
@@ -60,10 +68,24 @@ export class CoursesService {
 
 
     async update(id: string , dto: UpdateCoursesDto){
-        const data = { ...dto}
+        const { sessions, ...rest } = dto;
+        
+        // Basic update for course fields
         const course = await this.prisma.course.update({
             where: { id },
-            data,
+            data: {
+                ...rest,
+                ...(sessions && {
+                    sessions: {
+                        create: sessions.map(session => ({
+                            title: session.title,
+                            date: new Date(session.date),
+                            link: session.link
+                        }))
+                    }
+                })
+            },
+            include: { sessions: true }
         })
         return course
     }
@@ -78,6 +100,11 @@ export class CoursesService {
                         name: true,
                         avatar: true,
                         bio: true
+                    }
+                },
+                sessions: {
+                    orderBy: {
+                        date: 'asc'
                     }
                 },
                 students: {

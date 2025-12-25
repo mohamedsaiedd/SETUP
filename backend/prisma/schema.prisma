@@ -55,6 +55,7 @@ model Course {
   teacherId    String
   price        Float        @default(0)
   zoomLinks    String[]
+  sessions     Session[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
@@ -69,6 +70,19 @@ model Course {
   @@map("courses")
 }
 
+model Session {
+  id        String   @id @default(uuid())
+  title     String   @default("Zoom Session")
+  date      DateTime
+  link      String
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+  @@map("sessions")
+}
 
 enum CourseStatus {
   DRAFT
