@@ -26,12 +26,12 @@ export function DashboardNavbar({
     return (
         <header
             className={`
-                fixed top-0 right-0 h-16 bg-white border-b dark:bg-gray-900 dark:border-gray-700 border-gray-200 z-30
+                fixed top-0 right-0 bg-white border-b dark:bg-gray-900 dark:border-gray-700 border-gray-200 z-30
                 transition-all duration-300 ease-in-out
                 ${sidebarCollapsed ? 'left-20' : 'left-64'}
             `}
         >
-            <div className="h-full px-6 flex items-center justify-between">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between">
                 {/* Search */}
                 <div className="flex items-center gap-4">
                     <div className="relative">
@@ -78,7 +78,7 @@ export function DashboardNavbar({
 
                         {/* Dropdown Menu */}
                         {showUserMenu && (
-                      <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border dark:border-0 border-gray-200 p-1 z-50">
+                      <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:border-gray-700 dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 p-1 z-50">
                           <NavLink to="/dashboard/profile" className="flex items-center text-[var(--text-sub-color)] rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
                               Profile
                           </NavLink>
