@@ -27,6 +27,10 @@ export class CoursesDto {
     @IsArray()
     @IsOptional()
     sessions?: SessionDto[];
+
+    @IsArray()
+    @IsOptional()
+    materials?: MaterialDto[];
 }
 
 export class SessionDto {
@@ -38,6 +42,17 @@ export class SessionDto {
 
     @IsString()
     link: string;
+}
+
+export class MaterialDto {
+    @IsString()
+    title: string;
+
+    @IsString()
+    type: string; // PDF, DOC
+
+    @IsString()
+    fileUrl: string;
 }
 
 export class UpdateCoursesDto extends PartialType(CoursesDto) {}

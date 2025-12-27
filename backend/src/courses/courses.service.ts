@@ -24,6 +24,13 @@ export class CoursesService {
                             link: session.link
                         }))
                     },
+                    materials: {
+                        create: dto.materials?.map(material => ({
+                            title: material.title,
+                            type: material.type as any,
+                            fileUrl: material.fileUrl
+                        }))
+                    },
                     teacher: {
                         connect: { id: dto.teacherId }
                     },
@@ -59,6 +66,7 @@ export class CoursesService {
                     }
                 },
                 sessions: true,
+                materials: true,
                 _count: {
                     select: { students: true }
                 }
@@ -68,13 +76,16 @@ export class CoursesService {
 
 
     async update(id: string , dto: UpdateCoursesDto){
-        const { sessions, ...rest } = dto;
+        const { sessions, materials, teacherId, ...rest } = dto;
         
         // Basic update for course fields
-        const course = await this.prisma.course.update({
+        return await this.prisma.course.update({
             where: { id },
             data: {
                 ...rest,
+                ...(teacherId && {
+                    teacher: { connect: { id: teacherId } }
+                }),
                 ...(sessions && {
                     sessions: {
                         create: sessions.map(session => ({
@@ -83,11 +94,19 @@ export class CoursesService {
                             link: session.link
                         }))
                     }
+                }),
+                ...(materials && {
+                    materials: {
+                        create: materials.map(material => ({
+                            title: material.title,
+                            type: material.type as any,
+                            fileUrl: material.fileUrl
+                        }))
+                    }
                 })
             },
-            include: { sessions: true }
-        })
-        return course
+            include: { sessions: true, materials: true }
+        });
     }
     
     async findOne(id: string) {
@@ -107,6 +126,7 @@ export class CoursesService {
                         date: 'asc'
                     }
                 },
+                materials: true,
                 students: {
                     select: {
                         id: true,
