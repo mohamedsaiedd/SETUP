@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { GraduationCap, Mail, Lock, Loader2 } from 'lucide-react';
-import { useAuth } from '../constext/AuthContext';
+import { Logo } from '../components/Logo';
+import { Mail, Lock, Loader2 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemContext';
 
 export function Login() {
     const { login } = useAuth()
@@ -12,7 +14,7 @@ export function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState<any>(null);
-
+    const { dark } = useTheme();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -44,8 +46,8 @@ export function Login() {
     return (
         <div className="min-h-screen dark:bg-amber-700 flex">
             {/* Left Side - Branding */}
-            <div className="hidden lg:flex lg:w-1/2 bg-[#1e3a5f] relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f] via-[#162d4a] to-[#0f1d2f]"></div>
+            <div className="hidden lg:flex lg:w-1/2 bg-[var(--primary-color)] relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-color)] via-[#162d4a] to-[#0f1d2f]"></div>
                 <div className="absolute inset-0 opacity-20">
                     <div className="absolute top-20 left-20 w-72 h-72 bg-[#d4a853] rounded-full blur-3xl"></div>
                     <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#f97068] rounded-full blur-3xl"></div>
@@ -53,12 +55,7 @@ export function Login() {
 
                 <div className="relative z-10 flex flex-col justify-center px-16 text-white">
                     <div className="flex items-center gap-3 mb-8">
-                        <div className="bg-white/10 backdrop-blur p-3 rounded-xl border border-white/20">
-                            <GraduationCap className="w-8 h-8" />
-                        </div>
-                        <h1 className="text-2xl font-bold flex flex-col tracking-tight">
-                            Setup <span className="text-[#d4a853]">Academy</span>
-                        </h1>
+                       <Logo variant="white" size={100} />
                     </div>
 
                     <h2 className="text-4xl font-bold leading-tight mb-6">
@@ -71,12 +68,12 @@ export function Login() {
                     {/* Decorative elements */}
                     <div className="mt-12 flex items-center gap-4">
                         <div className="flex -space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-[#d4a853] border-2 border-[#1e3a5f]"></div>
-                            <div className="w-10 h-10 rounded-full bg-[#f97068] border-2 border-[#1e3a5f]"></div>
-                            <div className="w-10 h-10 rounded-full bg-white border-2 border-[#1e3a5f]"></div>
+                            <div className="w-10 h-10 rounded-full bg-[var(--secondary-color)] border-2 border-[var(--primary-color)]"></div>
+                            <div className="w-10 h-10 rounded-full bg-[#f97068] border-2 border-[var(--primary-color)]"></div>
+                            <div className="w-10 h-10 rounded-full bg-white border-2 border-[var(--primary-color)]"></div>
                         </div>
                         <p className="text-sm text-gray-300">
-                            <span className="text-[#d4a853] font-semibold">10,000+</span> students learning
+                            <span className="text-[var(--secondary-color)] font-semibold">10,000+</span> students learning
                         </p>
                     </div>
                 </div>
@@ -86,17 +83,10 @@ export function Login() {
             <div className="w-full dark:bg-gray-900 text-white lg:w-1/2 flex items-center justify-center bg-[#fafafa] px-6 py-12">
                 <div className="w-full max-w-md">
                     {/* Mobile Logo */}
-                    <div className="lg:hidden flex items-center justify-center gap-3 mb-10">
-                        <div className="bg-[#1e3a5f] p-2 rounded-lg">
-                            <GraduationCap className="text-white w-6 h-6" />
-                        </div>
-                        <h1 className="text-xl font-bold text-gray-800 dark:text-white tracking-tight">
-                            Setup <span className="text-[#d4a853]">Academy</span>
-                        </h1>
-                    </div>
+                    <Logo variant={dark ? "white" : "default"}  size={100} className='mb-18 lg:hidden' />
 
                     <div className="text-center lg:text-left mb-8">
-                        <h2 className="text-3xl dark:text-white font-bold text-start text-[#1e3a5f] mb-2">Sign in</h2>
+                        <h2 className="text-3xl dark:text-white font-bold text-start text-[var(--primary-color)] mb-2">Sign in</h2>
                         <p className="text-[#334155] text-start dark:text-gray-400">Enter your credentials to access your account</p>
                     </div>
 
@@ -114,7 +104,7 @@ export function Login() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="you@example.com"
                                     required
-                                    className="w-full pl-12 pr-4 py-3 rounded-xl dark:text-white dark:focus:ring-white dark:bg-gray-900 bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition shadow-sm"
+                                    className="w-full pl-12 pr-4 py-3 rounded-xl dark:text-white dark:focus:ring-white dark:bg-gray-900 bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:border-transparent transition shadow-sm"
                                 />
                             </div>
                         </div>
@@ -132,17 +122,17 @@ export function Login() {
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
                                     required
-                                    className="w-full pl-12 pr-4 py-3 rounded-xl dark:text-white dark:bg-gray-900 dark:focus:ring-white bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition shadow-sm"
+                                    className="w-full pl-12 pr-4 py-3 rounded-xl dark:text-white dark:bg-gray-900 dark:focus:ring-white bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:border-transparent transition shadow-sm"
                                 />
                             </div>
                         </div>
 
                         <div className="flex items-center justify-between text-sm">
                             <label className="flex items-center dark:text-white gap-2 text-[#334155]">
-                                <input type="checkbox" className="w-4 h-4 rounded  border-gray-300 text-[#1e3a5f] focus:ring-[#1e3a5f]" />
+                                <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" />
                                 Remember me
                             </label>
-                            <a href="#" className="text-[#d4a853] hover:text-[#b8923f] font-medium">
+                            <a href="#" className="text-[var(--primary-color)] hover:opacity-80 font-medium">
                                 Forgot password?
                             </a>
                         </div>
@@ -167,7 +157,7 @@ export function Login() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-3.5 px-4 bg-[#1e3a5f] text-white font-semibold rounded-xl hover:bg-[#2a4a73] focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] focus:ring-offset-2 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full py-4 px-4 bg-[var(--primary-color)] text-white font-bold rounded-full hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center gap-2">
@@ -181,7 +171,7 @@ export function Login() {
                     </form>
 
                     <p className="mt-8 text-center text-gray-400 text-sm">
-                        © {new Date().getFullYear()} stepup academy. All rights reserved.
+                        © {new Date().getFullYear()} Stepup Academy. All rights reserved.
                     </p>
                 </div>
             </div>

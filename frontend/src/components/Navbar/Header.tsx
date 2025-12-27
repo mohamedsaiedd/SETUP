@@ -1,12 +1,11 @@
-import { GraduationCap , LogOut , ChevronDown} from 'lucide-react';
+import { LogOut , ChevronDown} from 'lucide-react';
+import { Logo } from '../Logo';
 import { useState } from 'react';
 import DropDown from './DropDown';
 import { NavLink, useNavigate } from 'react-router-dom';
 import ThemeToggle from '../../ThemToggle';
-import { useAuth } from '../../constext/AuthContext';
-
-// const SectionPaddingZ = "px-4 sm:px-6 lg:px-8";
-
+import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemContext';
 export function goToSection(id: string, navigate: any) {
   const element = document.getElementById(id);
 
@@ -22,26 +21,19 @@ export function goToSection(id: string, navigate: any) {
   }
 }
 
-
 export function Header() {
   const [open, setOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false);
   const navigate = useNavigate()
   const { logout } = useAuth();
   const { user } = useAuth()
-  
+  const { dark } = useTheme()
 
   return (
     <header className=" bg-white dark:bg-gray-900 w-full dark:border-gray-700 dark:text-white border-b border-gray-200 fixed top-0 z-50 ">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         <NavLink onClick={() => goToSection("home", navigate)} to="/" className="flex items-center gap-3">
-          <div className="bg-[var(--primary-color)] p-2 rounded-lg">
-            <GraduationCap className="text-white w-6 h-6" />
-          </div>
-          <h1 className="text-xl font-bold text-[var(--headLine-text)] tracking-tight
-          flex flex-col ">
-            STEPUP {" "}<span className="text-[var(--primary-color)]">ACADEMY</span>
-          </h1>
+          <Logo size={40} variant={dark ? 'white' : 'default'}/>
         </NavLink>
 
         {/* Desktop Menu */}
@@ -66,7 +58,7 @@ export function Header() {
                     <button
                         onClick={() => setShowUserMenu(!showUserMenu)}
                         className="flex items-center gap-3 p-2 hover:dark:bg-[var(--primary-800)] hover:bg-gray-100 rounded-xl transition">
-                        <div className="w-9 h-9 rounded-full bg-[#1e3a5f] flex items-center justify-center text-white font-semibold text-sm">
+                        <div className="w-9 h-9 rounded-full bg-[var(--primary-color)] flex items-center justify-center text-white font-semibold text-sm">
                             {user?.avatar ? (
                                 <img src={user?.avatar} alt={user?.name} className="w-full h-full rounded-full object-cover" />
                             ) : (
@@ -83,7 +75,7 @@ export function Header() {
                     {/* Dropdown Menu */}
                     {showUserMenu && (
                       <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border dark:border-0 border-gray-200 p-1 z-50">
-                          <NavLink to="/profile" className="flex items-center text-[var(--text-sub-color)] rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
+                          <NavLink to="/dashboard/profile" className="flex items-center text-[var(--text-sub-color)] rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
                               Profile
                           </NavLink>
                           <a href="/dashboard/settings" className="flex items-center rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm text-[var(--text-sub-color)] hover:bg-gray-200 hover:text-gray-900">

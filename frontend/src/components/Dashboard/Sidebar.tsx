@@ -1,3 +1,4 @@
+import { Logo } from '../Logo';
 import {
     LayoutDashboard,
     BookOpen,
@@ -5,8 +6,7 @@ import {
     HelpCircle,
     ChevronLeft,
     ChevronRight,
-    GraduationCap,
-    User
+    User,
 } from 'lucide-react';
 import { NavLink } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
     { icon: BookOpen, label: 'Courses', path: '/dashboard/courses' },
     { icon: Users, label: 'Tethers', path: '/dashboard/tethers' },
-    { icon: User, label: 'Profile', path: '/profile' },
+    { icon: User, label: 'Profile', path: '/dashboard/profile' },
     { icon: HelpCircle, label: 'Help & Support', path: '/dashboard/help' },
 ];
 
@@ -28,31 +28,20 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
     return (
         <aside
             className={`
-                fixed top-0 left-0 h-screen
-                bg-[#1e3a5f] text-white
-                transition-all duration-300 ease-in-out
-                z-40
+                fixed left-0 top-0 h-screen bg-[var(--primary-color)] text-white
+                transition-all duration-300 ease-in-out z-40
                 ${isCollapsed ? 'w-20' : 'w-64'}
             `}
         >
             {/* Logo */}
-            <NavLink to="/" className="h-16 flex items-center justify-between px-4 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                    <div className="bg-white/10 p-2 rounded-lg">
-                        <GraduationCap className="w-6 h-6 text-[#d4a853]" />
-                    </div>
-                    {!isCollapsed && (
-                        <span className="font-bold text-lg flex flex-col">
-                            Stepup <span className="text-[#d4a853]">Academy</span>
-                        </span>
-                    )}
-                </div>
-            </NavLink>
+            <div className="h-16 flex items-center justify-center px-4 border-b border-white/10">
+                <Logo size={isCollapsed ? 30 : 40} variant={isCollapsed ? 'icon' : 'white'} />
+            </div>
 
             {/* Toggle Button */}
             <button
                 onClick={onToggle}
-                className="absolute -right-3 top-20 bg-[#1e3a5f] border border-white/20 rounded-full p-1.5 hover:bg-[#2a4a73] transition"
+                className="absolute -right-3 top-20 bg-[var(--primary-color)] border border-white/20 rounded-full p-1.5 hover:bg-[var(--primary-color)]/80 transition "
             >
                 {isCollapsed ? (
                     <ChevronRight className="w-4 h-4" />
@@ -68,11 +57,12 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                     <li key={index}>
                         <NavLink
                         to={item.path}
+                        end={item.path === '/dashboard'}
                         className={({ isActive }) => `
                             flex items-center gap-3 px-3 py-3 rounded-xl
                             transition-all duration-200
                             ${isActive
-                            ? 'bg-[#d4a853] text-white'
+                            ? 'bg-[var(--secondary-color)] text-white'
                             : 'text-gray-300 hover:bg-white/10 hover:text-white'
                             }
                         `}
@@ -93,7 +83,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                     <div className="bg-white/5 rounded-xl p-4 border border-white/10">
                         <p className="text-sm text-gray-300">Need help?</p>
                         <p className="text-xs text-gray-400 mt-1">Contact our support team</p>
-                        <button className="mt-3 w-full py-2 bg-[#d4a853] hover:bg-[#b8923f] rounded-lg text-sm font-medium transition">
+                        <button className="mt-3 w-full py-2 bg-[var(--secondary-color)] hover:bg-[var(--secondary-color)]/80 rounded-lg text-sm font-medium transition">
                             Get Support
                         </button>
                     </div>

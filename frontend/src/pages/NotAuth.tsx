@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom';
 import { Home, ArrowLeft } from 'lucide-react';
 import { Logo } from '../components/Logo';
 
-export function Error({height}: {height: string}) {
+export function NotAuth() {
     return (
-        <div className={`flex items-center justify-center bg-gray-50 dark:bg-[#0f172a] transition-colors duration-300  h-[${height}]`}>
+        <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300
+        bg-gray-50 
+        ">
             <div className="max-w-md w-full text-center">
                 {/* Illustration/Icon Container */}
                 <div className="relative mb-8 flex justify-center">
@@ -13,11 +15,11 @@ export function Error({height}: {height: string}) {
                 </div>
 
                 {/* Text Content */}
-                <h2 className="text-7xl font-bold text-gray-700 dark:text-gray-100 mb-4">
-                    404
+                <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">
+                    Not Authenticated
                 </h2>
                 <p className="text-[var(--text-sub-color)] mb-8 leading-relaxed">
-                    Page not found. Please try again later.
+                    You are not authenticated to access this page. Please login to continue.
                 </p>
 
                 {/* Action Buttons */}
@@ -31,11 +33,11 @@ export function Error({height}: {height: string}) {
                     </button>
                     
                     <Link 
-                        to="/"
+                        to="/login"
                         className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[var(--primary-color)] text-white hover:opacity-90 transition-all font-medium shadow-lg shadow-[var(--primary-color)]/20"
                     >
                         <Home className="w-4 h-4" />
-                        Back to Home
+                        Back to Login
                     </Link>
                 </div>
 

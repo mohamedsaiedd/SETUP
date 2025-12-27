@@ -1,9 +1,9 @@
 import { Bell, Search, ChevronDown, LogOut } from 'lucide-react';
 import { useState } from 'react';
-import { useAuth } from '../../constext/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import ThemeToggle from '../../ThemToggle';
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 interface DashboardNavbarProps {
     sidebarCollapsed: boolean;
@@ -20,8 +20,8 @@ export function DashboardNavbar({
 }: DashboardNavbarProps) {
     const [showUserMenu, setShowUserMenu] = useState(false);
     const { logout } = useAuth();
-    const location = useLocation();
-    const isProfilePage = location.pathname === "/profile";
+    // const location = useLocation();
+    // const isProfilePage = location.pathname === "/profile";
 
     return (
         <header
@@ -62,7 +62,7 @@ export function DashboardNavbar({
                             onClick={() => setShowUserMenu(!showUserMenu)}
                             className="flex items-center gap-3 p-2 hover:bg-gray-100 hover:dark:bg-[var(--primary-800)] rounded-xl transition"
                         >
-                            <div className="w-9 h-9 rounded-full bg-[#1e3a5f] flex items-center justify-center text-white font-semibold text-sm">
+                            <div className="w-9 h-9 rounded-full bg-[var(--primary-color)] flex items-center justify-center text-white font-semibold text-sm">
                                 {userAvatar ? (
                                     <img src={userAvatar} alt={userName} className="w-full h-full rounded-full object-cover" />
                                 ) : (
@@ -78,15 +78,13 @@ export function DashboardNavbar({
 
                         {/* Dropdown Menu */}
                         {showUserMenu && (
-                      <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border dark:border-gray-700 border-gray-200 p-1 z-50">
-                          {!isProfilePage &&(
-                            <NavLink to="/profile" className="flex items-center text-[var(--text-sub-color)] rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
+                      <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border dark:border-0 border-gray-200 p-1 z-50">
+                          <NavLink to="/dashboard/profile" className="flex items-center text-[var(--text-sub-color)] rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900">
                               Profile
-                            </NavLink>
-                          )}
-                          <a href="/dashboard/settings" className="flex items-center rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm text-[var(--text-sub-color)] hover:bg-gray-200 hover:text-gray-900">
+                          </NavLink>
+                          <NavLink to="/dashboard/settings" className="flex items-center rounded-lg hover:dark:bg-gray-800 hover:dark:text-white gap-2 px-4 py-2 text-sm text-[var(--text-sub-color)] hover:bg-gray-200 hover:text-gray-900">
                               Settings
-                          </a>
+                          </NavLink>
                           <hr className="my-2 dark:border-gray-700"/>
                           <button
                               onClick={() => {

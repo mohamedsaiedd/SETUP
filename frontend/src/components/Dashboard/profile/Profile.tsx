@@ -178,19 +178,13 @@ import {
   Pencil,
   Check,
 } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
-import { useIsMobile } from "../context/UseIsMobile";
-import { Sidebar } from "../components/Dashboard/Sidebar";
-import { useAuth } from "../constext/AuthContext";
-import { DashboardNavbar } from "../components/Dashboard/DashboardNavbar";
-import { DashboardFooter } from "../components/Dashboard/DashboardFooter";
+import { useState, useRef } from "react";
+import { useAuth } from "../../../context/AuthContext";
 
 export function Profile() {
 
   const { user } = useAuth()
   const [bio, setBio] = useState(user?.bio);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
-  const isMobile = useIsMobile();
   const [isEditing, setIsEditing] = useState(false);
   const [copied, setCopied] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -218,20 +212,6 @@ export function Profile() {
     document.body.removeChild(textArea);
   };
   
-  useEffect(() => {
-    if (!sidebarCollapsed) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, [sidebarCollapsed]);
 
   const handleCopyEmail = () => {
     // Fallback method for environments where Clipboard API is blocked
@@ -278,28 +258,10 @@ export function Profile() {
   
 
   return (
-      <div className="w-full dark:bg-gray-900 flex justify-center">
-      <Sidebar
-        isCollapsed={sidebarCollapsed}
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-        />
-      {isMobile && !sidebarCollapsed && (
-          <div
-          onClick={() => setSidebarCollapsed(true)}
-          className="fixed inset-0 bg-black/50 z-30"
-          />
-        )}
-        <DashboardNavbar 
-        sidebarCollapsed={sidebarCollapsed}
-        userName={user?.name}
-        userRole={user?.role}
-        userAvatar={user?.avatar}
-        />
-      <div className={`max-w-2xl w-full pt-16 pb-12`}>
+    
+    <div className="w-full dark:bg-gray-900 flex justify-center">
+      <div className={`max-w-2xl w-full`}>
         {/* Profile Content */}
-        <div className={`flex-1 min-h-screen p-6 transition-all duration-300 ease-in-out ${
-          isMobile ? 'ml-20' : sidebarCollapsed ? 'ml-20' : 'ml-64'
-        }`}>
           {/* Profile Picture */}
           <div className="flex justify-center mb-4">
             <div className="relative group">
@@ -421,8 +383,7 @@ export function Profile() {
 
         </div>
         
-        <DashboardFooter sidebarCollapsed={sidebarCollapsed} />
+        {/* <DashboardFooter sidebarCollapsed={sidebarCollapsed} /> */}
       </div>
-    </div>
   );
 }

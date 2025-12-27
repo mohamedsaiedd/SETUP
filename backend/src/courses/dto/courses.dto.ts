@@ -1,9 +1,24 @@
+import { IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
+
 export class CoursesDto {
+    @IsString()
     title: string;
-    description: string;
+
+    @IsString()
+    @IsOptional()
+    description?: string;
+
+    @IsNumber()
     price: number;
-    thumbnail: string;
-    category: string;
-    teacher: string;
-    
+
+    @IsString()
+    @IsOptional()
+    category?: string;
+
+    @IsString()
+    @IsOptional()
+    zoomLink?: string;
+
+    @IsUUID()
+    teacherId: string;
 }
