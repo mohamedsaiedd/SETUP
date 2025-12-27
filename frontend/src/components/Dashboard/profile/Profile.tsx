@@ -371,7 +371,7 @@ export function Profile() {
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none dark:text-white focus:ring-2 focus:ring-blue-500 resize-none"
+                className="w-full p-3 border border-slate-300 dark:border-gray-700 rounded-lg focus:outline-none dark:text-white focus:ring-2 focus:ring-blue-500 resize-none"
                 rows={3}
               />
             ) : (
@@ -380,7 +380,10 @@ export function Profile() {
               </p>
             )}
           </div>
+
         </div>
+        
+        {/* <DashboardFooter sidebarCollapsed={sidebarCollapsed} /> */}
       </div>
   );
 }

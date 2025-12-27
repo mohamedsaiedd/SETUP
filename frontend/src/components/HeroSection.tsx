@@ -17,7 +17,8 @@ import heroCalculator from "../assets/hero-calculator.png";
 import heroPencil from "../assets/hero-pencil.png";
 import heroPalette from "../assets/hero-palette.png";
 import aboutIllustration from "../assets/about-illustration.png";
-// import { useAuth } from "../constext/AuthContext";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const container = {
   hidden: {},
@@ -32,7 +33,7 @@ const item = {
 
 export function HeroSection() {
 
-    // const { user } = useAuth()
+    const { user } = useAuth()
      
     return (
         <div className="w-full">
@@ -66,19 +67,19 @@ export function HeroSection() {
                             </motion.div>
 
                             <motion.div variants={item} className="flex flex-col sm:flex-row items-center gap-6 pt-6">
-                                <button className="group w-full sm:w-auto px-10 py-4 bg-[var(--primary-color)] text-white rounded-full font-bold text-base hover:opacity-90 transition-all cursor-pointer flex items-center justify-center gap-2">
+                                <NavLink to={user ? "/dashboard" : "/login"} className="group w-full sm:w-auto px-10 py-4 bg-[var(--primary-color)] text-white rounded-full font-bold text-base hover:opacity-90 transition-all cursor-pointer flex items-center justify-center gap-2">
                                     GET STARTED
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                                     </svg>
-                                </button>
+                                </NavLink>
                                 
-                                <button className="group w-full sm:w-auto px-10 py-4 border-2 border-[var(--primary-color)] text-[var(--primary-color)] bg-white rounded-full font-bold text-base hover:bg-[var(--primary-color)] hover:text-white transition-all cursor-pointer flex items-center justify-center gap-2">
+                                <NavLink to={user ? "/dashboard/courses" : "/login"} className="group w-full sm:w-auto px-10 py-4 border-2 border-[var(--primary-color)] text-[var(--primary-color)] bg-white rounded-full font-bold text-base hover:bg-[var(--primary-color)] hover:text-white transition-all cursor-pointer flex items-center justify-center gap-2">
                                     VIEW COURSES
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-5 transition-transform group-hover:translate-y-1">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
                                     </svg>
-                                </button>
+                                </NavLink>
                             </motion.div>
                         </motion.div>
 
@@ -391,12 +392,12 @@ export function HeroSection() {
                     <motion.div variants={item} className="text-center mt-16">
                         <p className="text-gray-400 mb-6">Ready to start your journey?</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button className="px-8 py-3.5 rounded-full bg-white text-[var(--primary-color)] font-bold hover:opacity-90 transition cursor-pointer">
+                            <NavLink to={user ? "/dashboard" : "/login"} className="px-8 py-3.5 rounded-full bg-white text-[var(--primary-color)] font-bold hover:opacity-90 transition cursor-pointer">
                                 Start Learning Today
-                            </button>
-                            <button className="px-8 py-3.5 rounded-full border-2 border-white text-white font-bold hover:bg-white/10 transition cursor-pointer">
+                            </NavLink>
+                            <NavLink to={user ? "/dashboard/courses" : "/login"} className="px-8 py-3.5 rounded-full border-2 border-white text-white font-bold hover:bg-white/10 transition cursor-pointer">
                                 View All Courses
-                            </button>
+                            </NavLink>
                         </div>
                     </motion.div>
                 </motion.div>
@@ -482,9 +483,9 @@ export function HeroSection() {
                                 </motion.div>
 
                                 <motion.div variants={item} className="pt-2">
-                                    <button className="px-8 py-3 rounded-full bg-[var(--primary-color)] text-white font-bold hover:opacity-90 transition cursor-pointer">
+                                    <NavLink to={user ? "/dashboard" : "/login"} className="px-8 py-3 rounded-full bg-[var(--primary-color)] text-white font-bold hover:opacity-90 transition cursor-pointer">
                                         Join Us
-                                    </button>
+                                    </NavLink>
                                 </motion.div>
                             </motion.div>
                         </div>
@@ -514,9 +515,9 @@ export function HeroSection() {
                                 <Card image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIK1kQ4r3NlYn8EbW6pxg5ouQTTUWJAdABXQ&s" title="My Card" description="This is a sample description." />
                             </motion.div>
                             <div className="flex justify-center mt-12">
-                                <button className="px-8 py-3.5 rounded-full bg-white text-[var(--primary-color)] font-bold hover:opacity-90 transition cursor-pointer">
+                                <NavLink to={user ? "/dashboard/courses" : "/login"} className="px-8 py-3.5 rounded-full bg-white text-[var(--primary-color)] font-bold hover:opacity-90 transition cursor-pointer">
                                     View All Courses
-                                </button>
+                                </NavLink>
                             </div>
                         </div>
                     </motion.div>

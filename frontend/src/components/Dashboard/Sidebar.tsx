@@ -34,9 +34,9 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
             `}
         >
             {/* Logo */}
-            <div className="h-16 flex items-center justify-center px-4 border-b border-white/10">
+            <NavLink to="/" className="h-16 flex items-center justify-center px-4 border-b border-white/10">
                 <Logo size={isCollapsed ? 30 : 40} variant={isCollapsed ? 'icon' : 'white'} />
-            </div>
+            </NavLink>
 
             {/* Toggle Button */}
             <button
