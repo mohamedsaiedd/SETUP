@@ -15,11 +15,7 @@ export class CoursesDto {
     @IsString()
     @IsOptional()
     category?: string;
-
-    @IsArray()
-    @IsString({ each: true })
-    @IsOptional()
-    zoomLinks: string[];
+    
 
     @IsUUID()
     teacherId: string;
@@ -41,7 +37,8 @@ export class SessionDto {
     date: string; // ISO Date string
 
     @IsString()
-    link: string;
+    @IsOptional()
+    link?: string;
 }
 
 export class MaterialDto {

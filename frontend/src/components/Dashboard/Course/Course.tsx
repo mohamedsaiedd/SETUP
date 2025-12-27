@@ -116,6 +116,13 @@ export const Course = () => {
                                                             >
                                                                 Ended
                                                             </button>
+                                                        ) : !session.link || session.link === 'Pending Generation' ? (
+                                                             <button 
+                                                                disabled
+                                                                className="px-4 py-2 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 text-sm font-medium rounded-lg cursor-not-allowed opacity-70"
+                                                            >
+                                                                Link Pending
+                                                            </button>
                                                         ) : (
                                                             <a 
                                                                 href={session.link} 

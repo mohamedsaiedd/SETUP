@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useAuth } from './context/AuthContext';
+
 
 interface User {
   id: string;
@@ -16,13 +18,17 @@ export function UsersTable() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { accessToken } = useAuth();
   const API_URL = import.meta.env.VITE_BASE_URL || 'https://setup-production-c651.up.railway.app';
+
     
   useEffect(() => {
     const fetchusers = async () => {
     fetch(`${API_URL}/users`,{
+
         headers: {
             'ngrok-skip-browser-warning': 'true', 
+            'Authorization': `Bearer ${accessToken}`
         }
     }) 
       .then((res) => {
@@ -44,13 +50,19 @@ export function UsersTable() {
       });
     };
     fetchusers();
-}, []);
+}, [accessToken, API_URL]);
+
 
   
   const deleteUser = (id: string) => {
     fetch(`${API_URL}/users/${id}`, {
+
       method: 'DELETE',
+      headers: {
+          'Authorization': `Bearer ${accessToken}`
+      }
     })
+
       .then((res) => {
         if (!res.ok) {
           throw new Error('Failed to delete user');

@@ -54,7 +54,6 @@ model Course {
   status       CourseStatus @default(DRAFT)
   teacherId    String
   price        Float        @default(0)
-  zoomLinks    String[]
   sessions     Session[]
   materials    Material[]
   createdAt    DateTime     @default(now())
@@ -75,7 +74,7 @@ model Session {
   id        String   @id @default(uuid())
   title     String   @default("Zoom Session")
   date      DateTime
-  link      String
+  link      String?
   courseId  String
   course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())

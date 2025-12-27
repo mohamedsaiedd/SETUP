@@ -2,12 +2,37 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CoursesDto, UpdateCoursesDto } from "./dto/courses.dto";
 import { Prisma } from "@prisma/client";
+import { ZoomService } from "src/zoom/zoom.service";
 
 @Injectable()
 export class CoursesService {
-    constructor(private prisma: PrismaService) {}
+    constructor(
+        private prisma: PrismaService,
+        private zoomService: ZoomService
+    ) {}
     async create(dto: CoursesDto) {
         try {
+            const sessionsData: any[] = [];
+            if (dto.sessions) {
+                for (const session of dto.sessions) {
+                    let link = session.link;
+                    if (!link) {
+                        try {
+                            link = await this.zoomService.createMeeting(session.title, new Date(session.date));
+                        } catch (error) {
+                            console.error(`Failed to generate Zoom link for ${session.title}:`, error);
+                            // Fallback or handle as needed
+                            link = 'Pending Generation';
+                        }
+                    }
+                    sessionsData.push({
+                        title: session.title,
+                        date: new Date(session.date),
+                        link: link
+                    });
+                }
+            }
+
             return await this.prisma.course.create({
                 data: {
                     title: dto.title,
@@ -16,13 +41,8 @@ export class CoursesService {
                     thumbnailUrl: "https://example.com/thumbnail.jpg",
                     status: "DRAFT",
                     price: dto.price,
-                    zoomLinks: dto.zoomLinks,
                     sessions: {
-                        create: dto.sessions?.map(session => ({
-                            title: session.title,
-                            date: new Date(session.date),
-                            link: session.link
-                        }))
+                        create: sessionsData
                     },
                     materials: {
                         create: dto.materials?.map(material => ({
@@ -88,10 +108,20 @@ export class CoursesService {
                 }),
                 ...(sessions && {
                     sessions: {
-                        create: sessions.map(session => ({
-                            title: session.title,
-                            date: new Date(session.date),
-                            link: session.link
+                        create: await Promise.all(sessions.map(async session => {
+                            let link = session.link;
+                            if (!link) {
+                                try {
+                                    link = await this.zoomService.createMeeting(session.title, new Date(session.date));
+                                } catch (error) {
+                                    link = 'Pending Generation';
+                                }
+                            }
+                            return {
+                                title: session.title,
+                                date: new Date(session.date),
+                                link: link
+                            };
                         }))
                     }
                 }),
@@ -161,6 +191,29 @@ export class CoursesService {
             throw error;
         }
     }
+
+
+    async unenroll(courseId: string, userId: string) {
+        try {
+            return await this.prisma.course.update({
+                where: { id: courseId },
+                data: {
+                    students: {
+                        disconnect: { id: userId }
+                    }
+                }
+            });
+        } catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                if (error.code === 'P2025') {
+                    throw new NotFoundException('Course or User not found');
+                }
+            }
+            throw error;
+        }
+    }
+
+
 
     async delete(id: string) {
         try {

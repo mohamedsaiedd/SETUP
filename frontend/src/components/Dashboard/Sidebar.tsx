@@ -9,21 +9,27 @@ import {
     User,
 } from 'lucide-react';
 import { NavLink } from "react-router-dom";
+import { useAuth } from '../../context/AuthContext';
+import { Settings } from 'lucide-react';
 
 interface SidebarProps {
     isCollapsed: boolean;
     onToggle: () => void;
 }
 
-const menuItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
-    { icon: BookOpen, label: 'Courses', path: '/dashboard/courses' },
-    { icon: Users, label: 'Tethers', path: '/dashboard/tethers' },
-    { icon: User, label: 'Profile', path: '/dashboard/profile' },
-    { icon: HelpCircle, label: 'Help & Support', path: '/dashboard/help' },
-];
-
 export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
+    const { user } = useAuth();
+
+    const menuItems = [
+        { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
+        { icon: BookOpen, label: 'Courses', path: '/dashboard/courses' },
+        ...(user?.role === 'ADMIN' || user?.role === 'SUPERVISOR' ? [
+            { icon: Settings, label: 'Manage Academy', path: '/dashboard/manage' }
+        ] : []),
+        { icon: Users, label: 'Teachers', path: '/dashboard/teachers' },
+        { icon: User, label: 'Profile', path: '/dashboard/profile' },
+        { icon: HelpCircle, label: 'Help & Support', path: '/dashboard/help' },
+    ];
 
     return (
         <aside

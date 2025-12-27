@@ -9,6 +9,7 @@ import { DashboardMain } from './components/Dashboard/DashboardMain.tsx'
 import { NotAuth } from './pages/NotAuth.tsx'
 import { Course } from './components/Dashboard/Course/Course.tsx'
 import { Courses } from './components/Dashboard/Course/Courses.tsx'
+import { ManageCourses } from './pages/ManageCourses.tsx'
 
 export const AppRouter = () => {
   const { user } = useAuth();
@@ -29,6 +30,9 @@ export const AppRouter = () => {
                 <Route path="profile" element={<Profile />} />
                 <Route path="courses" element={<Courses />} />
                 <Route path="course/:id" element={<Course />} />
+                {(user?.role === 'ADMIN' || user?.role === 'SUPERVISOR') && (
+                  <Route path="manage" element={<ManageCourses />} />
+                )}
                 <Route path="*" element={<Error height="100vh" />} />
             </Route>
           </>

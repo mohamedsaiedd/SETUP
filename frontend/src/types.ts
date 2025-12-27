@@ -19,7 +19,6 @@ export interface CourseDetails {
     description: string;
     color: string;
     thumbnailUrl : string;
-    zoomLinks: string[];
     sessions?: Session[];
     materials?: Material[];
 }

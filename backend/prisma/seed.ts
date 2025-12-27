@@ -111,17 +111,14 @@ async function main() {
           {
             title: 'Introduction to Web Dev',
             date: new Date(Date.now() + 86400000).toISOString(), // Tomorrow
-            link: 'https://zoom.us/j/fs-web-dev-1',
           },
           {
             title: 'HTML & CSS Basics',
             date: new Date(Date.now() - 86400000).toISOString(), // Yesterday (Expired)
-            link: 'https://zoom.us/j/fs-web-dev-2',
           },
           {
             title: 'JavaScript Fundamentals',
             date: new Date(Date.now() + 172800000).toISOString(), // In 2 days
-            link: 'https://zoom.us/j/fs-web-dev-3',
           },
         ]
       },
@@ -140,24 +137,20 @@ async function main() {
       category: 'Programming',
       price: 99.99,
       status: CourseStatus.PUBLISHED,
-      zoomLinks: ['https://zoom.us/j/fs-web-dev'],
       teacherId: teacher1.id,
       sessions: {
         create: [
           {
             title: 'Introduction to Web Dev',
             date: new Date(Date.now() + 86400000).toISOString(), // Tomorrow
-            link: 'https://zoom.us/j/fs-web-dev-1',
           },
           {
             title: 'HTML & CSS Basics',
             date: new Date(Date.now() - 86400000).toISOString(), // Yesterday (Expired)
-            link: 'https://zoom.us/j/fs-web-dev-2',
           },
           {
             title: 'JavaScript Fundamentals',
             date: new Date(Date.now() + 172800000).toISOString(), // In 2 days
-            link: 'https://zoom.us/j/fs-web-dev-3',
           },
         ]
       },
@@ -180,7 +173,6 @@ async function main() {
           {
             title: 'Design Principles',
             date: new Date(Date.now() + 3600000).toISOString(), // In 1 hour
-            link: 'https://zoom.us/j/uiux-design-1',
           },
         ]
       },
@@ -197,14 +189,12 @@ async function main() {
       category: 'Design',
       price: 79.99,
       status: CourseStatus.PUBLISHED,
-      zoomLinks: ['https://zoom.us/j/uiux-design'],
       teacherId: teacher2.id,
       sessions: {
         create: [
           {
             title: 'Design Principles',
             date: new Date(Date.now() + 3600000).toISOString(), // In 1 hour
-            link: 'https://zoom.us/j/uiux-design-1',
           },
         ]
       },
@@ -225,7 +215,6 @@ async function main() {
            {
             title: 'React Hooks Deep Dive',
             date: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago (Expired)
-            link: 'https://zoom.us/j/adv-react-1',
           },
         ]
       },
@@ -242,14 +231,12 @@ async function main() {
       category: 'Programming',
       price: 59.99,
       status: CourseStatus.DRAFT,
-      zoomLinks: ['https://zoom.us/j/adv-react'],
       teacherId: teacher1.id,
       sessions: {
         create: [
            {
             title: 'React Hooks Deep Dive',
             date: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago (Expired)
-            link: 'https://zoom.us/j/adv-react-1',
           },
         ]
       },

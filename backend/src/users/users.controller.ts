@@ -14,12 +14,29 @@ import { log } from "console";
 
 
 @ApiTags('Users')
-@Controller('Users')
+@Controller('users')
+
 @UseGuards(AuthGuard, RolesGuard)
 
 export class UserController {
     constructor(private readonly UsersService: UsersService) {}
     
+    @Get('teachers')
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Get all Teachers' })
+    @ApiResponse({ status: 200, description: 'List of all Teachers' })
+    async getTeachers() {
+        return this.UsersService.findAll({
+            where: { role: 'TEACHER' },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                avatar: true
+            }
+        });
+    }
+
     @Get(':id')
     @ApiOperation({ summary: 'Get a User by ID' })
     @ApiParam({ name: 'id', description: 'User ID' })
@@ -86,15 +103,6 @@ export class UserController {
         return this.UsersService.create(body);
     }
 
-    @Get('teachers')
-    @HttpCode(HttpStatus.OK)
-    @ApiOperation({ summary: 'Get all Teachers' })
-    @ApiResponse({ status: 200, description: 'List of all Teachers' })
-    async getTeachers() {
-        return this.UsersService.findAll({
-            where: { role: 'TEACHER' }
-        });
-    }
 
     @Get()
     @HttpCode(200)

@@ -47,6 +47,15 @@ export class CoursesController {
         return this.CoursesService.enroll(id, studentId);
     }
 
+    @Delete(':id/enroll/:studentId')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(Role.ADMIN, Role.SUPERVISOR)
+    @HttpCode(HttpStatus.OK)
+    async unenroll(@Param('id') id: string, @Param('studentId') studentId: string) {
+        return this.CoursesService.unenroll(id, studentId);
+    }
+
+
     @Delete(':id')
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(Role.ADMIN, Role.SUPERVISOR)
