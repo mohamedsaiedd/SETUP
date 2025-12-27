@@ -7,6 +7,8 @@ import { Profile } from './components/Dashboard/profile/Profile.tsx'
 import { useAuth } from './context/AuthContext.tsx'
 import { DashboardMain } from './components/Dashboard/DashboardMain.tsx'
 import { NotAuth } from './pages/NotAuth.tsx'
+import { Course } from './components/Dashboard/Course/Course.tsx'
+import { Courses } from './components/Dashboard/Course/Courses.tsx'
 
 export const AppRouter = () => {
   const { user } = useAuth();
@@ -25,6 +27,8 @@ export const AppRouter = () => {
             >
                 <Route index element={<DashboardMain />} />
                 <Route path="profile" element={<Profile />} />
+                <Route path="courses" element={<Courses />} />
+                <Route path="course/:id" element={<Course />} />
                 <Route path="*" element={<Error height="100vh" />} />
             </Route>
           </>

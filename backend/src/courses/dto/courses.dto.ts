@@ -1,4 +1,5 @@
-import { IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
+import { IsNumber, IsOptional, IsString, IsUUID, IsArray } from "class-validator";
+import { PartialType } from "@nestjs/mapped-types";
 
 export class CoursesDto {
     @IsString()
@@ -8,17 +9,35 @@ export class CoursesDto {
     @IsOptional()
     description?: string;
 
-    @IsNumber()
+    @IsNumber() 
     price: number;
 
     @IsString()
     @IsOptional()
     category?: string;
 
-    @IsString()
+    @IsArray()
+    @IsString({ each: true })
     @IsOptional()
-    zoomLink?: string;
+    zoomLinks: string[];
 
     @IsUUID()
     teacherId: string;
+
+    @IsArray()
+    @IsOptional()
+    sessions?: SessionDto[];
 }
+
+export class SessionDto {
+    @IsString()
+    title: string;
+
+    @IsString()
+    date: string; // ISO Date string
+
+    @IsString()
+    link: string;
+}
+
+export class UpdateCoursesDto extends PartialType(CoursesDto) {}

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
-import { CoursesDto } from "./dto/courses.dto";
+import { CoursesDto, UpdateCoursesDto } from "./dto/courses.dto";
 import { Prisma } from "@prisma/client";
 
 @Injectable()
@@ -16,7 +16,14 @@ export class CoursesService {
                     thumbnailUrl: "https://example.com/thumbnail.jpg",
                     status: "DRAFT",
                     price: dto.price,
-                    zoomLink: dto.zoomLink,
+                    zoomLinks: dto.zoomLinks,
+                    sessions: {
+                        create: dto.sessions?.map(session => ({
+                            title: session.title,
+                            date: new Date(session.date),
+                            link: session.link
+                        }))
+                    },
                     teacher: {
                         connect: { id: dto.teacherId }
                     },
@@ -51,6 +58,7 @@ export class CoursesService {
                         avatar: true
                     }
                 },
+                sessions: true,
                 _count: {
                     select: { students: true }
                 }
@@ -58,6 +66,30 @@ export class CoursesService {
         });
     }
 
+
+    async update(id: string , dto: UpdateCoursesDto){
+        const { sessions, ...rest } = dto;
+        
+        // Basic update for course fields
+        const course = await this.prisma.course.update({
+            where: { id },
+            data: {
+                ...rest,
+                ...(sessions && {
+                    sessions: {
+                        create: sessions.map(session => ({
+                            title: session.title,
+                            date: new Date(session.date),
+                            link: session.link
+                        }))
+                    }
+                })
+            },
+            include: { sessions: true }
+        })
+        return course
+    }
+    
     async findOne(id: string) {
         const course = await this.prisma.course.findUnique({
             where: { id },
@@ -68,6 +100,11 @@ export class CoursesService {
                         name: true,
                         avatar: true,
                         bio: true
+                    }
+                },
+                sessions: {
+                    orderBy: {
+                        date: 'asc'
                     }
                 },
                 students: {
