@@ -30,16 +30,23 @@ export const Courses = () => {
     const { user } = useAuth()
     useEffect(() => {
         const fetchCourse = async () => {
-            const response = await fetch(`${baseUrl}/courses?studentId=${user?.id}`)
-            const data = await response.json()
-            setCourses(data)
+            if (!user?.id) return;
+            try {
+                const response = await fetch(`${baseUrl}/courses?studentId=${user?.id}`)
+                if (!response.ok) throw new Error('Failed to fetch courses');
+                const data = await response.json()
+                setCourses(Array.isArray(data) ? data : [])
+            } catch (error) {
+                console.error("Fetch courses error:", error);
+                setCourses([]);
+            }
         }
         fetchCourse()
-    }, [])
+    }, [baseUrl, user?.id])
 
     return (
              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                {courses.map((course, index) => (
+                {Array.isArray(courses) && courses.map((course, index) => (
                     <div key={index} className="bg-white dark:bg-gray-800/50 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 hover:scale-101">
                         <div className="flex flex-col h-full min-h-[400px] justify-between">
                             <div>

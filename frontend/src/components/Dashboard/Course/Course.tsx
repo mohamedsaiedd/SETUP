@@ -1,22 +1,19 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { CourseDetails } from "../../../types";
-import { ChevronDown, Video } from "lucide-react";
-
+import { Video } from "lucide-react";
 export const Course = () => {
     const { id } = useParams()
     const baseUrl = import.meta.env.VITE_BASE_URL
     const [course, setCourse] = useState<CourseDetails>()
-    const [openModules, setOpenModules] = useState<Record<string, boolean>>({
-        'module-1': true,
-        'live-sessions': true
-    })
+
 
     useEffect(() => {
         const fetchCourse = async () => {
             try {
                 const response = await fetch(`${baseUrl}/courses/${id}`)
                 const data = await response.json()
+            
                 setCourse(data)
             } catch (error) {
                 console.error("Failed to fetch course", error)
@@ -25,15 +22,14 @@ export const Course = () => {
         fetchCourse()
     }, [baseUrl, id])
 
-    const toggleModule = (moduleId: string) => {
-        setOpenModules(prev => ({
-            ...prev,
-            [moduleId]: !prev[moduleId]
-        }))
-    }
 
-    // Mock Data for UI demonstration
+
     if (!course) return <div className="p-8 text-center">Loading...</div>
+
+    const completedSessionsCount = course.sessions?.filter(session => new Date(session.date) < new Date()).length || 0
+
+
+
 
     return (
         <div className="p-6  mx-auto">
@@ -50,42 +46,32 @@ export const Course = () => {
                 <p className="text-gray-600 dark:text-gray-300 mb-4">{course.description}</p>
                 
                 <div className="flex items-center gap-2 text-sm text-[var(--primary-color)] font-medium bg-blue-50 dark:bg-blue-900/20 w-fit px-3 py-1 rounded-full">
-                    <span>2 / 5 Completed</span>
-                    <span>|</span>
-                    <span>4.4 min watched</span>
+                
+                    <span>{completedSessionsCount} / {course.sessions?.length} Completed</span>
                 </div>
             </div>
 
             {/* Content List */}
             <div className="space-y-4">
                 
-                {/* Real Data: Live Sessions */}
                 {course.sessions && course.sessions.length > 0 && (
                      <div className="border border-blue-100 dark:border-gray-700 rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-sm">
-                        <button 
-                            onClick={() => toggleModule('live-sessions')}
-                            className="w-full flex items-center justify-between p-4 bg-blue-50/50 dark:bg-gray-700/50 hover:bg-blue-50 dark:hover:bg-gray-700 transition"
-                        >
-                            <div className="text-left">
-                                <h3 className="font-bold text-[var(--primary-color)] dark:text-blue-400">Live Sessions</h3>
-                                <p className="text-xs text-gray-500 mt-1">{course.sessions.length} Sessions</p>
-                            </div>
-                            <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${openModules['live-sessions'] ? 'rotate-180' : ''}`} />
-                        </button>
-
-                        {openModules['live-sessions'] && (
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-left border-collapse">
-                                    <thead className="bg-gray-50 dark:bg-gray-700/50 text-xs uppercase text-gray-500 font-semibold">
-                                        <tr>
-                                            <th className="px-6 py-4">Session Name</th>
-                                            <th className="px-6 py-4">Date & Time</th>
-                                            <th className="px-6 py-4">Status</th>
-                                            <th className="px-6 py-4 text-right">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                                        {course.sessions.map((session, index) => {
+                        <div className="p-4 bg-blue-50/50 dark:bg-gray-700/50 border-b border-blue-100 dark:border-gray-700">
+                            <h3 className="font-bold text-[var(--primary-color)] dark:text-blue-400">Live Sessions</h3>
+                            <p className="text-xs text-gray-500 mt-1">{course.sessions.length} Sessions</p>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead className="bg-gray-50 dark:bg-gray-700/50 text-xs uppercase text-gray-500 font-semibold">
+                                    <tr>
+                                        <th className="px-6 py-4">Session Name</th>
+                                        <th className="px-6 py-4">Date & Time</th>
+                                        <th className="px-6 py-4">Status</th>
+                                        <th className="px-6 py-4 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                                    {course.sessions.map((session, index) => {
                                             const sessionDate = new Date(session.date);
                                             const isExpired = sessionDate < new Date();
                                             
@@ -146,9 +132,63 @@ export const Course = () => {
                                         })}
                                     </tbody>
                                 </table>
-                            </div>
-                        )}
+
+                        </div>
                     </div>
+                )}
+
+                {course.materials && course.materials.length > 0 && (
+                    <div className="border border-blue-100 dark:border-gray-700 rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-sm">
+                        <div className="p-4 bg-blue-50/50 dark:bg-gray-700/50 border-b border-blue-100 dark:border-gray-700">
+                            <h3 className="font-bold text-[var(--primary-color)] dark:text-blue-400">Course Materials</h3>
+                            <p className="text-xs text-gray-500 mt-1">{course.materials.length} Files</p>
+                        </div>
+
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead className="bg-gray-50 dark:bg-gray-700/50 text-xs uppercase text-gray-500 font-semibold">
+                                    <tr>
+                                        <th className="px-6 py-4">File Name</th>
+                                        <th className="px-6 py-4">Type</th>
+                                        <th className="px-6 py-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                                    {course.materials.map((material) => (
+                                        <tr key={material.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition">
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-[var(--primary-color)]">
+                                                            {/* Simple icon logic based on type */}
+                                                            <span className="font-bold text-xs">{material.type.substring(0, 3)}</span>
+                                                        </div>
+                                                        <span className="font-medium text-gray-900 dark:text-white">
+                                                            {material.title}
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-500">
+                                                    {material.type}
+                                                </td>
+                                                <td className="px-6 py-4 text-right">
+                                                    <div className="flex items-center justify-end gap-2">
+                                                        <a 
+                                                            href={material?.fileUrl}
+                                                            className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded-md transition"
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                        >
+                                                            Download
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                        </div>
+                    </div>
+
                 )}
 
             </div>

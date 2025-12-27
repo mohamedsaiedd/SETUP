@@ -15,6 +15,8 @@ export function Login() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState<any>(null);
     const { dark } = useTheme();
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -22,7 +24,7 @@ export function Login() {
         setSuccess(null);
 
         try {
-            const response = await axios.post('https://setup-production-c651.up.railway.app/auth/login', {
+            const response = await axios.post(`${baseUrl}/auth/login`, {
                 email,
                 password,
             });

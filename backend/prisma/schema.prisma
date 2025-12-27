@@ -56,6 +56,7 @@ model Course {
   price        Float        @default(0)
   zoomLinks    String[]
   sessions     Session[]
+  materials    Material[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
@@ -76,12 +77,33 @@ model Session {
   date      DateTime
   link      String
   courseId  String
-  course    Course   @relation(fields: [courseId], references: [id])
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([courseId])
   @@map("sessions")
+}
+
+model Material {
+  id        String       @id @default(uuid())
+  title     String
+  type      MaterialType @default(PDF)
+  fileUrl   String
+  courseId  String
+  course    Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([courseId])
+  @@map("materials")
+}
+
+
+
+enum MaterialType {
+  PDF
+  DOC
 }
 
 enum CourseStatus {

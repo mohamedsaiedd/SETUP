@@ -65,7 +65,7 @@ export function DashboardLayout({
             )}
             <main
                 className={`
-                    pt-16 pb-12 h-screen
+                    pt-16 pb-12
                     transition-all duration-300 ease-in-out
                     ${isMobile? 'ml-20' :sidebarCollapsed ? 'ml-20' : 'ml-64'}
                 `}

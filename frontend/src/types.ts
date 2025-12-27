@@ -21,4 +21,12 @@ export interface CourseDetails {
     thumbnailUrl : string;
     zoomLinks: string[];
     sessions?: Session[];
+    materials?: Material[];
+}
+
+export interface Material {
+    id: string;
+    title: string;
+    type: 'PDF' | 'DOC';
+    fileUrl: string;
 }

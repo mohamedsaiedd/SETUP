@@ -1,4 +1,4 @@
-import { PrismaClient, Role, CourseStatus } from '@prisma/client';
+import { PrismaClient, Role, CourseStatus, MaterialType } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
@@ -124,6 +124,14 @@ async function main() {
             link: 'https://zoom.us/j/fs-web-dev-3',
           },
         ]
+      },
+      materials: {
+        deleteMany: {},
+        create: [
+          { title: 'Syllabus PDF', type: MaterialType.PDF, fileUrl: 'https://example.com/syllabus.pdf' },
+          { title: 'Project Guidelines', type: MaterialType.DOC, fileUrl: 'https://example.com/guidelines.doc' },
+          { title: 'Week 1 Coding Assignment', type: MaterialType.PDF, fileUrl: 'https://example.com/assignment1.pdf' },
+        ]
       }
     },
     create: {
@@ -152,6 +160,13 @@ async function main() {
             link: 'https://zoom.us/j/fs-web-dev-3',
           },
         ]
+      },
+      materials: {
+        create: [
+          { title: 'Syllabus PDF', type: MaterialType.PDF, fileUrl: 'https://example.com/syllabus.pdf' },
+          { title: 'Project Guidelines', type: MaterialType.DOC, fileUrl: 'https://example.com/guidelines.doc' },
+          { title: 'Week 1 Coding Assignment', type: MaterialType.PDF, fileUrl: 'https://example.com/assignment1.pdf' },
+        ]
       }
     },
   });
@@ -167,6 +182,12 @@ async function main() {
             date: new Date(Date.now() + 3600000).toISOString(), // In 1 hour
             link: 'https://zoom.us/j/uiux-design-1',
           },
+        ]
+      },
+      materials: {
+        deleteMany: {},
+        create: [
+          { title: 'Sketch Shortcuts', type: MaterialType.PDF, fileUrl: 'https://example.com/sketch.pdf' },
         ]
       }
     },
@@ -186,6 +207,11 @@ async function main() {
             link: 'https://zoom.us/j/uiux-design-1',
           },
         ]
+      },
+      materials: {
+        create: [
+          { title: 'Sketch Shortcuts', type: MaterialType.PDF, fileUrl: 'https://example.com/sketch.pdf' },
+        ]
       }
     },
   });
@@ -201,6 +227,12 @@ async function main() {
             date: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago (Expired)
             link: 'https://zoom.us/j/adv-react-1',
           },
+        ]
+      },
+      materials: {
+        deleteMany: {},
+        create: [
+          { title: 'Assignment 1', type: MaterialType.PDF, fileUrl: 'https://example.com/a1.pdf' },
         ]
       }
     },
@@ -219,6 +251,11 @@ async function main() {
             date: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago (Expired)
             link: 'https://zoom.us/j/adv-react-1',
           },
+        ]
+      },
+      materials: {
+        create: [
+          { title: 'Assignment 1', type: MaterialType.PDF, fileUrl: 'https://example.com/a1.pdf' },
         ]
       }
     },
@@ -254,6 +291,7 @@ async function main() {
   });
 
   console.log('✅ Student enrollments created');
+
   console.log('🌟 Database seeding completed successfully!');
 }
 
